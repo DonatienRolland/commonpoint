@@ -10,14 +10,30 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to root_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+        <i class="fas fa-home"></i> Accueil
+      <% end %>
+      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do%>
+      <i class="far fa-calendar-alt"></i> Mes Points
+      <% end %>
+      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <i class="fas fa-history"></i> Mon Historique
+      <% end %>
+      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <i class="far fa-envelope-open"></i> Mes Invitations
+      <% end %>
+      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <i class="fas fa-cog"></i> Mes Paramètres
+      <% end %>
+      <%= link_to activities_user_path(current_user), class: "navbar-wagon-item navbar-wagon-link" do %>
+      <i class="far fa-heart"></i> Mes Activités
+      <% end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
           <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+          <%= current_user.name %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
               <%= link_to "#" do %>
