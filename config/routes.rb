@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:show, :update, :edit] do
     get 'activities', :on => :member
+    resources :user_activities, only: :create
+    resources :points, only: [:create, :show, :update, :new]
   end
 
 

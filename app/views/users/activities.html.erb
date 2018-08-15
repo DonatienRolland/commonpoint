@@ -1,18 +1,50 @@
+<div class="full-tabs">
+  <ul class="nav nav-pills" role="tablist">
+    <li class="active", role="presentation">
+      <a data-toggle="tab" href="#art" role="tab" aria-controls="mybikes"><%= @art.title %></a>
+    </li>
+    <li role="presentation">
+      <a data-toggle="tab" href="#sport" role="tab" aria-controls="booking"><%= @sport.title %></a>
+    </li>
+    <li role="presentation">
+      <a data-toggle="tab" href="#culture" role="tab" aria-controls="booking"><%= @culture.title %></a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="art" role="tabpanel" aria-labelledby="pills-home-tab">
+      <div id="reviews">
+        <% if @user.user_activities.blank? %>
+          Be the
+        <% else %>
+
+            <%= simple_form_for @user do |f| %>
+              <%= f.simple_fields_for :user_activities do |u|%>
+                <%= u.object.activity.present? ? u.object.activity.title : "" %>
+                <%= u.input :level %>
+                <%= u.input :description %>
+                <%= u.submit "Continuer" %>
+                <%= u.submit "Supprimer" %>
+                <br>
+              <% end %>
+            <% end %>
 
 
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><%= @art.title %></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><%= @sport.title %></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><%= @culture.title %></a>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><%= @art_activities %></div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+        <% end %>
+      </div>
+
+        <% @culture_activities.each do |act|%>
+          <p><%= act.title %></p>
+          <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
+        <% end %>
+
+
+    </div>
+    <div class="tab-pane" id="sport" role="tabpanel" aria-labelledby="pills-profile-tab">
+    </div>
+    <div class="tab-pane" id="culture" role="tabpanel" aria-labelledby="pills-profile-tab">
+    </div>
+  </div>
 </div>
+
+
+

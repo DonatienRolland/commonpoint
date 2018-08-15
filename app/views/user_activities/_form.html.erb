@@ -1,0 +1,6 @@
+<%= simple_form_for([ user, user_activity ]) do |f| %>
+  <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
+  <%= f.input :level %>
+  <%= f.input :description %>
+  <%= f.submit "Continuer" %>
+<% end %>

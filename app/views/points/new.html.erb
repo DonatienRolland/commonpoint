@@ -1,0 +1,64 @@
+<div id="point">
+  <div class="visible-xs">
+      <%= link_to "#" do %>
+        <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
+      <% end %>
+  </div>
+  <%= simple_form_for ([ @user, @point ])do |f| %>
+    <%= f.simple_fields_for :points do |u| %>
+      <div class="row">
+        <div class="information col-lg-9">
+          <div class="margin-onglet">
+          <h3 class="title-onglet" >Informations</h3>
+
+          </div>
+          <div class="background-white">
+            <div class="row">
+              <div class="col-lg-5">
+                <%= u.input :price, label: "Activitée" %>
+              </div>
+              <div class="col-lg-7">
+                <p>Nombre de participants</p>
+                <div class="col-xs-6">
+                  <div class="input-stepper">
+                    <p class="minus"><i class="fa fa-minus"></i></p>
+                    <input class="form-control numeric integer required" value="4" type="text" step="1" name="point[points][number_min]" id="point_points_number_min"/>
+                    <p class="plus"><i class="fa fa-plus"></i></p>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="input-stepper" id="number_max">
+                    <p class="minus"><i class="fa fa-minus"></i></p>
+                    <input class="form-control numeric integer required" type="text" step="1" name="point[points][number_max]" id="point_points_number_max">
+                    <p class="plus"><i class="fa fa-plus"></i></p>
+                  </div>
+
+                  <input type="checkbox" class="form-control-range" id="currently_checked">
+                </div>
+
+              </div>
+            </div>
+            <div class="inline">
+              <%= u.input :level_min, label: "Niveau des participants", as: :integer %>
+              <%= u.input :type_of_point, label: "Type de point" %>
+            </div>
+              <%= u.input :price, as: :integer %>
+
+          </div>
+        </div>
+        <div class="historic-btn col-lg-3 hidden-xs">
+          <div class="relative-btn">
+            <div class="info-historic">
+              <i class="fas fa-history"></i>
+              <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
+            </div>
+            <%= link_to "Mon historique >", "#" %>
+          </div>
+        </div>
+      </div>
+      <div class="row"></div>
+    <% end %>
+    <%= f.submit "Créer le point" %>
+  <% end %>
+</div>
+

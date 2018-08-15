@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_14_092256) do
+ActiveRecord::Schema.define(version: 2018_08_15_093139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,20 @@ ActiveRecord::Schema.define(version: 2018_08_14_092256) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "points", force: :cascade do |t|
+    t.integer "price"
+    t.integer "number_min"
+    t.integer "number_max"
+    t.string "address"
+    t.string "type_of_point"
+    t.integer "level_min"
+    t.integer "level_max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_points_on_user_id"
   end
 
   create_table "user_activities", force: :cascade do |t|
@@ -59,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_08_14_092256) do
   end
 
   add_foreign_key "activities", "categories"
+  add_foreign_key "points", "users"
   add_foreign_key "user_activities", "activities"
   add_foreign_key "user_activities", "users"
 end

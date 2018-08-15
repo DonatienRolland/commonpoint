@@ -1,0 +1,63 @@
+.inline {
+  display: inline;
+}
+.background-white {
+  background-color: $white;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 5px;
+}
+.title-onglet {
+  background-color: $cp;
+  color: $white;
+  display: inline;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 5px 8px;
+}
+.margin-onglet {
+  margin-top: 10px;
+}
+
+
+.information {
+  display: flex;
+  flex-direction: column;
+}
+#point {
+  padding: 1% 0;
+}
+
+
+
+.info-historic {
+  background-color: $orange;
+  border-radius: 8px;
+  color: $white;
+  text-align: center;
+}
+
+.historic-btn {
+  a {
+    position: absolute;
+    bottom: -35px;
+    left: 15%;
+    background-color: $orange;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: $white;
+    padding: 5px 11px;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+.relative-btn {
+    position: relative;
+}
+.checked_boxe {
+  background-color: $gray !important;
+  opacity: 0.5 !important;
+  cursor: none !important;
+}

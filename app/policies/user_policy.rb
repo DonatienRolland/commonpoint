@@ -6,6 +6,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def activities?
-    user = record
+    user == record
+  end
+  def create?
+    user == record
+  end
+  def update?
+    user == record
   end
 end
