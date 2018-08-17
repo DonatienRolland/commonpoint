@@ -1,6 +1,4 @@
-.inline {
-  display: inline;
-}
+
 .background-white {
   background-color: $white;
   border-bottom-left-radius: 8px;
@@ -21,14 +19,13 @@
 }
 
 
-.information {
+.display-inline {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  p {
+    margin: 0;
+  }
 }
-#point {
-  padding: 1% 0;
-}
-
 
 
 .info-historic {
@@ -60,4 +57,41 @@
   background-color: $gray !important;
   opacity: 0.5 !important;
   cursor: none !important;
+}
+
+// - + form
+.input-stepper {
+  display: flex;
+  align-items: center;
+}
+
+.input-stepper p {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.input-stepper p[disabled] {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+.input-stepper p i {
+   color: $cp;
+   margin: 0 5px;
+}
+
+.input-stepper input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  width: 36px;
 }

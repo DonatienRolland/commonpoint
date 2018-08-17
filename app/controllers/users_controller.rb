@@ -17,6 +17,23 @@ class UsersController < ApplicationController
 
     @user.user_activities.build
 
+    @points = @user.points
+
+    @user_activities = UserActivity.where(user: @user)
+
+    id_act = []
+    @art_activities.each do |act|
+      id_act << act.id
+    end
+    @art_user_activities = []
+    @user_activities.each do |act|
+      if id_act.include?act.activity_id
+        @art_user_activities << act
+      end
+    end
+
+
+
     authorize @user
   end
 

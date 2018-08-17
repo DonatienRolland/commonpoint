@@ -13,26 +13,28 @@
   <div class="tab-content">
     <div class="tab-pane active" id="art" role="tabpanel" aria-labelledby="pills-home-tab">
       <div id="reviews">
-        <% if @user.user_activities.blank? %>
-          Be the
-        <% else %>
-
-            <%= simple_form_for @user do |f| %>
-              <%= f.simple_fields_for :user_activities do |u|%>
+        <div class=" row">
+          <%= simple_form_for @user do |f| %>
+            <%= f.simple_fields_for :user_activities do |u|%>
+            <div class="col-lg-2 activity">
+              <div class="circle-btn">
                 <%= u.object.activity.present? ? u.object.activity.title : "" %>
+                <%= image_tag u.object.activity.present? ? u.object.activity.icon : "", class:"icon_activity" %>
+              </div>
+              <div class="form-activities">
                 <%= u.input :level %>
                 <%= u.input :description %>
-                <%= u.submit "Continuer" %>
-                <%= u.submit "Supprimer" %>
-                <br>
-              <% end %>
+              </div>
+              <%= u.submit "Continuer" %>
+              <%= u.submit "Supprimer" %>
+
+            </div>
             <% end %>
-
-
-        <% end %>
+          <% end %>
+        </div>
       </div>
 
-        <% @culture_activities.each do |act|%>
+        <% @art_activities.each do |act|%>
           <p><%= act.title %></p>
           <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
         <% end %>
@@ -45,6 +47,9 @@
     </div>
   </div>
 </div>
+<% @points.each do |pt| %>
+  <%= link_to "#{pt.id}", user_point_path(@user, pt) %>
+<% end %>
 
 
 

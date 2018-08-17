@@ -4,14 +4,19 @@ class UserPolicy < ApplicationPolicy
       scope
     end
   end
-
   def activities?
-    user == record
+    is_user_the_owner_or_admin?
   end
   def create?
-    user == record
+    is_user_the_owner_or_admin?
   end
   def update?
-    user == record
+    is_user_the_owner_or_admin?
+  end
+
+  private
+
+  def is_user_the_owner_or_admin?
+    user == record || user.admin?
   end
 end

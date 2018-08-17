@@ -3,6 +3,7 @@
   min-height: calc(100vh - 70px);
   width: 70%;
   margin: auto;
+  padding: 1% 0;
   // background: #d6d1d1;
 }
 
@@ -12,47 +13,5 @@
   }
 }
 
-.row {
-  margin: 0;
-}
 
 
-
-
-
-
-.input-stepper {
-  display: flex;
-  align-items: center;
-}
-
-.input-stepper p {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  margin-bottom: 0;
-}
-
-.input-stepper p[disabled] {
-  cursor: not-allowed;
-  opacity: .4;
-}
-
-.input-stepper p i {
-   color: $cp;
-   margin: 0 5px;
-}
-
-.input-stepper input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  font-size: 20px;
-  text-align: center;
-  width: 36px;
-}

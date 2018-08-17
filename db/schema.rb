@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_15_093139) do
+ActiveRecord::Schema.define(version: 2018_08_16_065451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 2018_08_15_093139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "user_activity_id"
+    t.index ["user_activity_id"], name: "index_points_on_user_activity_id"
     t.index ["user_id"], name: "index_points_on_user_id"
   end
 
@@ -73,6 +75,7 @@ ActiveRecord::Schema.define(version: 2018_08_15_093139) do
   end
 
   add_foreign_key "activities", "categories"
+  add_foreign_key "points", "user_activities"
   add_foreign_key "points", "users"
   add_foreign_key "user_activities", "activities"
   add_foreign_key "user_activities", "users"
