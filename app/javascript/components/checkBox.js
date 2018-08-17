@@ -19,9 +19,7 @@ function addForm() {
   const triggerModal = (event) => {
     let targetModalID = event.currentTarget.dataset.target
     let targetModal = document.getElementById(targetModalID)
-    console.log(targetModal.classList)
     targetModal.classList.toggle("hidden");
-
   }
 
   const modalButtonsList = document.querySelectorAll('.activity-button')

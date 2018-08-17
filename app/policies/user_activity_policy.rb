@@ -1,10 +1,16 @@
 class UserActivityPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope
+      # scope
+      if user
+        scope.all
+      else
+        scope.where(user: user)
+      end
     end
   end
 
-  # def create?
-  # end
+  def index?
+    true
+  end
 end

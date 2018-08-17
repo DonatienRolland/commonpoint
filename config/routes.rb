@@ -7,8 +7,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :users, only: [:show, :update, :edit] do
-    get 'activities', :on => :member
-    resources :user_activities, only: :create
+    resources :user_activities, only: [:create, :index, :destroy]
     resources :points, only: [:create, :show, :edit, :new, :destroy, :index]
   end
 

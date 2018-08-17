@@ -1,0 +1,21 @@
+function refreshForm(innerHTML) {
+  const newUserActivityForm = document.getElementById('new_activities');
+  newUserActivityForm.innerHTML = innerHTML;
+  console.log(newUserActivityForm)
+}
+
+function addUserActivity(reviewHTML) {
+  const user_activities = document.getElementById('user_activities');
+  user_activities.insertAdjacentHTML('beforeend', reviewHTML);
+  console.log(user_activities)
+}
+
+<% if @user_activity.errors.any? %>
+  refreshForm('<%= j render :partial => "user_activities/form", user: @user, user_activity: @user_activity %>');
+<% else %>
+  addUserActivity('<%= j render :partial => "user_activities/show", act: @user_activity %>');
+  refreshForm('<%= j render :partial => "user_activities/form", user: @user, user_activity: user_activity.new %>');
+<% end %>
+
+
+
