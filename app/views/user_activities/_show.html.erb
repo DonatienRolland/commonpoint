@@ -1,2 +1,2 @@
-<p><%= act.id %></p><p><%= act.activity.title %></p>
-<%= link_to "Delete", user_user_activity_path(@user, act), method: :delete, remote: true %>
+<li data-user_activity-id="<%= user_activity.id %>"><p><%= user_activity.id %></p><p><%= user_activity.activity.title %></p><p><%= link_to "Delete", user_activity_path( user_activity), method: :delete, remote: true %></p>
+</li>

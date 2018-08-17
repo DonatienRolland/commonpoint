@@ -1,4 +1,4 @@
-<%= simple_form_for([ user, user_activity ], remote: false) do |f| %>
+<%= simple_form_for([ user, user_activity ], remote: true,:format => :js, authenticity_token: true ) do |f| %>
   <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
   <%= f.input :level %>
   <%= f.input :description %>

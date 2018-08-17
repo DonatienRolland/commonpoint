@@ -13,4 +13,8 @@ class UserActivityPolicy < ApplicationPolicy
   def index?
     true
   end
+
+  def destroy?
+    user == record.user
+  end
 end

@@ -11,10 +11,10 @@ function addUserActivity(reviewHTML) {
 }
 
 <% if @user_activity.errors.any? %>
-  refreshForm('<%= j render :partial => "user_activities/form", user: @user, user_activity: @user_activity %>');
+  refreshForm('<%= j render "user_activities/form", user: @user, user_activity: @user_activity, act: act %>');
 <% else %>
-  addUserActivity('<%= j render :partial => "user_activities/show", act: @user_activity %>');
-  refreshForm('<%= j render :partial => "user_activities/form", user: @user, user_activity: user_activity.new %>');
+  addUserActivity('<%= j render "user_activities/show", user_activity: @user_activity %>');
+
 <% end %>
 
 

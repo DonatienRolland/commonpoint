@@ -4,15 +4,23 @@
     <ul class="nav nav-pills" role="tablist">
       <% @categories.each do |cat| %>
         <li role="presentation">
-          <%= link_to cat.title, "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab" }%>
+          <%= link_to cat.title, "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab"}%>
         </li>
       <% end %>
     </ul>
     <div class="tab-content activity-cards">
       <% @categories.each do |cat| %>
+        <% @user_activities = UserActivity.where(user: @user).joins(:activity).where(:activities => {category: cat})%>
         <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
           <div class="row">
             <% Activity.where(category: cat).each do |act| %>
+
+            <!-- a travailler -->
+            <% @user_activities.each do |user_act| %>
+              <% if !user_act.activity == act %>
+                <% raise %>
+              <% end %>
+            <% end %>
               <div class="col-lg-2 col-xs-12 col-sm-4">
                 <div class="height-row">
                   <div class="activity-card activity-button" data-target= "form-activity_<%= act.id %>">
@@ -29,6 +37,9 @@
                 </div>
               </div>
             <% end %>
+            <% @user_activities.each do |user_activity| %>
+              <%= render 'user_activities/show', user_activity: user_activity %>
+            <% end %>
 
           </div>
         </div>
@@ -37,8 +48,5 @@
   </div>
 
 
-  <% @user.user_activities.each do |act| %>
-    <%= render 'user_activities/show', act: act %>
-  <% end %>
 
 </div>

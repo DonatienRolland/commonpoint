@@ -3,21 +3,16 @@ class UserActivitiesController < ApplicationController
     @user = User.find(params[:user_id])
     @user_activity = UserActivity.new(activity_params)
     @user_activity.user = @user
-    raise
     if @user_activity.save
       respond_to do |format|
         format.html { redirect_to user_user_activities_path(@user) }
-        format.js do
-          render 'users/show/user_activities', content_type: 'text/javascript'
-        end
+        format.js
       end
     else
       raise
       respond_to do |format|
         format.html { render 'users/show/user_activities' }
-        format.js do
-          render 'users/show/user_activities', content_type: 'text/javascript'
-        end
+        format.js
       end
     end
 
@@ -25,13 +20,22 @@ class UserActivitiesController < ApplicationController
 
   end
   def destroy
-    raise
-
+    @user_activity = UserActivity.find(params[:id])
+    @user = @user_activity.user
+    @user_activity.destroy
+    respond_to do |format|
+      format.html { redirect_to user_user_activities_path(@user) }
+      format.js
+    end
+    authorize @user_activity
   end
 
   def index
     @user = User.find(params[:user_id])
     @categories = Category.all
+    @category = Category.first
+
+    @user_activities = UserActivity.where(user: @user).joins(:activity).where(:activities => {category: @categories.first} )
     @user_activity = UserActivity.new
 
     @user_activities = policy_scope(UserActivity)
