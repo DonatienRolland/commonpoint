@@ -1,55 +1,38 @@
 <div class="full-tabs">
   <ul class="nav nav-pills" role="tablist">
-    <li class="active", role="presentation">
-      <a data-toggle="tab" href="#art" role="tab" aria-controls="mybikes"><%= @art.title %></a>
-    </li>
-    <li role="presentation">
-      <a data-toggle="tab" href="#sport" role="tab" aria-controls="booking"><%= @sport.title %></a>
-    </li>
-    <li role="presentation">
-      <a data-toggle="tab" href="#culture" role="tab" aria-controls="booking"><%= @culture.title %></a>
-    </li>
+    <% @categories.each do |cat| %>
+      <li role="presentation">
+        <%= link_to cat.title, "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab" }%>
+      </li>
+    <% end %>
   </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="art" role="tabpanel" aria-labelledby="pills-home-tab">
-      <div id="reviews">
-        <div class=" row">
-          <%= simple_form_for @user do |f| %>
-            <%= f.simple_fields_for :user_activities do |u|%>
-            <div class="col-lg-2 activity">
-              <div class="circle-btn">
-                <%= u.object.activity.present? ? u.object.activity.title : "" %>
-                <%= image_tag u.object.activity.present? ? u.object.activity.icon : "", class:"icon_activity" %>
-              </div>
-              <div class="form-activities">
-                <%= u.input :level %>
-                <%= u.input :description %>
-              </div>
-              <%= u.submit "Continuer" %>
-              <%= u.submit "Supprimer" %>
+  <div class="tab-content activity-cards">
+    <% @categories.each do |cat| %>
+      <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row">
+          <% Activity.where(category: cat).each do |act| %>
+            <div class="col-lg-2 col-xs-12 col-sm-4">
+              <div class="height-row">
+                <div class="activity-card activity-button" data-target= "form-activity_<%= act.id %>">
+                  <div class="circle-btn">
+                    <div class="icon_cercle" style="background-image: url('<%= image_path act.icon %>')">
+                    </div>
+                    <p><%= truncate(act.title, :length => 20)%></p>
+                  </div>
+                </div>
+                <div class="activity-form hidden" id="form-activity_<%= act.id %>">
+                  <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
+                </div>
 
+              </div>
             </div>
-            <% end %>
           <% end %>
+
         </div>
       </div>
-
-        <% @art_activities.each do |act|%>
-          <p><%= act.title %></p>
-          <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
-        <% end %>
-
-
-    </div>
-    <div class="tab-pane" id="sport" role="tabpanel" aria-labelledby="pills-profile-tab">
-    </div>
-    <div class="tab-pane" id="culture" role="tabpanel" aria-labelledby="pills-profile-tab">
-    </div>
+    <% end %>
   </div>
 </div>
-<% @points.each do |pt| %>
-  <%= link_to "#{pt.id}", user_point_path(@user, pt) %>
-<% end %>
 
 
 
