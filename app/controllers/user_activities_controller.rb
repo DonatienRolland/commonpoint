@@ -9,7 +9,6 @@ class UserActivitiesController < ApplicationController
         format.js
       end
     else
-      raise
       respond_to do |format|
         format.html { render 'users/show/user_activities' }
         format.js
@@ -19,6 +18,19 @@ class UserActivitiesController < ApplicationController
     authorize @user
 
   end
+
+  def update
+    @user_activity = UserActivity.find(params[:id])
+    @user = @user_activity.user
+    if @user_activity.update(activity_params)
+      respond_to do |format|
+        format.html { redirect_to user_user_activities_path(@user) }
+        format.js
+      end
+    end
+    authorize @user_activity
+  end
+
   def destroy
     @user_activity = UserActivity.find(params[:id])
     @user = @user_activity.user
@@ -33,12 +45,16 @@ class UserActivitiesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @categories = Category.all
-    @category = Category.first
+    @activities = Activity.all
 
-    @user_activities = UserActivity.where(user: @user).joins(:activity).where(:activities => {category: @categories.first} )
+    numbers = []
+    Activity.all.each do |activity|
+      numbers << activity.number_of_user
+    end
+    @max_max = numbers.max(10)
+
     @user_activity = UserActivity.new
-
-    @user_activities = policy_scope(UserActivity)
+    user_activities = policy_scope(UserActivity)
     authorize UserActivity
   end
 

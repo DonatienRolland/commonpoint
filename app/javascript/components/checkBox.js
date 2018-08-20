@@ -16,12 +16,13 @@ export {checkBox}
 
 
 function addForm() {
+  // add hidden class
   const triggerModal = (event) => {
     let targetModalID = event.currentTarget.dataset.target
+    // getElementsByClassName returns an array-like object => getElementsByClassName(targetModalID)[0]
     let targetModal = document.getElementById(targetModalID)
     targetModal.classList.toggle("hidden");
   }
-
   const modalButtonsList = document.querySelectorAll('.activity-button')
   modalButtonsList.forEach((button) => {
     button.addEventListener("click", triggerModal);
@@ -30,4 +31,3 @@ function addForm() {
 
 
 export { addForm }
-

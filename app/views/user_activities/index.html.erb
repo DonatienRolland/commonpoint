@@ -1,52 +1,70 @@
 <div id="user_activities">
 
   <div class="full-tabs">
+
     <ul class="nav nav-pills" role="tablist">
+      <li class="active", role="presentation">
+        <a data-toggle="tab" href="#my_activities" role="tab" aria-controls="my_activities">Activitiés pratiquées</a>
+      </li>
+      <li role="presentation">
+        <a data-toggle="tab" href="#best_activities" role="tab" aria-controls="best_activities">Les + populaires</a>
+      </li>
       <% @categories.each do |cat| %>
         <li role="presentation">
           <%= link_to cat.title, "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab"}%>
         </li>
       <% end %>
     </ul>
+
     <div class="tab-content activity-cards">
+
+      <div class="tab-pane active" id="my_activities" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row">
+          <% @user.user_activities.each do |user_activity| %>
+          <% act = user_activity.activity %>
+            <%= render 'user_activities/show', user: @user, user_activity: user_activity, act: act %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row">
+          <% @activities.each do |act| %>
+            <% if act.best_activity?(@max_max) %>
+              <% user_activity = UserActivity.where(user: @user, activity: act) %>
+              <% @user_activity =  user_activity[0] %>
+              <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
       <% @categories.each do |cat| %>
-        <% @user_activities = UserActivity.where(user: @user).joins(:activity).where(:activities => {category: cat})%>
         <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
           <div class="row">
-            <% Activity.where(category: cat).each do |act| %>
-
-            <!-- a travailler -->
-            <% @user_activities.each do |user_act| %>
-              <% if !user_act.activity == act %>
-                <% raise %>
+            <div id="new_activity">
+            <% @activities.each do |act| %>
+              <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
+                <% user_activity = UserActivity.where(user: @user, activity: act) %>
+                <% @user_activity =  user_activity[0] %>
+                  <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
               <% end %>
             <% end %>
-              <div class="col-lg-2 col-xs-12 col-sm-4">
-                <div class="height-row">
-                  <div class="activity-card activity-button" data-target= "form-activity_<%= act.id %>">
-                    <div class="circle-btn">
-                      <div class="icon_cercle" style="background-image: url('<%= image_path act.icon %>')">
-                      </div>
-                      <p><%= truncate(act.title, :length => 20)%></p>
-                    </div>
-                  </div>
-                  <div class="activity-form hidden" id="form-activity_<%= act.id %>">
-                    <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
-                  </div>
+            </div>
 
-                </div>
-              </div>
-            <% end %>
-            <% @user_activities.each do |user_activity| %>
-              <%= render 'user_activities/show', user_activity: user_activity %>
-            <% end %>
 
+
+            <% @activities.each do |act| %>
+              <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
+                <% @user_activity = UserActivity.new  %>
+                <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
-
-
-
 </div>
+
+

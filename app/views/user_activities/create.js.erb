@@ -5,17 +5,21 @@ function refreshForm(innerHTML) {
 }
 
 function addUserActivity(reviewHTML) {
-  const user_activities = document.getElementById('user_activities');
+  console.log(reviewHTML)
+  const user_activities = document.getElementById('new_activity');
   user_activities.insertAdjacentHTML('beforeend', reviewHTML);
   console.log(user_activities)
 }
 
 <% if @user_activity.errors.any? %>
+<% raise %>
+
   refreshForm('<%= j render "user_activities/form", user: @user, user_activity: @user_activity, act: act %>');
 <% else %>
-  addUserActivity('<%= j render "user_activities/show", user_activity: @user_activity %>');
-
+<% raise %>
+  addUserActivity('<%= j render "user_activities/show", user: @user, user_activity: @user_activity, act: act %>');
 <% end %>
 
 
 
+console.log("coucou")

@@ -1,2 +1,15 @@
-<li data-user_activity-id="<%= user_activity.id %>"><p><%= user_activity.id %></p><p><%= user_activity.activity.title %></p><p><%= link_to "Delete", user_activity_path( user_activity), method: :delete, remote: true %></p>
-</li>
+<div class="col-lg-2 col-xs-12 col-sm-4">
+  <div class="height-row">
+    <% random = rand(1...1300) %>
+    <div class="activity-card activity-button <%= act.is_a_user_activity?(current_user) ? 'blue-background' : "" %>" data-target= "form-activity_<%= act.id %><%= random %>">
+      <div class="circle-btn">
+        <div class="icon_cercle" style="background-image: url('<%= image_path act.icon %>')">
+        </div>
+        <p><%= truncate(act.title, :length => 20)%></p>
+      </div>
+    </div>
+    <div class="activity-form hidden" id="form-activity_<%= act.id %><%= random %>">
+      <%= render 'user_activities/form', user: @user, user_activity: @user_activity, act: act %>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,28 @@
-<%= simple_form_for([ user, user_activity ], remote: true,:format => :js, authenticity_token: true ) do |f| %>
-  <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
-  <%= f.input :level %>
-  <%= f.input :description %>
-  <%= f.submit "Continuer" %>
+<% if @user_activity != nil && @user_activity.id %>
+  <div data-user_activity-id="<%= @user_activity.id %>">
+
+  <%= simple_form_for(@user_activity, remote: true,:format => :js, authenticity_token: true) do |f| %>
+    <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
+    <div class="rating">
+        <%= render 'user_activities/stars_form', f: f %>
+    </div>
+    <%= f.input :description %>
+    <%= f.submit "Continuer" %>
+    <%= link_to "Delete", user_activity_path( @user_activity), method: :delete, remote: true %></p>
+  <% end %>
+  </div>
+
+<% else %>
+
+  <%= simple_form_for([ @user, UserActivity.new ], authenticity_token: true) do |f| %>
+    <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
+    <div class="rating">
+        <%= render 'user_activities/stars_form', f: f %>
+
+    </div>
+
+    <%= f.input :description %>
+    <%= f.submit "Continuer" %>
+  <% end %>
+
 <% end %>
