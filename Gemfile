@@ -32,3 +32,10 @@ end
 
 
 gem "pundit"
+
+
+# search_bar for activities
+gem 'pg_search'
+
+
+gem "geocoder"

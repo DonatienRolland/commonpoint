@@ -12,14 +12,8 @@ function addUserActivity(reviewHTML) {
 }
 
 <% if @user_activity.errors.any? %>
-<% raise %>
-
   refreshForm('<%= j render "user_activities/form", user: @user, user_activity: @user_activity, act: act %>');
 <% else %>
-<% raise %>
   addUserActivity('<%= j render "user_activities/show", user: @user, user_activity: @user_activity, act: act %>');
 <% end %>
 
-
-
-console.log("coucou")

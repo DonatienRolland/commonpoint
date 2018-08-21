@@ -4,6 +4,12 @@ class Activity < ApplicationRecord
   has_one :user_activity, dependent: :destroy
   has_many :users, through: :user_activities
 
+  include PgSearch
+  pg_search_scope :search_by_title,
+    against: [ :title ],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
 
 
   def is_category?(cat)

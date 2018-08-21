@@ -3,7 +3,7 @@ class PointsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @user = User.find(params[:user_id])
+    @user = current_user
     @points = @user.points
 
   end
@@ -12,6 +12,11 @@ class PointsController < ApplicationController
   end
 
   def new
+
+    # lat = 48.862725
+    # long = 2.287592000000018
+
+
     @type = params[:param]
     @point = Point.new
 
@@ -26,10 +31,10 @@ class PointsController < ApplicationController
     @point = Point.new(point_params)
     @point.user_activity = user_activity.first
     @point.user = @user
+      raise
     if @point.save
       redirect_to user_point_path(@user, @point)
     else
-      raise
     end
   end
 

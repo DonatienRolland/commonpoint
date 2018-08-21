@@ -1,11 +1,14 @@
 class UserActivitiesController < ApplicationController
   def create
+    if params[:search_bar]
+      raise
+    end
     @user = User.find(params[:user_id])
     @user_activity = UserActivity.new(activity_params)
     @user_activity.user = @user
     if @user_activity.save
       respond_to do |format|
-        format.html { redirect_to user_user_activities_path(@user) }
+        format.html { redirect_to user_activities_path }
         format.js
       end
     else
@@ -43,10 +46,19 @@ class UserActivitiesController < ApplicationController
   end
 
   def index
-    @user = User.find(params[:user_id])
-    @categories = Category.all
-    @activities = Activity.all
 
+    @user = current_user
+    @categories = Category.all
+
+    if params[:query] && params[:query] != ""
+      @activities = Activity.search_by_title(params[:query])
+      # respond_to do |format|
+      #   format.html { redirect_to user_user_activities_path(@user) }
+      #   format.js
+      # end
+    else
+      @activities = Activity.all
+    end
     numbers = []
     Activity.all.each do |activity|
       numbers << activity.number_of_user

@@ -5,6 +5,7 @@
   </div>
 
  <%= simple_form_for ([ user, point ]) do |f| %>
+  <%= f.error_notification %>
   <div class="row display-inline">
     <div class="information col-lg-9">
       <div class="margin-onglet">
@@ -15,7 +16,7 @@
         <div class="row">
           <div class="col-lg-5 display-inline">
             <p>Activitée</p>
-            <%= f.input :user_activity, collection: @activities, label: false %>
+            <%= f.input :user_activity, collection: @activities, label: false, input_html: { class:'select2'} %>
           </div>
 
           <div class="col-lg-7 display-inline">
@@ -36,7 +37,9 @@
         </div>
         <div class="display-inline">
           <p>Niveau des participants</p>
-          <%= f.input :level_min, label: false, as: :integer %>
+          <div class="rating">
+              <%= render 'user_activities/stars_form', f: f %>
+          </div>
           <p>Type de point</p>
           <%= f.input :type_of_point, label: false, input_html:{ value: @type } %>
         </div>

@@ -1,0 +1,18 @@
+<div class="row">
+  <div id="new_activity">
+    <% @activities.each do |act| %>
+      <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
+        <% user_activity = UserActivity.where(user: @user, activity: act) %>
+        <% @user_activity =  user_activity[0] %>
+          <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% @activities.each do |act| %>
+    <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
+      <% @user_activity = UserActivity.new  %>
+      <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
+    <% end %>
+  <% end %>
+</div>

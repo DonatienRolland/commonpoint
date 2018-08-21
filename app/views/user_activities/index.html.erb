@@ -1,17 +1,33 @@
 <div id="user_activities">
+  <div class="search_bar">
+
+  <%= form_tag user_activities_path, method: :get, remote: false, authenticity_token: true do %>
+    <%= text_field_tag :query, params[:query] %>
+    <%= button_tag "Rechercher" %>
+  <% end %>
+
+
 
   <div class="full-tabs">
-
     <ul class="nav nav-pills" role="tablist">
-      <li class="active", role="presentation">
-        <a data-toggle="tab" href="#my_activities" role="tab" aria-controls="my_activities">Activitiés pratiquées</a>
+      <li class="active cp-tab", role="presentation">
+        <a data-toggle="tab" href="#my_activities" role="tab" aria-controls="my_activities"><h4><i class="fas fa-heart"></i>Activitiés pratiquées</h4> </a>
       </li>
-      <li role="presentation">
-        <a data-toggle="tab" href="#best_activities" role="tab" aria-controls="best_activities">Les + populaires</a>
+      <li role="presentation" class="cp-tab">
+        <a data-toggle="tab" href="#best_activities" role="tab" aria-controls="best_activities"><h4><i class="fas fa-star"></i> Les + populaires</h4> </a>
       </li>
       <% @categories.each do |cat| %>
         <li role="presentation">
-          <%= link_to cat.title, "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab"}%>
+
+          <%= link_to "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab", class:"cp-tab"} do %>
+            <% if cat.title == "Culture" %>
+              <h4><i class="fas fa-globe-asia"></i> <%= cat.title %></h4>
+            <% elsif cat.title == "Sport" %>
+              <h4><i class="fab fa-affiliatetheme"></i> <%= cat.title %></h4>
+            <% else%>
+              <h4><i class="fab fa-affiliatetheme"></i> <%= cat.title %></h4>
+            <% end %>
+          <% end %>
         </li>
       <% end %>
     </ul>
@@ -26,43 +42,16 @@
           <% end %>
         </div>
       </div>
-
-      <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row">
-          <% @activities.each do |act| %>
-            <% if act.best_activity?(@max_max) %>
-              <% user_activity = UserActivity.where(user: @user, activity: act) %>
-              <% @user_activity =  user_activity[0] %>
-              <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
-            <% end %>
-          <% end %>
+        <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
+          <%= render 'user_activities/index', user: @user %>
         </div>
-      </div>
 
-      <% @categories.each do |cat| %>
-        <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
-          <div class="row">
-            <div id="new_activity">
-            <% @activities.each do |act| %>
-              <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
-                <% user_activity = UserActivity.where(user: @user, activity: act) %>
-                <% @user_activity =  user_activity[0] %>
-                  <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
-              <% end %>
-            <% end %>
-            </div>
-
-
-
-            <% @activities.each do |act| %>
-              <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
-                <% @user_activity = UserActivity.new  %>
-                <%= render 'user_activities/show', user: @user, user_activity: @user_activity, act: act %>
-              <% end %>
-            <% end %>
+        <% @categories.each do |cat| %>
+          <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
+            <%= render 'user_activities/index2', user: @user, cat: cat %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+
     </div>
   </div>
 </div>
