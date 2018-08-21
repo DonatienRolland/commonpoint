@@ -39,3 +39,5 @@ gem 'pg_search'
 
 
 gem "geocoder"
+
+gem 'dotenv-rails', groups: [:development, :test]
