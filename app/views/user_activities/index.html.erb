@@ -37,20 +37,54 @@
       <div class="tab-pane active" id="my_activities" role="tabpanel" aria-labelledby="pills-home-tab">
         <div class="row">
           <% @user.user_activities.each do |user_activity| %>
-          <% act = user_activity.activity %>
-            <%= render 'user_activities/show', user: @user, user_activity: user_activity, act: act %>
+            <% act = user_activity.activity %>
+            <% @user_activity =  user_activity %>
+            <%= render 'user_activities/show', user: @user, act: act %>
           <% end %>
         </div>
       </div>
-        <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
-          <%= render 'user_activities/index', user: @user %>
-        </div>
 
-        <% @categories.each do |cat| %>
-          <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
-            <%= render 'user_activities/index2', user: @user, cat: cat %>
+
+      <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row">
+          <% @activities.each do |act| %>
+            <% if act.best_activity?(@max_max) %>
+              <% if UserActivity.where(user: @user, activity: act).count > 0 %>
+                <% user_activity = UserActivity.where(user: @user, activity: act) %>
+                <% @user_activity =  user_activity[0] %>
+              <% else %>
+                <% @user_activity = UserActivity.new  %>
+              <% end %>
+              <%= render 'user_activities/show', user: @user, act: act %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <% @categories.each do |cat| %>
+      <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row">
+          <div id="user_activities_id">
+            <% @activities.each do |act| %>
+              <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
+                <% user_activity = UserActivity.where(user: @user, activity: act) %>
+                <% @user_activity =  user_activity[0] %>
+                  <%= render 'user_activities/show', user: @user, act: act %>
+              <% end %>
+            <% end %>
           </div>
-        <% end %>
+
+          <% @activities.each do |act| %>
+            <div id="not_user_activities_id">
+              <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
+                <% @user_activity = UserActivity.new  %>
+                <%= render 'user_activities/show', user: @user, act: act %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
 
     </div>
   </div>

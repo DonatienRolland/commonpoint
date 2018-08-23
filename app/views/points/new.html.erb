@@ -1,4 +1,31 @@
 
 
-<%= render 'form', user: @user, point: @point %>
+<div class="visible-xs">
+  <%= link_to "#" do %>
+    <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
+  <% end %>
+</div>
 
+ <%= simple_form_for ([ @user, @point ]) do |f| %>
+  <%= f.error_notification %>
+  <div class="row display-inline">
+    <%= render 'form', f: f %>
+    <div class="historic-btn col-lg-3 hidden-xs">
+      <div class="relative-btn">
+        <div class="info-historic">
+          <i class="fas fa-history"></i>
+          <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
+        </div>
+        <%= link_to "Mon historique >", "#" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= render 'map', f: f %>
+  </div>
+
+  <%= f.submit "Créer le point" %>
+<% end %>
+<!-- <div id="map" style="width: 100%; height: 600px;" data-markers="<#%= @markers.to_json%>"
+></div> -->

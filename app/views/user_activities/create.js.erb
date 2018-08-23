@@ -1,19 +1,17 @@
-function refreshForm(innerHTML) {
-  const newUserActivityForm = document.getElementById('new_activities');
-  newUserActivityForm.innerHTML = innerHTML;
-  console.log(newUserActivityForm)
+
+function refreshForm(activityHTML) {
+  const activitys = document.getElementById('not_user_activities_id');
+  activitys.insertAdjacentHTML('afterbegin', activityHTML);
 }
 
-function addUserActivity(reviewHTML) {
-  console.log(reviewHTML)
-  const user_activities = document.getElementById('new_activity');
-  user_activities.insertAdjacentHTML('beforeend', reviewHTML);
-  console.log(user_activities)
+function addUserActivity(activityHTML) {
+  const activitys = document.getElementById('user_activities_id');
+  activitys.insertAdjacentHTML('afterbegin', activityHTML);
 }
 
-<% if @user_activity.errors.any? %>
-  refreshForm('<%= j render "user_activities/form", user: @user, user_activity: @user_activity, act: act %>');
-<% else %>
-  addUserActivity('<%= j render "user_activities/show", user: @user, user_activity: @user_activity, act: act %>');
-<% end %>
+
+addReview('<%= j render user_activities/show, user: @user, user_activity: @user_activity, act: act %>');
+refreshForm('<%= j render user_activities/show, user: @user, user_activity: @user_activity, act: act %>');
+
+
 

@@ -26,20 +26,20 @@ class UserActivitiesController < ApplicationController
     @user_activity = UserActivity.find(params[:id])
     @user = @user_activity.user
     if @user_activity.update(activity_params)
-      respond_to do |format|
-        format.html { redirect_to user_user_activities_path(@user) }
-        format.js
-      end
+      redirect_to user_activities_path
+    else
+      render new
     end
     authorize @user_activity
   end
+
 
   def destroy
     @user_activity = UserActivity.find(params[:id])
     @user = @user_activity.user
     @user_activity.destroy
     respond_to do |format|
-      format.html { redirect_to user_user_activities_path(@user) }
+      format.html { redirect_to user_activities_path }
       format.js
     end
     authorize @user_activity
@@ -49,13 +49,8 @@ class UserActivitiesController < ApplicationController
 
     @user = current_user
     @categories = Category.all
-
     if params[:query] && params[:query] != ""
       @activities = Activity.search_by_title(params[:query])
-      # respond_to do |format|
-      #   format.html { redirect_to user_user_activities_path(@user) }
-      #   format.js
-      # end
     else
       @activities = Activity.all
     end

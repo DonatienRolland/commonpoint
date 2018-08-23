@@ -12,11 +12,6 @@ class PointsController < ApplicationController
   end
 
   def new
-
-    # lat = 48.862725
-    # long = 2.287592000000018
-
-
     @type = params[:param]
     @point = Point.new
 
@@ -24,6 +19,7 @@ class PointsController < ApplicationController
     @user.user_activities.map do |act|
       @activities << act.activity
     end
+
   end
 
   def create
@@ -33,8 +29,10 @@ class PointsController < ApplicationController
     @point.user = @user
       raise
     if @point.save
+      flash[:success] = "Votre point a été créé!"
       redirect_to user_point_path(@user, @point)
     else
+      render 'new'
     end
   end
 

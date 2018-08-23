@@ -1,0 +1,20 @@
+function addForm(formHTML){
+  const idform = document.getElementById("[id='form_<%= act.id + random %>']")
+  idform.insertAdjacentHTML('beforeend', formHTML)
+}
+
+function removeForm(formHTML){
+  const idform = document.getElementById("[id='form_<%= act.id + random %>']")
+  form =
+  form.remove()
+}
+
+
+
+addForm('<%= j render user_activities/form, user: @user, user_activity: @user_activity, act: act %>');
+
+
+
+
+
+

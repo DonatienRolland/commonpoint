@@ -1,65 +1,44 @@
-  <div class="visible-xs">
-      <%= link_to "#" do %>
-        <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
-      <% end %>
+
+<div class="information col-lg-9">
+  <div class="margin-onglet">
+  <h3 class="title-onglet" >Informations</h3>
+
   </div>
-
- <%= simple_form_for ([ user, point ]) do |f| %>
-  <%= f.error_notification %>
-  <div class="row display-inline">
-    <div class="information col-lg-9">
-      <div class="margin-onglet">
-      <h3 class="title-onglet" >Informations</h3>
-
+  <div class="background-white">
+    <div class="row">
+      <div class="col-lg-5 display-inline">
+        <p>Activitée</p>
+        <%= f.input :user_activity, collection: @activities, label: false, input_html: { class:'select2'} %>
       </div>
-      <div class="background-white">
-        <div class="row">
-          <div class="col-lg-5 display-inline">
-            <p>Activitée</p>
-            <%= f.input :user_activity, collection: @activities, label: false, input_html: { class:'select2'} %>
-          </div>
 
-          <div class="col-lg-7 display-inline">
-            <p style="display: inline;">Nombre de participants</p>
-            <div class="input-stepper">
-              <p class="minus"><i class="fa fa-minus"></i></p>
-              <input class="form-control numeric integer optional" type="text" step="1" name="point[number_min]" id="point_number_max">
-              <p class="plus"><i class="fa fa-plus"></i></p>
-            </div>
-            <div class="input-stepper" id="number_max">
-              <p class="minus"><i class="fa fa-minus"></i></p>
-              <input class="form-control numeric integer optional" type="text" step="1" name="point[number_max]" id="point_number_max">
-              <p class="plus"><i class="fa fa-plus"></i></p>
-            </div>
-            <input type="checkbox" class="form-control-range" id="currently_checked">
-            <p>no limit</p>
-          </div>
+      <div class="col-lg-7 display-inline">
+        <p style="display: inline;">Nombre de participants</p>
+        <div class="input-stepper">
+          <p class="minus"><i class="fa fa-minus"></i></p>
+          <input class="form-control numeric integer optional" type="text" step="1" name="point[number_min]" id="point_number_max">
+          <p class="plus"><i class="fa fa-plus"></i></p>
         </div>
-        <div class="display-inline">
-          <p>Niveau des participants</p>
-          <div class="rating">
-              <%= render 'user_activities/stars_form', f: f %>
-          </div>
-          <p>Type de point</p>
-          <%= f.input :type_of_point, label: false, input_html:{ value: @type } %>
+        <div class="input-stepper" id="number_max">
+          <p class="minus"><i class="fa fa-minus"></i></p>
+          <input class="form-control numeric integer optional" type="text" step="1" name="point[number_max]" id="point_number_max">
+          <p class="plus"><i class="fa fa-plus"></i></p>
         </div>
-        <div class="display-inline">
-          <p>Prix</p>
-          <%= f.input :price, as: :integer, label: false %>
-        </div>
+        <input type="checkbox" class="form-control-range" id="currently_checked">
+        <p>no limit</p>
       </div>
     </div>
-    <div class="historic-btn col-lg-3 hidden-xs">
-      <div class="relative-btn">
-        <div class="info-historic">
-          <i class="fas fa-history"></i>
-          <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
-        </div>
-        <%= link_to "Mon historique >", "#" %>
+    <div class="display-inline">
+      <p>Niveau des participants</p>
+      <div class="rating">
+          <%= render 'user_activities/stars_form', f: f %>
       </div>
+      <p>Type de point</p>
+      <%= f.input :type_of_point, label: false, input_html:{ value: @type } %>
+    </div>
+    <div class="display-inline">
+      <p>Prix</p>
+      <%= f.input :price, as: :integer, label: false %>
     </div>
   </div>
-  <div class="row"></div>
+</div>
 
-  <%= f.submit "Créer le point" %>
-<% end %>

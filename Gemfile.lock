@@ -70,6 +70,8 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
+    figaro (1.1.1)
+      thor (~> 0.14)
     font-awesome-sass (5.0.13)
       sassc (>= 1.11)
     geocoder (1.4.9)
@@ -214,6 +216,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3)
   devise
   dotenv-rails
+  figaro
   font-awesome-sass (~> 5.0.9)
   geocoder
   jbuilder (~> 2.0)

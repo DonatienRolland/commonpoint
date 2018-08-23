@@ -53,17 +53,17 @@
 }
 
 .rating label:last-child .icon {
-  color: #000;
+  color: $light-blue;
 }
 
 .rating:not(:hover) label input:checked ~ .icon,
 .rating:hover label:hover input ~ .icon {
-  color: #09f;
+  color: $light-blue;
 }
 
 .rating label input:focus:not(:checked) ~ .icon:last-child {
-  color: #000;
-  text-shadow: 0 0 5px #09f;
+  color: $light-blue;
+  text-shadow: 0 0 5px $light-blue;
 }
 
 

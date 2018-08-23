@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :points, only: [ :show, :edit, :destroy, :index ]
-  resources :user_activities, only: [:destroy, :update, :index, :edit]
+  resources :user_activities, only: [:destroy, :update, :index, :edit ]
 
 end
-

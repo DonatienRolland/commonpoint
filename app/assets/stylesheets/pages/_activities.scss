@@ -27,7 +27,6 @@
 
 .activity-card {
   height: 100px;
-  background-color: $white;
   margin: 3%;
   p {
     color: $cp;
@@ -39,20 +38,18 @@
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   background-size: cover !important;
   background-position: center;
-  border: white 1px solid;
   width: 60px;
   height: 60px;
   margin: 5px 0;
-}
-.height-row {
-  height: 100%;
 }
 
 
 .blue-background {
   background-color: $light-blue !important;
 }
-
+.blue-text {
+  color: $light-blue !important;
+}
 
 // tab
 .cp-tab {
@@ -65,9 +62,12 @@
   }
 }
 
-
-
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
    background-color: $cp;
   color: $white;
+}
+
+
+.tab-pane {
+  background-color: $white;
 }

@@ -16,10 +16,8 @@ export {checkBox}
 
 
 function addForm() {
-  // add hidden class
-  const triggerModal = (event) => {
+  function triggerModal(event){
     let targetModalID = event.currentTarget.dataset.target
-    // getElementsByClassName returns an array-like object => getElementsByClassName(targetModalID)[0]
     let targetModal = document.getElementById(targetModalID)
     targetModal.classList.toggle("hidden");
   }
@@ -31,3 +29,24 @@ function addForm() {
 
 
 export { addForm }
+
+
+
+// function addForm() {
+//   function addActivity(event){
+//     console.log(event)
+//     let targetModalID = event.currentTarget.dataset.target
+//     let targetModal = document.getElementById(targetModalID)
+//     let formHTML = "<%= render user_activities/form, user: @user, user_activity: @user_activity, act: act %>"
+//     targetModal.insertAdjacentHTML('afterbegin', formHTML);
+//   }
+
+//   const modalButtonsList = document.querySelectorAll('.activity-button')
+//   modalButtonsList.forEach((button) => {
+//     button.addEventListener("click", addActivity);
+//   })
+// }
+
+
+// export { addForm }
+

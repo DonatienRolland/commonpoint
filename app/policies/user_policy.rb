@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
+  def form?
+    true
+  end
+
   private
 
   def is_user_the_owner_or_admin?
