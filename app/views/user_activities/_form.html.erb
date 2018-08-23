@@ -1,35 +1,48 @@
 <div id="form_<%= act.id + random %>" class="modal">
+  <div class="modal-content size-modal">
+    <a class="close cross abs-right-top" id="close_form_<%= act.id + random %>">+</a>
 
-  <span class="close" id="close_form_<%= act.id + random %>">
-    <p>&times;</p>
-  </span>
-
-  <% if @user_activity != nil && @user_activity.id %>
-    <div data-user_activity-id="<%= @user_activity.id %>">
-
-    <%= simple_form_for(@user_activity, remote: false,:format => :js, authenticity_token: true) do |f| %>
-      <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
-      <div class="rating">
-          <%= render 'user_activities/stars_form', f: f %>
+    <div class="circle-btn">
+      <div class="icon_cercle" style="background-image: url('<%= image_path act.icon %>')">
       </div>
-      <%= f.input :description %>
-      <%= f.submit "Continuer" %>
-    <% end %>
-    <%= link_to "Delete", user_activity_path( @user_activity), method: :delete, remote: false %>
+      <h3><%= act.title %></h3>
     </div>
 
-  <% else %>
-
-    <%= simple_form_for([ @user, UserActivity.new ], remote: false, authenticity_token: true) do |f| %>
-      <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
-      <div class="rating">
-          <%= render 'user_activities/stars_form', f: f %>
-
+    <% if @user_activity != nil && @user_activity.id %>
+      <%= simple_form_for(@user_activity, remote: false, authenticity_token: true) do |f| %>
+        <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
+        <div class="rating">
+            <%= render 'user_activities/stars_form', f: f %>
+        </div>
+        <%= f.input :description, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..."  %>
+        <%= f.submit "Continuer", id:"submit_submit_form_#{act.id + random}", :style => "display: none;" %>
+      <% end %>
+      <div class="form-action">
+        <div class="form-button circle-btn greend-color"  data-target="submit_form_<%= act.id + random %>" id="submit_form_<%= act.id + random %>">
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="form-button circle-btn red-color">
+          <%= link_to user_activity_path( @user_activity), method: :delete, remote: false do %>
+            <i class="fas fa-minus"></i>
+          <% end %>
+        </div>
       </div>
+    <% else %>
 
-      <%= f.input :description %>
-      <%= f.submit "Continuer" %>
+      <%= simple_form_for([ @user, UserActivity.new ], remote: false, authenticity_token: true) do |f| %>
+        <%= f.input :activity_id, input_html: { value: act.id }, as: :hidden  %>
+        <div class="rating">
+          <%= render 'user_activities/stars_form', f: f %>
+        </div>
+        <%= f.input :description, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..." %>
+        <%= f.submit "Continuer", id:"submit_submit_form_#{act.id + random}", :style => "display: none;" %>
+      <% end %>
+      <div class="form-action">
+        <div class="form-button circle-btn greend-color"  data-target="submit_form_<%= act.id + random %>" id="submit_form_<%= act.id + random %>">
+          <i class="fas fa-plus"></i>
+        </div>
+      </div>
     <% end %>
-    <!-- teste -->
-  <% end %>
+
+  </div>
 </div>

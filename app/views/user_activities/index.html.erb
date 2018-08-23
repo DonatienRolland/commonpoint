@@ -1,52 +1,59 @@
 <div id="user_activities">
-  <div class="search_bar">
-
-  <%= form_tag user_activities_path, method: :get, remote: false, authenticity_token: true do %>
-    <%= text_field_tag :query, params[:query] %>
-    <%= button_tag "Rechercher" %>
-  <% end %>
-
+  <div id="user_activity-search_bar">
+    <%= form_tag user_activities_path, method: :get, remote: false, authenticity_token: true do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Saisissez une activité" %>
+      <%= button_tag class:"recherche-btn" do %>
+        <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
+      <% end %>
+    <% end %>
+  </div>
 
 
   <div class="full-tabs">
     <ul class="nav nav-pills" role="tablist">
       <li class="active cp-tab", role="presentation">
-        <a data-toggle="tab" href="#my_activities" role="tab" aria-controls="my_activities"><h4><i class="fas fa-heart"></i>Activitiés pratiquées</h4> </a>
+        <a data-toggle="tab" href="#my_activities" role="tab" aria-controls="my_activities"><i class="fas fa-heart"></i> <h4 class="hidden-sm hidden-xs"> Activitiés pratiquées </h4> </a>
       </li>
       <li role="presentation" class="cp-tab">
-        <a data-toggle="tab" href="#best_activities" role="tab" aria-controls="best_activities"><h4><i class="fas fa-star"></i> Les + populaires</h4> </a>
+        <a data-toggle="tab" href="#best_activities" role="tab" aria-controls="best_activities"><i class="fas fa-star"></i> <h4 class="hidden-sm hidden-xs">Les + populaires</h4> </a>
       </li>
       <% @categories.each do |cat| %>
-        <li role="presentation">
+        <li role="presentation" class="cp-tab">
 
-          <%= link_to "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab", class:"cp-tab"} do %>
+          <%= link_to "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab"} do %>
             <% if cat.title == "Culture" %>
-              <h4><i class="fas fa-globe-asia"></i> <%= cat.title %></h4>
+              <i class="fab fa-affiliatetheme"></i> <h4 class="hidden-sm hidden-xs"> <%= cat.title %></h4>
             <% elsif cat.title == "Sport" %>
-              <h4><i class="fab fa-affiliatetheme"></i> <%= cat.title %></h4>
+              <i class="fab fa-affiliatetheme"></i> <h4 class="hidden-sm hidden-xs"> <%= cat.title %></h4>
             <% else%>
-              <h4><i class="fab fa-affiliatetheme"></i> <%= cat.title %></h4>
+              <i class="fab fa-affiliatetheme"></i> <h4 class="hidden-sm hidden-xs"> <%= cat.title %></h4>
             <% end %>
           <% end %>
         </li>
       <% end %>
     </ul>
 
-    <div class="tab-content activity-cards">
+    <div class="tab-content">
 
       <div class="tab-pane active" id="my_activities" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row">
+        <div class="row ">
           <% @user.user_activities.each do |user_activity| %>
             <% act = user_activity.activity %>
             <% @user_activity =  user_activity %>
-            <%= render 'user_activities/show', user: @user, act: act %>
+            <div class="col-lg-2 col-xs-6 col-sm-4 eql-height">
+              <%  random = rand(1...1300) %>
+              <div class="activity-card modal-button" data-target="form_<%= act.id + random %>" >
+                <%= render 'user_activities/show', user: @user, act: act %>
+              </div>
+              <%= render "user_activities/form", user: @user, user_activity: @user_activity, act: act, random: random %>
+            </div>
           <% end %>
         </div>
       </div>
 
 
       <div class="tab-pane" id="best_activities" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row">
+        <div class="row ">
           <% @activities.each do |act| %>
             <% if act.best_activity?(@max_max) %>
               <% if UserActivity.where(user: @user, activity: act).count > 0 %>
@@ -55,7 +62,13 @@
               <% else %>
                 <% @user_activity = UserActivity.new  %>
               <% end %>
-              <%= render 'user_activities/show', user: @user, act: act %>
+              <div class="col-lg-2 col-xs-6 col-sm-4 eql-height">
+                <%  random = rand(1...1300) %>
+                <div class="activity-card modal-button" data-target="form_<%= act.id + random %>" >
+                  <%= render 'user_activities/show', user: @user, act: act %>
+                </div>
+                <%= render "user_activities/form", user: @user, user_activity: @user_activity, act: act, random: random %>
+              </div>
             <% end %>
           <% end %>
         </div>
@@ -63,13 +76,19 @@
 
       <% @categories.each do |cat| %>
       <div class="tab-pane" id= "<%= cat.title %>" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row">
+        <div class="row ">
           <div id="user_activities_id">
             <% @activities.each do |act| %>
               <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
                 <% user_activity = UserActivity.where(user: @user, activity: act) %>
                 <% @user_activity =  user_activity[0] %>
-                  <%= render 'user_activities/show', user: @user, act: act %>
+                <div class="col-lg-2 col-xs-6 col-sm-4 eql-height">
+                  <%  random = rand(1...1300) %>
+                  <div class="activity-card modal-button" data-target="form_<%= act.id + random %>" >
+                    <%= render 'user_activities/show', user: @user, act: act %>
+                  </div>
+                  <%= render "user_activities/form", user: @user, user_activity: @user_activity, act: act, random: random %>
+                </div>
               <% end %>
             <% end %>
           </div>
@@ -78,7 +97,13 @@
             <div id="not_user_activities_id">
               <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
                 <% @user_activity = UserActivity.new  %>
-                <%= render 'user_activities/show', user: @user, act: act %>
+                <div class="col-lg-2 col-xs-6 col-sm-4 eql-height">
+                  <%  random = rand(1...1300) %>
+                  <div class="activity-card modal-button" data-target="form_<%= act.id + random %>" >
+                    <%= render 'user_activities/show', user: @user, act: act %>
+                  </div>
+                  <%= render "user_activities/form", user: @user, user_activity: @user_activity, act: act, random: random %>
+                </div>
               <% end %>
             </div>
           <% end %>

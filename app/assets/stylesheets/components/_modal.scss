@@ -1,9 +1,105 @@
 .modal {
   display: none;
   padding: 2% 4%;
-  overflow: auto;
+  overflow: none;
   background-color: rgba(0,0,0,0.4);
   .active {
     display: block !important;
   }
+}
+
+
+.modal-content {
+  position: relative;
+  background-color: $white;
+  padding: 0 0 20px 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+
+  .rating {
+    margin-left: 31%;
+    height: 40px;
+  }
+}
+
+.cancel {
+  font-size: 25px !important;
+  opacity: 0.8;
+}
+.cancel:hover {
+  color: $red;
+}
+.abs-right-top {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.cross {
+  width: 25px;
+  height: 25px;
+  font-size: 22px;
+  color: #2A2A2A;
+  border-radius: 50%;
+  border: 1px solid #E1E1E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(45deg);
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    text-decoration: none;
+    border-color: #2A2A2A;
+  }
+}
+
+.size-modal {
+  width: 350px;
+  margin: auto;
+  padding: 20px;
+  margin-top: 15vh;
+}
+
+@media screen and (max-width: 767px){
+  .size-modal {
+    width: 85vw;
+    height: 70vh;
+    margin: auto;
+    margin-top: 15vh;
+  }
+}
+.form-button{
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  width: 60px;
+  height: 60px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+.greend-color {
+  &:hover {
+    border: 1px solid $green;
+  }
+  i {
+    color: $green;
+  }
+}
+.red-color {
+  &:hover {
+    border: 1px solid $red;
+  }
+  i {
+    color: $red;
+  }
+}
+.form-action {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 15px;
 }

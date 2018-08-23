@@ -1,11 +1,16 @@
-<div class="col-lg-2 col-xs-12 col-sm-4">
-  <%  random = rand(1...1300) %>
-  <div class="activity-card modal-button" data-target="form_<%=  act.id + random %>" >
+
     <div class="circle-btn">
       <div class="icon_cercle <%= act.is_a_user_activity?(current_user) ? 'blue-background' : "" %>" style="background-image: url('<%= image_path act.icon %>')">
       </div>
       <p class="<%= act.is_a_user_activity?(current_user) ? 'blue-text' : "" %>"><%= truncate(act.title, :length => 20)%></p>
     </div>
-  </div>
-  <%= render "user_activities/form", user: @user, user_activity: @user_activity, act: act, random: random %>
-</div>
+    <% if UserActivity.exists?(user: @user, activity: act) %>
+      <div class="stars">
+        <% for i in 1..@user_activity.level %>
+          <i class="fa fa-star blue" aria-hidden="true"></i>
+        <% end %>
+        <% for i in 1..(5-@user_activity.level) %>
+          <i class="far fa-star blue" aria-hidden="true"></i>
+        <% end %>
+      </div>
+    <% end %>

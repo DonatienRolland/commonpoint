@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   padding: 2%;
-  height: 100%;
   justify-content: center;
 }
 
@@ -12,30 +11,8 @@
 }
 
 
-.activity {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-
-.activity-cards {
-  width: 100%;
-  overflow-x: auto;
-  height: 70vh;
-}
-
-.activity-card {
-  height: 100px;
-  margin: 3%;
-  p {
-    color: $cp;
-    margin: 0;
-  }
-}
 .icon_cercle {
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   background-size: cover !important;
   background-position: center;
   width: 60px;
@@ -53,21 +30,56 @@
 
 // tab
 .cp-tab {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   background-color: $cp;
+  flex: 20%;
   a {
-    color: $white
+    color: $white;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    i {
+      margin-right: 3px;
+    }
   }
   h4 {
-    color: $white
+    color: $white;
+    font-size: 0.8em;
   }
 }
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-   background-color: $cp;
-  color: $white;
+.nav-pills > li:hover a {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: $cp !important;
+  h4 {
+    border-bottom: 2px solid $white;
+  }
 }
-
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: $cp;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: $white;
+  h4 {
+    border-bottom: 2px solid $white;
+  }
+}
+.nav-pills {
+  display: flex;
+}
 
 .tab-pane {
   background-color: $white;
 }
+.tab-content > .active {
+  display: block;
+  height: 70vh;
+  width: 100%;
+  overflow-x: auto;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+
