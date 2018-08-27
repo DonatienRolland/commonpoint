@@ -64,6 +64,7 @@ class UserActivitiesController < ApplicationController
     @max_max = numbers.max(10)
 
     @user_activity = UserActivity.new
+
     user_activities = policy_scope(UserActivity)
     authorize UserActivity
   end

@@ -1,10 +1,12 @@
-  <div class="visible-xs">
-      <%= link_to "#" do %>
-        <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
-      <% end %>
-  </div>
 
- <%= simple_form_for ([ @user, @point ]) do |f| %>
+
+<div class="visible-xs">
+  <%= link_to "#" do %>
+    <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
+  <% end %>
+</div>
+
+ <%= simple_form_for (@point) do |f| %>
   <%= f.error_notification %>
   <div class="row display-inline">
     <%= render 'form', f: f %>
@@ -20,10 +22,20 @@
   </div>
 
   <div class="row">
-    <%= render 'form', f: f %>
+    <%= render 'map', f: f %>
   </div>
 
-  <%= f.submit "Créer le point" %>
-<% end %>
 <!-- <div id="map" style="width: 100%; height: 600px;" data-markers="<#%= @markers.to_json%>"
 ></div> -->
+    <div id="participants">
+      <%= f.simple_fields_for :participants do |e| %>
+      <div class="row">
+        <%= render 'participant_fields', f: e %>
+      </div>
+      <% end %>
+        <div class="links">
+          <%=  link_to_add_association 'add participant', f, :participants %>
+        </div>
+    </div>
+  <%= f.submit "Créer le point" %>
+<% end %>

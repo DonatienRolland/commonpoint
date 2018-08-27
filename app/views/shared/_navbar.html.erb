@@ -14,10 +14,10 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to root_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+      <%= link_to home_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link" do %>
         <i class="fas fa-home"></i> Accueil
       <% end %>
-      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do%>
+      <%= link_to points_path, class: "navbar-wagon-item navbar-wagon-link" do%>
       <i class="far fa-calendar-alt"></i> Mes Points
       <% end %>
       <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>

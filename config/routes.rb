@@ -8,10 +8,15 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:show, :update, :edit] do
     resources :user_activities, only: :create
-    resources :points, only: [ :create, :new ]
+    resources :points, only: [ :create, :new ] do
+      get 'home', :on => :collection
+    end
   end
 
-  resources :points, only: [ :show, :edit, :destroy, :index ]
+
+  resources :points, only: [ :show, :edit, :destroy, :index, :update ] do
+    resources :participants, only: :create
+  end
   resources :user_activities, only: [:destroy, :update, :index, :edit ]
 
 end

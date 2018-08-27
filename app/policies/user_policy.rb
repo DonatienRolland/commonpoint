@@ -4,15 +4,17 @@ class UserPolicy < ApplicationPolicy
       scope
     end
   end
+
   def create?
     is_user_the_owner_or_admin?
   end
+
   def update?
     is_user_the_owner_or_admin?
   end
 
-  def form?
-    true
+  def home?
+    is_user_the_owner_or_admin?
   end
 
   private

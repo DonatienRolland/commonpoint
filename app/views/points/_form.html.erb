@@ -6,9 +6,9 @@
   </div>
   <div class="background-white">
     <div class="row">
-      <div class="col-lg-5 display-inline">
+      <div class="col-lg-5 display-inline"id="target0987">
         <p>Activitée</p>
-        <%= f.input :user_activity, collection: @activities, label: false, input_html: { class:'select2'} %>
+        <%= f.object.user_activity.activity.title  %>
       </div>
 
       <div class="col-lg-7 display-inline">
@@ -33,12 +33,15 @@
           <%= render 'user_activities/stars_form', f: f %>
       </div>
       <p>Type de point</p>
-      <%= f.input :type_of_point, label: false, input_html:{ value: @type } %>
+      <%= f.input :type_of_point, label: false %>
     </div>
     <div class="display-inline">
       <p>Prix</p>
       <%= f.input :price, as: :integer, label: false %>
     </div>
   </div>
+
+
+
 </div>
 

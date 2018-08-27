@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :points
   accepts_nested_attributes_for :points, allow_destroy: true, reject_if: :all_blank
 
+  has_many :participants
+  has_many :points, through: :participants
+  accepts_nested_attributes_for :participants, allow_destroy: true, reject_if: :all_blank
+
   def name
     name = self.email.first(8)
     name.capitalize

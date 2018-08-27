@@ -1,3 +1,4 @@
 <h1>Points#show</h1>
 <p>Find me in app/views/points/show.html.erb</p>
 
+<%= link_to @point.user_activity.activity.title, edit_point_path(@point) %>

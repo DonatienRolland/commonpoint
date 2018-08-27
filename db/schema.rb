@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_21_075305) do
+ActiveRecord::Schema.define(version: 2018_08_26_110720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2018_08_21_075305) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.string "status"
+    t.bigint "user_id"
+    t.bigint "point_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "invited"
+    t.index ["point_id"], name: "index_participants_on_point_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
   create_table "points", force: :cascade do |t|
@@ -77,6 +88,8 @@ ActiveRecord::Schema.define(version: 2018_08_21_075305) do
   end
 
   add_foreign_key "activities", "categories"
+  add_foreign_key "participants", "points"
+  add_foreign_key "participants", "users"
   add_foreign_key "points", "user_activities"
   add_foreign_key "points", "users"
   add_foreign_key "user_activities", "activities"

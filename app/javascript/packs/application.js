@@ -15,3 +15,6 @@ revealModal();
 
 import { submitDeleteButton } from "../components/submitDeleteButton";
 submitDeleteButton();
+
+import { bindSweetAlertButtonDemo } from '../components/banner';
+bindSweetAlertButtonDemo();

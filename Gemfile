@@ -41,3 +41,5 @@ gem 'pg_search'
 gem "geocoder"
 
 gem "figaro"
+
+gem "cocoon"
