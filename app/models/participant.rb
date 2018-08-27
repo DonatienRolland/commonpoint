@@ -2,16 +2,11 @@ class Participant < ApplicationRecord
   belongs_to :user
   belongs_to :point
 
-  accepts_nested_attributes_for :point, :reject_if => :all_blank
+  has_many :equipments
+  accepts_nested_attributes_for :equipments
 
-  # after_validation :status_validation
+  accepts_nested_attributes_for :point, :reject_if => :all_blank, allow_destroy: true
 
   private
-
-  def status_validation
-    if self.status == "" || self.status = nil?
-      self.status = false
-    end
-  end
 
 end

@@ -8,7 +8,10 @@ class Point < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :users, through: :participants
 
+  has_many :equipments, dependent: :destroy
+
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :equipments, reject_if: :all_blank, allow_destroy: true
   # accepts_nested_attributes_for :participants, reject_if: proc { |attributes| attributes['status'].blank? }, allow_destroy: proc { |attributes| attributes['status'].blank? }
   accepts_nested_attributes_for :user_activity, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :users
@@ -33,25 +36,9 @@ class Point < ApplicationRecord
   end
 
   def send_error_message
-    # errors.add(:address, :blank, message: "address cannot be nil") if address.nil?
-    # errors.add(:price, :blank, message: "price cannot be nil") if price.nil?
-    # errors.add(:number_min, :blank, message: "number_min cannot be nil") if number_min.nil?
-    # errors.add(:level_min, :blank, message: "level_min cannot be nil") if level_min.nil?
-
-    return "notice: 'Vous devez sélectionner une adresse" if self.address.nil?
+    return "Vous devez sélectionner une adresse" if self.address.nil?
     return "Vous devez sélectionner un prix " if self.price.nil?
     return "Vous devez sélectionner un nombre minimum de participant " if self.number_min == 0
     return "Vous devez sélectionner un niveau minimum " if self.level_min.nil?
   end
 end
-
-
-    # if self.address.nil?
-    #   return "Vous devez sélectionner une adresse"
-    # elsif price.nil?
-    #   return "Vous devez sélectionner un prix "
-    # elsif number_min.nil?
-    #   return "Vous devez sélectionner un nombre minimum de participant "
-    # else level_min.nil?
-    #   return "Vous devez sélectionner un niveau minimum" if level_min.nil?
-    # end

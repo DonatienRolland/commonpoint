@@ -45,14 +45,15 @@ class PointsController < ApplicationController
         @participants << participant = user_activity.user
       end
     end
-    # @point.participants.build
-    # @participant = Participant.new
 
     if @point.participants.count == 0
       1.times { @point.participants.build }
     else
       0.times { @point.participants.build }
     end
+
+    @point.equipments.count == 0 ? 1.times { @point.equipments.build } : 0.times { @point.equipments.build }
+
     authorize @user
   end
 
@@ -99,7 +100,9 @@ private
   def point_params
     params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :price, :address,
       # participants_attributes: [ :id, :status, :user_id ]
-      participants_attributes: Participant.attribute_names.map(&:to_sym).push(:_destroy)
+      participants_attributes: Participant.attribute_names.map(&:to_sym).push(:_destroy),
+      equipments_attributes: [ :id, :title ]
+      # equipments_attributes: Equipment.attribute_names.map(&:to_sym).push(:_destroy)
       )
   end
 end

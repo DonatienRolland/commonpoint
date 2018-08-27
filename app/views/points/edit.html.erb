@@ -29,13 +29,24 @@
 ></div> -->
     <div id="participants">
       <%= f.simple_fields_for :participants do |e| %>
-      <div class="row">
-        <%= render 'participant_fields', f: e %>
-      </div>
-      <% end %>
-        <div class="links">
-          <%=  link_to_add_association 'add participant', f, :participants %>
+        <div class="row">
+          <%= render 'participant_fields', f: e %>
         </div>
+      <% end %>
+      <div class="links">
+        <%=  link_to_add_association 'add participant', f, :participants %>
+      </div>
     </div>
+
+    <div id="equipments">
+      <%= f.simple_fields_for :equipments do |e| %>
+        <%= render 'equipment_fields', f: e %>
+      <% end %>
+      <div class="links">
+        <%=  link_to_add_association 'add an equipment', f, :equipments %>
+      </div>
+    </div>
+
+
   <%= f.submit "Créer le point" %>
 <% end %>
