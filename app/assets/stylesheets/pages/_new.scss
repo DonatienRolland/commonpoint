@@ -1,10 +1,14 @@
-
-.background-white {
-  background-color: $white;
-  border-bottom-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  padding: 5px;
+#edit-point {
+  .background-white {
+    background-color: $white;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 20px;
+  }
+  .form-control {
+    font-size: 15px;
+  }
 }
 .title-onglet {
   background-color: $cp;
@@ -17,8 +21,14 @@
 .margin-onglet {
   margin-top: 10px;
 }
-
-
+.top-bottom-margin {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.five-margin {
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+}
 .display-inline {
   display: flex;
   align-items: center;
@@ -26,7 +36,6 @@
     margin: 0;
   }
 }
-
 
 .info-historic {
   background-color: $orange;
@@ -39,7 +48,7 @@
   a {
     position: absolute;
     bottom: -35px;
-    left: 15%;
+    left: 3%;
     background-color: $orange;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -53,27 +62,21 @@
 .relative-btn {
     position: relative;
 }
-.checked_boxe {
-  background-color: $gray !important;
+
+.locked-div {
+  background-color: #8c8a8a !important;
   opacity: 0.5 !important;
-  cursor: none !important;
+  cursor: no-drop !important;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 // - + form
 .input-stepper {
   display: flex;
   align-items: center;
-}
-
-.input-stepper p {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  margin-bottom: 0;
 }
 
 .input-stepper p[disabled] {

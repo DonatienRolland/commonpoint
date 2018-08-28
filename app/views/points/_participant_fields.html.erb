@@ -1,5 +1,5 @@
 <div class='nested-fields'>
-  <div class="col-xs-4">
+  <div class="col-xs-4 col-lg-11">
     <% if f.object.user != nil %>
       <%= f.object.user.email%>
     <% else %>
@@ -7,7 +7,7 @@
       <%= link_to_remove_association "remove participant", f %>
     <% end %>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-2 col-lg-1">
     <%= f.input :invited, as: :boolean, label: false %>
   </div>
 </div>

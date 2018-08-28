@@ -1,69 +1,104 @@
 
-<div class="information col-lg-9">
+<div class="information col-lg-10">
   <div class="margin-onglet">
-  <h3 class="title-onglet" >Informations</h3>
-
+    <h3 class="title-onglet" >Informations</h3>
   </div>
+
   <div class="background-white">
-    <div class="row">
-      <div class="col-lg-5 display-inline"id="target0987">
-        <p>Activitée</p>
+    <div class="row top-bottom-margin center-items">
+      <div class="col-lg-1 col-xs-6">
+        <p>Activitée:</p>
+      </div>
+      <div class="col-lg-4 col-xs-6">
         <%= f.object.user_activity.activity.title  %>
       </div>
-
-      <div class="col-lg-7 display-inline">
-        <p style="display: inline;">Nombre de participants</p>
-        <div class="input-stepper">
-          <p class="minus"><i class="fa fa-minus"></i></p>
-          <%= f.input :number_min, input_html: {type: :text} , label: false, wrapper: false %>
-          <p class="plus"><i class="fa fa-plus"></i></p>
-        </div>
-        <div class="input-stepper" id="number_max">
-          <p class="minus"><i class="fa fa-minus"></i></p>
-          <%= f.input :number_max, input_html: {type: :text} , label: false, wrapper: false %>
-          <p class="plus"><i class="fa fa-plus"></i></p>
-        </div>
-        <input type="checkbox" class="form-control-range" id="currently_checked">
-        <p>no limit</p>
+      <div class="col-lg-2 col-xs-6">
+        <p>Type de point:</p>
+      </div>
+      <div class="col-lg-4 col-xs-5">
+        <%= f.object.type_of_point  %>
+      </div>
+      <div class="col-lg-1 col-xs-1">
+        <i class="far fa-edit"></i>
       </div>
     </div>
 
 
-    <div class="display-inline">
-
-      <!-- <div class="rating">
-          <#%= render 'user_activities/stars_form', f: f %>
-      </div> -->
-      <p>Type de point</p>
-      <%= f.input :type_of_point, label: false %>
-    </div>
-    <div class="display-inline">
-      <p>Prix</p>
-      <%= f.input :price, as: :integer, label: false %>
-    </div>
-    <div class="display-inline">
-      <p>date</p>
-      <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
-    </div>
-    <% if f.object.date2.nil? || f.object.date2 == "" %>
-      <div class="display-inline">
-        <p>date 2</p>
-        <%= f.input :date2, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+    <div class="row top-bottom-margin">
+      <div class="col-lg-3 col-xs-12">
+        <p>Nombre de participants:</p>
       </div>
-    <% end %>
+      <div class="steppers col-lg-9 col-xs-12">
+        <div class="display-inline">
+          <div class="stepper-min five-margin display-inline">
+            <p class="five-margin">Min</p>
+            <div class="input-stepper">
+              <p class="minus"><i class="fa fa-minus"></i></p>
+              <%= f.input :number_min, input_html: {type: :text} , label: false, wrapper: false %>
+              <p class="plus"><i class="fa fa-plus"></i></p>
+            </div>
+          </div>
+          <div class="stepper-max five-margin display-inline">
+            <p class="five-margin">Max</p>
+            <div class="input-stepper" id="number_max">
+              <p class="minus"><i class="fa fa-minus"></i></p>
+              <%= f.input :number_max, input_html: {type: :text} , label: false, wrapper: false %>
+              <p class="plus"><i class="fa fa-plus"></i></p>
+            </div>
+          </div>
+          <input type="checkbox" class="form-control-range" id="currently_checked">
+          <p style="margin-left: 10px">no limit</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row top-bottom-margin">
+      <div class="col-lg-3 col-xs-12">
+        <p>Niveau des participants:</p>
+      </div>
+      <div class="col-lg-9 col-xs-12">
+        <div class="slidecontainer row">
+          <div class="col-lg-5 col-xs-6">
+            <div class="display-inline">
+              <p class="five-margin">Min (<span id="levelMin"></span>) </p>
+              <%= f.input :level_min, as: :range, input_html: { min: 0, max: 5, class:"slider", style:"width:100%", id:"myRangeMin" }, id:"myRangeMin2", label: false %>
+            </div>
+          </div>
+          <div class="col-lg-2"></div>
+          <div class="col-lg-5 col-xs-6">
+            <div class="display-inline">
+              <p class="five-margin">Max (<span id="levelMax"></span>) </p>
+              <%= f.input :level_max, as: :range, input_html: { min: 0, max: 5, class:"slider", style:"width:100%", id:"myRangeMax", value: 5  }, label: false %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
-      <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1 slidecontainer">
-        <%= f.input :level_min, input_html: { class:"ex2"} %>
+      <div class="col-lg-2 col-xs-12">
+        <div class="display-inline">
+          <p class="five-margin">Prix (€):</p>
+          <%= f.input :price, as: :integer, label: false, input_html: { style:"width:65px", step: 0.1 } %>
+        </div>
       </div>
-
-      <div class="slidecontainer">
-        <p>Custom range slider:</p>
-        <%= f.input :level_min, as: :range, input_html: { min: 0, max: 5, class:"slider", id:"myRange" } %>
-
-
-        <p>Value: <span id="demo"></span></p>
+      <div class="col-lg-5 col-xs-12">
+        <div class="display-inline">
+          <p class="five-margin">Proposition Date 1:</p>
+          <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+        </div>
+      </div>
+      <div class="col-lg-5 col-xs-12">
+        <% if f.object.date2.nil? || f.object.date2 == "" %>
+          <div class="display-inline">
+            <p class="five-margin">Proposition Date 2:</p>
+            <%= f.input :date2, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+          </div>
+        <% end %>
       </div>
     </div>
+
   </div>
 </div>
 

@@ -1,66 +1,80 @@
+<div id="edit-point">
 
+  <div class="visible-xs">
+    <%= link_to "#" do %>
+      <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
+    <% end %>
+  </div>
 
-<div class="visible-xs">
-  <%= link_to "#" do %>
-    <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
+   <%= simple_form_for (@point) do |f| %>
+    <%= f.error_notification %>
+    <div class="row display-inline">
+      <%= render 'form', f: f %>
+      <div class="historic-btn col-lg-2 hidden-xs">
+        <div class="relative-btn">
+          <div class="info-historic">
+            <i class="fas fa-history"></i>
+            <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
+          </div>
+          <%= link_to "Mon historique >", "#" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="margin-onglet">
+          <h3 class="title-onglet">Lieu</h3>
+        </div>
+        <div class="background-white">
+          <%= render 'map', f: f %>
+          <div id="map" style="width: 50%; height: 200px;" data-markers="<%= @markers.to_json%>"></div>
+        </div>
+
+      </div>
+
+      <div id="participants" class="col-lg-4">
+        <div class="margin-onglet">
+          <h3 class="title-onglet">Participants</h3>
+        </div>
+        <div class="background-white">
+          <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
+            <div class="row">
+              <%= render 'participant_fields', f: e %>
+            </div>
+          <% end %>
+          <div class="links">
+            <%=  link_to_add_association 'add participant', f, :participants %>
+          </div>
+        </div>
+      </div>
+
+      <div id="equipments" class="col-lg-4">
+        <div class="margin-onglet">
+          <h3 class="title-onglet">Matériels</h3>
+        </div>
+        <div class="background-white">
+          <%= f.simple_fields_for :equipments do |e| %>
+            <%= render 'equipment_fields', f: e %>
+          <% end %>
+          <div class="links">
+            <%=  link_to_add_association 'add an equipment', f, :equipments %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= f.submit "Charger le Point" %>
   <% end %>
 </div>
 
- <%= simple_form_for (@point) do |f| %>
-  <%= f.error_notification %>
-  <div class="row display-inline">
-    <%= render 'form', f: f %>
-    <div class="historic-btn col-lg-3 hidden-xs">
-      <div class="relative-btn">
-        <div class="info-historic">
-          <i class="fas fa-history"></i>
-          <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
-        </div>
-        <%= link_to "Mon historique >", "#" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <%= render 'map', f: f %>
-  </div>
-
-<div id="map" style="width: 50%; height: 200px;" data-markers="<%= @markers.to_json%>"
-></div>
-    <div id="participants">
-      <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
-        <div class="row">
-          <%= render 'participant_fields', f: e %>
-        </div>
-      <% end %>
-      <div class="links">
-        <%=  link_to_add_association 'add participant', f, :participants %>
-      </div>
-    </div>
-
-    <div id="equipments">
-      <%= f.simple_fields_for :equipments do |e| %>
-        <%= render 'equipment_fields', f: e %>
-      <% end %>
-      <div class="links">
-        <%=  link_to_add_association 'add an equipment', f, :equipments %>
-      </div>
-    </div>
-
-
-  <%= f.submit "Créer le point" %>
-<% end %>
 
 <%= content_for(:after_js) do %>
+
 <script>
-  var slider = document.getElementById("myRange");
-  var output = document.getElementById("demo");
-  output.innerHTML = slider.value;
 
 
-  slider.oninput = function() {
-    output.innerHTML = this.value;
-  }
+
 </script>
 
 <% end %>

@@ -4,9 +4,9 @@ function checkBox(){
   if (currently) {
     currently.addEventListener('change', function(){
       if (this.checked){
-        date_end.classList.add('hidden');
+        date_end.classList.add('locked-div');
       } else {
-        date_end.classList.remove('hidden');
+        date_end.classList.remove('locked-div');
       };
     })
   }
