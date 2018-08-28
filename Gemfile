@@ -43,3 +43,7 @@ gem "geocoder"
 gem "figaro"
 
 gem "cocoon"
+
+
+# slider
+gem 'bootstrap-slider-rails'

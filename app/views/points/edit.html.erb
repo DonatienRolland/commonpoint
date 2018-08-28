@@ -25,10 +25,10 @@
     <%= render 'map', f: f %>
   </div>
 
-<!-- <div id="map" style="width: 100%; height: 600px;" data-markers="<#%= @markers.to_json%>"
-></div> -->
+<div id="map" style="width: 50%; height: 200px;" data-markers="<%= @markers.to_json%>"
+></div>
     <div id="participants">
-      <%= f.simple_fields_for :participants do |e| %>
+      <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
         <div class="row">
           <%= render 'participant_fields', f: e %>
         </div>
@@ -50,3 +50,33 @@
 
   <%= f.submit "Créer le point" %>
 <% end %>
+
+<%= content_for(:after_js) do %>
+<script>
+  var slider = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = slider.value;
+
+
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
+</script>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,10 +27,9 @@ var stepper = function () {
       stepper.allSteppers.each( function ( index, element ) {
         var thisStepperInput = $( element ).find( 'input' );
         var thisMinusButton = $( element ).find( 'p.minus' );
-
         if ( thisStepperInput.val() === '0' || thisStepperInput.val() <= 0 ) {
           thisMinusButton.prop( 'disabled', true );
-          thisStepperInput.val( 0 );
+          thisStepperInput.val(  );
         } else {
           // if number is positive, enable the minus button
           thisMinusButton.prop( 'disabled', false );

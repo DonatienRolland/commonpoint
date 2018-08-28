@@ -1,5 +1,7 @@
 import "bootstrap";
 
+import "../plugins/flatpickr"
+
 import '../components/select2';
 
 import "../components/numberStepper.js"
@@ -18,3 +20,8 @@ submitDeleteButton();
 
 import { bindSweetAlertButtonDemo } from '../components/banner';
 bindSweetAlertButtonDemo();
+
+
+import { initSliders } from "../components/slider";
+// arrangeWidth();
+initSliders();

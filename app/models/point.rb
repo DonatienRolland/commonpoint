@@ -25,7 +25,6 @@ class Point < ApplicationRecord
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
   # after_validation :geocode, if: :will_save_change_to_address?
 
-
   def verif_data
     if self.address.present? && self.price.present? && self.number_min > 0 && self.level_min.present?
       self.number_max = nil

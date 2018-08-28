@@ -1,5 +1,5 @@
 class Equipment < ApplicationRecord
-  belongs_to :participant
+  belongs_to :participant, optional: true
   belongs_to :point
 
   validates :title, presence: true

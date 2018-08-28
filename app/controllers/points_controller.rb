@@ -13,12 +13,22 @@ class PointsController < ApplicationController
   def update
     @user = current_user
     @point = Point.find(params[:id])
+    old_date = @point.date2
+    point2 = Point.where(date2: old_date ).where( user: @point.user ).where( user_activity: @point.user_activity )
+    second_point = point2.first
+    raise
 
     if @point.update(point_params)
       if @point.verif_data
         redirect_to point_path(@point), flash: {notice: "Votre Point a été créé avec succès"}
       else
         redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message }
+      end
+      if point_params[:date2].present? && second_point.nil? && old_date != @point.date2
+        new_point = Point.new(@point.attributes.merge({date: point_params[:date2]}))
+        new_point.date2 = nil
+        new_point.id = nil
+        new_point.save
       end
     else
       render new
@@ -29,12 +39,24 @@ class PointsController < ApplicationController
   def show
     @user = current_user
     @point = Point.find(params[:id])
+
+    second_date_point = Point.where(date2: @point.date2 ).where( user: @point.user ).where( user_activity: @point.user_activity )
+    @second_date_point = second_date_point.first
     authorize @user
   end
 
   def edit
     @user = current_user
     @point = Point.find(params[:id])
+
+    user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
+    @markers = [ user_coordinates ]
+
+    if @point.address.present?
+      point_coordinates = { lat: @point.latitude, lng: @point.longitude }
+      @markers << point_coordinates
+    end
+
 
     activity = @point.user_activity.activity
     user_activities = UserActivity.where(activity: activity)
@@ -54,6 +76,11 @@ class PointsController < ApplicationController
 
     @point.equipments.count == 0 ? 1.times { @point.equipments.build } : 0.times { @point.equipments.build }
 
+    authorize @user
+  end
+
+  def new
+    @user = current_user
     authorize @user
   end
 
@@ -98,11 +125,11 @@ private
   end
 
   def point_params
-    params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :price, :address,
+    params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :price, :address, :date, :date2,
       # participants_attributes: [ :id, :status, :user_id ]
       participants_attributes: Participant.attribute_names.map(&:to_sym).push(:_destroy),
-      equipments_attributes: [ :id, :title ]
-      # equipments_attributes: Equipment.attribute_names.map(&:to_sym).push(:_destroy)
+      # equipments_attributes: [ :id, :title ]
+      equipments_attributes: Equipment.attribute_names.map(&:to_sym).push(:_destroy)
       )
   end
 end

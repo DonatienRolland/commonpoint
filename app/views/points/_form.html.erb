@@ -15,23 +15,25 @@
         <p style="display: inline;">Nombre de participants</p>
         <div class="input-stepper">
           <p class="minus"><i class="fa fa-minus"></i></p>
-          <input class="form-control numeric integer optional" type="text" step="1" name="point[number_min]" id="point_number_max">
+          <%= f.input :number_min, input_html: {type: :text} , label: false, wrapper: false %>
           <p class="plus"><i class="fa fa-plus"></i></p>
         </div>
         <div class="input-stepper" id="number_max">
           <p class="minus"><i class="fa fa-minus"></i></p>
-          <input class="form-control numeric integer optional" type="text" step="1" name="point[number_max]" id="point_number_max">
+          <%= f.input :number_max, input_html: {type: :text} , label: false, wrapper: false %>
           <p class="plus"><i class="fa fa-plus"></i></p>
         </div>
         <input type="checkbox" class="form-control-range" id="currently_checked">
         <p>no limit</p>
       </div>
     </div>
+
+
     <div class="display-inline">
-      <p>Niveau des participants</p>
-      <div class="rating">
-          <%= render 'user_activities/stars_form', f: f %>
-      </div>
+
+      <!-- <div class="rating">
+          <#%= render 'user_activities/stars_form', f: f %>
+      </div> -->
       <p>Type de point</p>
       <%= f.input :type_of_point, label: false %>
     </div>
@@ -39,9 +41,29 @@
       <p>Prix</p>
       <%= f.input :price, as: :integer, label: false %>
     </div>
+    <div class="display-inline">
+      <p>date</p>
+      <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+    </div>
+    <% if f.object.date2.nil? || f.object.date2 == "" %>
+      <div class="display-inline">
+        <p>date 2</p>
+        <%= f.input :date2, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1 slidecontainer">
+        <%= f.input :level_min, input_html: { class:"ex2"} %>
+      </div>
+
+      <div class="slidecontainer">
+        <p>Custom range slider:</p>
+        <%= f.input :level_min, as: :range, input_html: { min: 0, max: 5, class:"slider", id:"myRange" } %>
+
+
+        <p>Value: <span id="demo"></span></p>
+      </div>
+    </div>
   </div>
-
-
-
 </div>
 
