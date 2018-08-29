@@ -1,0 +1,5 @@
+
+<%= simple_form_for([ point, message ], remote: true) do |form| %>
+  <%= form.input :content, as: :text, placeholder: "Publier un message pour le Point", label: false %>
+  <%= form.submit "Publier" %>
+<% end %>

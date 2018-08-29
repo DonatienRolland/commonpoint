@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_033661) do
+ActiveRecord::Schema.define(version: 2018_08_29_114834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 2018_08_28_033661) do
     t.datetime "updated_at", null: false
     t.index ["participant_id"], name: "index_equipment_on_participant_id"
     t.index ["point_id"], name: "index_equipment_on_point_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "point_id"
+    t.bigint "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_messages_on_participant_id"
+    t.index ["point_id"], name: "index_messages_on_point_id"
   end
 
   create_table "overall_averages", force: :cascade do |t|
@@ -160,6 +170,8 @@ ActiveRecord::Schema.define(version: 2018_08_28_033661) do
   add_foreign_key "activities", "categories"
   add_foreign_key "equipment", "participants"
   add_foreign_key "equipment", "points"
+  add_foreign_key "messages", "participants"
+  add_foreign_key "messages", "points"
   add_foreign_key "participants", "points"
   add_foreign_key "participants", "users"
   add_foreign_key "points", "user_activities"

@@ -1,4 +1,7 @@
 <div id="edit-point">
+  <%= render 'modal-new-point', user: @user, point: @point %>
+
+
 
   <div class="visible-xs">
     <%= link_to "#" do %>
@@ -10,7 +13,7 @@
     <%= f.error_notification %>
     <div class="row display-inline">
       <%= render 'form', f: f %>
-      <div class="historic-btn col-lg-2 hidden-xs">
+      <div class="historic-btn col-lg-2 col-sm-2 hidden-xs">
         <div class="relative-btn">
           <div class="info-historic">
             <i class="fas fa-history"></i>
@@ -22,49 +25,66 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-4">
-        <div class="margin-onglet">
+      <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
+        <div class="dimension-onglet">
           <h3 class="title-onglet">Lieu</h3>
         </div>
-        <div class="background-white">
+        <div class="background-white eql-height">
           <%= render 'map', f: f %>
-          <div id="map" style="width: 50%; height: 200px;" data-markers="<%= @markers.to_json%>"></div>
+          <div id="map" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
         </div>
 
       </div>
 
-      <div id="participants" class="col-lg-4">
-        <div class="margin-onglet">
+      <div id="participants" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
+        <div class="dimension-onglet">
           <h3 class="title-onglet">Participants</h3>
         </div>
-        <div class="background-white">
+        <div class="background-white eql-height scroll-div relative-btn">
           <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
             <div class="row">
               <%= render 'participant_fields', f: e %>
             </div>
           <% end %>
-          <div class="links">
-            <%=  link_to_add_association 'add participant', f, :participants %>
+          <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
+            <%=  link_to_add_association f, :participants  do %>
+              <i class="fas fa-plus"></i>
+            <% end %>
           </div>
         </div>
       </div>
 
-      <div id="equipments" class="col-lg-4">
-        <div class="margin-onglet">
+      <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
+        <div class="dimension-onglet">
           <h3 class="title-onglet">Matériels</h3>
         </div>
-        <div class="background-white">
+        <div class="background-white eql-height scroll-div relative-btn">
           <%= f.simple_fields_for :equipments do |e| %>
             <%= render 'equipment_fields', f: e %>
           <% end %>
-          <div class="links">
-            <%=  link_to_add_association 'add an equipment', f, :equipments %>
+          <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
+            <%=  link_to_add_association f, :equipments do %>
+              <i class="fas fa-plus"></i>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
+    <div class="form-action">
+      <%= f.button :button, class:"display-inline" do %>
+        <div class="form-button form-button-lg circle-btn green-color">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <h3>Sauvegarder</h3>
+      <% end %>
 
-    <%= f.submit "Charger le Point" %>
+      <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline" do %>
+        <div class="form-button form-button-lg circle-btn red-color">
+          <i class="far fa-trash-alt"></i>
+        </div>
+        <h3>Supprimer</h3>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
@@ -78,11 +98,6 @@
 </script>
 
 <% end %>
-
-
-
-
-
 
 
 

@@ -1,0 +1,14 @@
+<!-- modal -->
+  <div class="modal fade" id="newPointModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-content">
+      <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
+      <h4>C'est parti ...</h4>
+      <%= simple_form_for point do |f| %>
+
+          <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
+
+        <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>

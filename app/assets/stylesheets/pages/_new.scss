@@ -18,11 +18,11 @@
   border-top-right-radius: 8px;
   padding: 5px 8px;
 }
-.margin-onglet {
-  margin-top: 10px;
+.dimension-onglet {
+  height: 28px;
 }
 .top-bottom-margin {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 .five-margin {
@@ -36,7 +36,9 @@
     margin: 0;
   }
 }
-
+.padding-blocks {
+  padding: 1%;
+}
 .info-historic {
   background-color: $orange;
   border-radius: 8px;
@@ -61,6 +63,11 @@
 }
 .relative-btn {
     position: relative;
+}
+.bottom-right-btn {
+  position: absolute;
+  bottom: 1px;
+  right: 8px;
 }
 
 .locked-div {
@@ -97,4 +104,33 @@
   font-size: 20px;
   text-align: center;
   width: 36px;
+}
+input[type="radio"], input[type="checkbox"] {
+  margin: 0;
+}
+.scroll-div {
+  overflow: scroll;
+}
+.participants-fields{
+  margin-top: 5px;
+  .form-group {
+    width: 80%;
+  }
+}
+.display-new-participant{
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.equipments-fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .form-group {
+    width: 70%;
+    margin-bottom: 15px;
+  }
+}
+.input-height {
+  height: 39px;
 }

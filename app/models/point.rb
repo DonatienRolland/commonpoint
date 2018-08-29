@@ -10,6 +10,8 @@ class Point < ApplicationRecord
 
   has_many :equipments, dependent: :destroy
 
+  has_many :messages, dependent: :destroy
+
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :equipments, reject_if: :all_blank, allow_destroy: true
   # accepts_nested_attributes_for :participants, reject_if: proc { |attributes| attributes['status'].blank? }, allow_destroy: proc { |attributes| attributes['status'].blank? }

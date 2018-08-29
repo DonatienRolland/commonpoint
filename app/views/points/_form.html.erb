@@ -1,6 +1,6 @@
 
-<div class="information col-lg-10">
-  <div class="margin-onglet">
+<div class="information col-lg-10 col-md-10 col-sm-10 padding-blocks">
+  <div class="dimension-onglet">
     <h3 class="title-onglet" >Informations</h3>
   </div>
 
@@ -19,9 +19,14 @@
         <%= f.object.type_of_point  %>
       </div>
       <div class="col-lg-1 col-xs-1">
-        <i class="far fa-edit"></i>
+        <button type="button" data-toggle="modal" style="border: 0;" data-target="#newPointModal">
+          <i class="far fa-edit"></i>
+        </button>
       </div>
     </div>
+
+
+
 
 
     <div class="row top-bottom-margin">
@@ -69,7 +74,7 @@
           <div class="col-lg-5 col-xs-6">
             <div class="display-inline">
               <p class="five-margin">Max (<span id="levelMax"></span>) </p>
-              <%= f.input :level_max, as: :range, input_html: { min: 0, max: 5, class:"slider", style:"width:100%", id:"myRangeMax", value: 5  }, label: false %>
+              <%= f.input :level_max, as: :range, input_html: { min: 0, max: 5, class:"slider", style:"width:100%", id:"myRangeMax"  }, label: false %>
             </div>
           </div>
         </div>

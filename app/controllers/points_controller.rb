@@ -16,8 +16,6 @@ class PointsController < ApplicationController
     old_date = @point.date2
     point2 = Point.where(date2: old_date ).where( user: @point.user ).where( user_activity: @point.user_activity )
     second_point = point2.first
-    raise
-
     if @point.update(point_params)
       if @point.verif_data
         redirect_to point_path(@point), flash: {notice: "Votre Point a été créé avec succès"}
@@ -40,6 +38,17 @@ class PointsController < ApplicationController
     @user = current_user
     @point = Point.find(params[:id])
 
+    user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
+    point_coordinates = { lat: @point.latitude, lng: @point.longitude }
+    @markers = [ user_coordinates, point_coordinates ]
+
+    @participants = Participant.where(point: @point, invited: true )
+
+    @equipments = @point.equipments
+    @count_participants = Participant.where(point: @point, invited: true, status: "I'm in" ).count
+
+    @message = Message.new
+    @points = Message.where(point: @point).order('created_at ASC')
     second_date_point = Point.where(date2: @point.date2 ).where( user: @point.user ).where( user_activity: @point.user_activity )
     @second_date_point = second_date_point.first
     authorize @user
@@ -79,10 +88,14 @@ class PointsController < ApplicationController
     authorize @user
   end
 
-  def new
-    @user = current_user
-    authorize @user
+  def delete
+
   end
+
+  # def new
+  #   @user = current_user
+  #   authorize @user
+  # end
 
   def create
     @point = Point.new(point_params)
@@ -124,8 +137,13 @@ private
     params[:point][:user_activity].to_i
   end
 
+  def equi_params
+    raise
+    params.require(:point).permit( equipments_attributes: [ :id, participant_id: [] ])
+  end
+
   def point_params
-    params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :price, :address, :date, :date2,
+    params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :level_max, :price, :address, :date, :date2,
       # participants_attributes: [ :id, :status, :user_id ]
       participants_attributes: Participant.attribute_names.map(&:to_sym).push(:_destroy),
       # equipments_attributes: [ :id, :title ]
