@@ -1,11 +1,11 @@
+.background-white {
+  background-color: $white;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 20px;
+}
 #edit-point {
-  .background-white {
-    background-color: $white;
-    border-bottom-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    padding: 20px;
-  }
   .form-control {
     font-size: 15px;
   }

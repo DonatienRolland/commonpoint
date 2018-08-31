@@ -1,0 +1,48 @@
+
+<%= month_calendar events: @points do |date, points| %>
+  <%= date.day %>
+  <div class="row">
+    <% points.each do |point| %>
+      <div class="dropup">
+          <%= link_to "#", class:"point-calendar radius-points-calendar dropdown-toggle col-xs-12
+              #{ 'col-lg-4' if points.count < 3 }
+              #{ 'col-lg-4' if points.count == 3 }
+              #{ 'col-lg-6' if points.count == 2 }
+              #{ 'col-lg-12 stars' if points.count == 1 }
+              #{ 'red-color-border' if point.is_full? }
+              #{ 'green-color-border' if !point.is_full? }
+              #{ 'orange-background' if @user.invated?(point) }
+              #{ 'blue-background' if @user.partipated?(point) }
+              #{ 'red-background' if @user.is_owner?(point) }
+              #{'blue-background' if point.date >= @today}",
+              data: {toggle: 'dropdown'}, aria: { haspopup: true, expanded: false}, id:"drop_#{point.id}" do %>
+              <div class="contain-image icon_cercle" style="background-image: url('<%= image_path point.user_activity.activity.icon %>')">
+              </div>
+              <div class="<%= points.count >= 2 ? 'hidden' : '' %> hidden-xs ">
+                <%= point.id %>
+              </div>
+          <% end %>
+          <div class="dropdown-menu row" aria-labelledby="drop_<%= point.id %> ">
+            <div class="col-lg-2 point-calendar">
+              <%= image_tag point.user_activity.activity.icon %>
+            </div>
+            <div class="col-lg-3">
+              <p><%= point.user_activity.activity.title %></p>
+              <p>Organisé par: <%= point.user.name %></p>
+              <p>Lieu: <%= point.address %></p>
+              <p>Prix par participant: <%= point.price %>€</p>
+            </div>
+            <div class="col-lg-4">
+              <p><%= point.participants.where(status: "I'm in").count %> sur <%= point.number_min %> de places dispos</p>
+            </div>
+            <div class="col-lg-3">
+              <%= simple_form_for @user.is_participant?(point) do |f| %>
+                <%= f.input :status, collection: [ "I'm in", "I can't"], label: false %>
+                <%= f.submit %>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

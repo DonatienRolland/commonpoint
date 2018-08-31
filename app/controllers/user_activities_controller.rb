@@ -56,7 +56,6 @@ class UserActivitiesController < ApplicationController
     end
 
 
-
     numbers = []
     Activity.all.each do |activity|
       numbers << activity.number_of_user

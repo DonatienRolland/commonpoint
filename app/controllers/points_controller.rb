@@ -103,12 +103,16 @@ class PointsController < ApplicationController
     @point.user_activity = user_activity.first
     @point.user = @user
     if @point.save
+      user_participant = Participant.create!(user: @user, point: @point, invited: true, status: "I'm in")
+      user_participant.save
+
       activity = @point.user_activity.activity
       user_activities = UserActivity.where(activity: activity)
-
       user_activities.each do |user_activity|
-        participant = Participant.create!( user:user_activity.user, invited: false, point: @point)
-        participant.save
+        if user_activity.user != @user
+          participant = Participant.create!( user:user_activity.user, invited: false, point: @point)
+          participant.save
+        end
       end
       redirect_to edit_point_path(@point), flash: {notice: "Votre Point a été créé. Veuilliez compléter les infos manquantes"}
     else
@@ -118,11 +122,22 @@ class PointsController < ApplicationController
   end
 
   def home
+    @today = Date.today
     @points = @user.points
     @point = Point.new
     @activities = []
     @user.user_activities.map do |act|
       @activities << act.activity
+    end
+    @address = []
+    @user.points.each do |point|
+      if !@address.include?(point.address)
+        @address << point.address
+      end
+    end
+
+    filtering_params(params).each do |key, value|
+      @points = @points.public_send(key, value) if value.present? && value != "Saisissez"
     end
   end
 
@@ -144,10 +159,14 @@ private
 
   def point_params
     params.require(:point).permit(:type_of_point, :number_min, :number_max, :level_min, :level_max, :price, :address, :date, :date2,
-      # participants_attributes: [ :id, :status, :user_id ]
+    # participants_attributes: [ :id, :status, :user_id ]
       participants_attributes: Participant.attribute_names.map(&:to_sym).push(:_destroy),
-      # equipments_attributes: [ :id, :title ]
+    # equipments_attributes: [ :id, :title ]
       equipments_attributes: Equipment.attribute_names.map(&:to_sym).push(:_destroy)
-      )
+    )
+  end
+
+  def filtering_params(params)
+    params.slice(:addresses, :dates, :activity_title)
   end
 end

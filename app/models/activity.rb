@@ -4,6 +4,10 @@ class Activity < ApplicationRecord
   has_one :user_activity, dependent: :destroy
   has_many :users, through: :user_activities
 
+  has_many :points, through: :user_activities
+
+  scope :by_title, -> (current_title) { where(title: current_title ) }
+
   include PgSearch
   pg_search_scope :search_by_title,
     against: [ :title ],

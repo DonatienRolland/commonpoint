@@ -1,112 +1,112 @@
 
 <div id="edit-point">
-    <div class="row">
-      <div class="col-lg-9 big-height">
-        <div class="row display-inline">
-          <%= render 'information-point' %>
+  <div class="row">
+    <div class="col-lg-9 big-height">
+      <div class="row display-inline">
+        <%= render 'information-point' %>
 
-        </div>
-
-        <div class="row">
-          <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
-            <div class="dimension-onglet">
-              <h3 class="title-onglet">Lieu</h3>
-            </div>
-            <div class="background-white eql-height">
-              <p>Adresse: <%= @point.address %></p>
-              <div id="map" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
-            <div class="dimension-onglet">
-              <h3 class="title-onglet">Participants</h3>
-            </div>
-            <div class="background-white eql-height scroll-div">
-              <p><%= @count_participants %></p>
-              <% @participants.each do |participant| %>
-                <%= simple_form_for participant do |e| %>
-                  <div class="row">
-                    <%= e.object.user.name %>
-                    <% if e.object.status.nil? %>
-                      <% if e.object.user != @user%>
-                        <p>En attente ...</p>
-                      <% else %>
-                        <%= e.input :status, collection: [ "I'm in", "I can't"], label: false %>
-                        <%= f.submit %>
-                      <% end %>
-                    <% elsif e.object.status == "I'm in" %>
-                      <%= e.object.status %>
-                      <%= e.button :submit, value: "I can't" %>
-                    <% else %>
-                      <%= e.object.status %>
-                      <%= e.button :submit, value: "I'm in" %>
-                    <% end %>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <div id="equipments" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
-            <div class="dimension-onglet">
-              <h3 class="title-onglet">Matériels</h3>
-            </div>
-            <div class="background-white eql-height scroll-div">
-            <% @equipments.each do |equipment| %>
-              <%= simple_form_for equipment do |e| %>
-              <div class="row">
-                <%= e.object.title %>
-                <% if e.object.participant_id.nil? %>
-                  <%= e.input :participant_id, as: :check_boxes, label: false, input_html: { label: false}, collection: ["Je m'en occupe"] %>
-                  <%= e.submit %>
-                <% else %>
-                  <p> <%= e.object.participant.user.name %> s'en occupe</p>
-                  <%= e.button :submit, value: "<i class='far fa-trash-alt'></i>".html_safe %>
-
-                <% end %>
-              </div>
-              <% end %>
-            <% end %>
-
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="col-lg-3 big-height padding-blocks">
-        <div class="dimension-onglet">
-          <h3 class="title-onglet">Notification</h3>
+
+      <div class="row">
+        <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
+          <div class="dimension-onglet">
+            <h3 class="title-onglet">Lieu</h3>
+          </div>
+          <div class="background-white eql-height">
+            <p>Adresse: <%= @point.address %></p>
+            <div id="map" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
+          </div>
+
         </div>
-        <div class="background-white" style="height: calc(100% - 28px - 1%)">
-          <%= render 'messages/form', point: @point, message: @message %>
-          <div id="messages">
-            <% if @point.messages.blank? %>
-              Be the first to leave a message for this Point
-            <% else %>
-              <% @points.each do |message| %>
-                <%= render 'messages/show', message: message %>
+
+        <div class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
+          <div class="dimension-onglet">
+            <h3 class="title-onglet">Participants</h3>
+          </div>
+          <div class="background-white eql-height scroll-div">
+            <p><%= @count_participants %></p>
+            <% @participants.each do |participant| %>
+              <%= simple_form_for participant do |e| %>
+                <div class="row">
+                  <%= e.object.user.name %>
+                  <% if e.object.status.nil? %>
+                    <% if e.object.user != @user%>
+                      <p>En attente ...</p>
+                    <% else %>
+                      <%= e.input :status, collection: [ "I'm in", "I can't"], label: false %>
+                      <%= e.submit %>
+                    <% end %>
+                  <% elsif e.object.status == "I'm in" %>
+                    <%= e.object.status %>
+                    <%= e.button :submit, value: "I can't" %>
+                  <% else %>
+                    <%= e.object.status %>
+                    <%= e.button :submit, value: "I'm in" %>
+                  <% end %>
+                </div>
               <% end %>
             <% end %>
+          </div>
+        </div>
+        <div id="equipments" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
+          <div class="dimension-onglet">
+            <h3 class="title-onglet">Matériels</h3>
+          </div>
+          <div class="background-white eql-height scroll-div">
+          <% @equipments.each do |equipment| %>
+            <%= simple_form_for equipment do |e| %>
+            <div class="row">
+              <%= e.object.title %>
+              <% if e.object.participant_id.nil? %>
+                <%= e.input :participant_id, as: :check_boxes, label: false, input_html: { label: false}, collection: ["Je m'en occupe"] %>
+                <%= e.submit %>
+              <% else %>
+                <p> <%= e.object.participant.user.name %> s'en occupe</p>
+                <%= e.button :submit %>
+
+              <% end %>
+            </div>
+            <% end %>
+          <% end %>
+
           </div>
         </div>
       </div>
     </div>
-    <% if @point.user == current_user %>
-      <div class="form-action">
-        <%= link_to edit_point_path(@point), class:"display-inline" do %>
-          <div class="form-button form-button-lg circle-btn green-color">
-            <i class="far fa-edit"></i>
-          </div>
-          <h3>Modifier</h3>
-        <% end %>
-          <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline" do %>
-            <div class="form-button form-button-lg circle-btn red-color">
-              <i class="far fa-trash-alt"></i>
-            </div>
-            <h3>Supprimer</h3>
-          <% end %>
+    <div class="col-lg-3 big-height padding-blocks">
+      <div class="dimension-onglet">
+        <h3 class="title-onglet">Notification</h3>
       </div>
-    <% end %>
+      <div class="background-white" style="height: calc(100% - 28px - 1%)">
+        <%= render 'messages/form', point: @point, message: @message %>
+        <div id="messages">
+          <% if @point.messages.blank? %>
+            Be the first to leave a message for this Point
+          <% else %>
+            <% @points.each do |message| %>
+              <%= render 'messages/show', message: message %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if @point.user == current_user %>
+    <div class="form-action">
+      <%= link_to edit_point_path(@point), class:"display-inline" do %>
+        <div class="form-button form-button-lg circle-btn green-color">
+          <i class="far fa-edit"></i>
+        </div>
+        <h3>Modifier</h3>
+      <% end %>
+        <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline" do %>
+          <div class="form-button form-button-lg circle-btn red-color">
+            <i class="far fa-trash-alt"></i>
+          </div>
+          <h3>Supprimer</h3>
+        <% end %>
+    </div>
+  <% end %>
 </div>
 <%= link_to @second_date_point.user_activity.activity.title, edit_point_path(@second_date_point) %>
 <%= content_for(:after_js) do %>

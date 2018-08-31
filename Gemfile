@@ -47,3 +47,6 @@ gem "cocoon"
 
 # slider
 gem 'bootstrap-slider-rails'
+
+#for calendar
+gem "simple_calendar"

@@ -13,3 +13,9 @@ flatpickr(".datepicker", {
 })
 
 
+flatpickr(".datepicker2", {
+
+  enableTime: false,
+  dateFormat: "d/m/Y",
+  "locale": French
+})

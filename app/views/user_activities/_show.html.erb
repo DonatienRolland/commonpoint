@@ -1,6 +1,6 @@
 
     <div class="circle-btn">
-      <div class="icon_cercle <%= act.is_a_user_activity?(current_user) ? 'blue-background' : "" %>" style="background-image: url('<%= image_path act.icon %>')">
+      <div class="icon_cercle background-icon <%= act.is_a_user_activity?(current_user) ? 'blue-background' : "" %>" style="background-image: url('<%= image_path act.icon %>')">
       </div>
       <p class="<%= act.is_a_user_activity?(current_user) ? 'blue-text' : "" %>"><%= truncate(act.title, :length => 20)%></p>
     </div>

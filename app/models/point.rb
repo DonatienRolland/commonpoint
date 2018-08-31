@@ -1,4 +1,14 @@
 class Point < ApplicationRecord
+  # methode pour aider les recherche
+  scope :addresses, -> (address) { where address: address }
+  scope :full?, -> (full) { where full: full }
+  # scope :dates, -> (date) { where "date ILIKE ?", "%#{date}%" }
+  scope :dates, lambda { |date|
+    where("DATE(date) = ?", date.to_date)
+  }
+  scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
+
+
   belongs_to :user
   belongs_to :user_activity
 
@@ -29,7 +39,9 @@ class Point < ApplicationRecord
 
   def verif_data
     if self.address.present? && self.price.present? && self.number_min > 0 && self.level_min.present?
-      self.number_max = nil
+      if !self.number_max.nil? && self.number_max < self.number_min
+        self.number_max = nil
+      end
       self.save
     else
       return false
@@ -42,4 +54,17 @@ class Point < ApplicationRecord
     return "Vous devez sélectionner un nombre minimum de participant " if self.number_min == 0
     return "Vous devez sélectionner un niveau minimum " if self.level_min.nil?
   end
+
+  def start_time
+      self.date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
+  def is_full?
+    if !self.number_max.nil?
+      self.number_max == Participant.where(point: self, status: "I'm in").count
+    else
+      return false
+    end
+  end
+
 end

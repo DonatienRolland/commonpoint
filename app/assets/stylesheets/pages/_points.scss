@@ -1,0 +1,28 @@
+.point-calendar {
+  img {
+    height: 20px;
+  }
+}
+.green-color-border {
+  border: 1px solid $green;
+}
+.red-color-border {
+  border: 1px solid $red ;
+}
+.blue-background {
+  background: $blue-middle;
+}
+.red-background {
+  background: $red !important;
+}
+.orange-background {
+  background: $orange;
+}
+.radius-points-calendar {
+  border-radius: 2px
+}
+.contain-image {
+  width: 30px;
+  height: 30px
+
+}
