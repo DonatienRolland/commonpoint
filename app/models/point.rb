@@ -1,18 +1,20 @@
 class Point < ApplicationRecord
   # methode pour aider les recherche
   scope :addresses, -> (address) { where address: address }
-  scope :full?, -> (full) { where full: full }
+  # scope :full?, -> (full) { where full: full } changer avec true
   # scope :dates, -> (date) { where "date ILIKE ?", "%#{date}%" }
   scope :dates, lambda { |date|
     where("DATE(date) = ?", date.to_date)
   }
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
-
   belongs_to :user
   belongs_to :user_activity
 
-  has_many :activities, through: :user_activity
+  has_one :activities, through: :user_activity
+
+  has_one :title, ->  { where title: 'title' }, class_name: "Activity"
+
   has_many :users, through: :user_activity
 
   has_many :participants, dependent: :destroy
