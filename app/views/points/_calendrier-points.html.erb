@@ -22,24 +22,25 @@
                 <%= point.id %>
               </div>
           <% end %>
-          <div class="dropdown-menu row" aria-labelledby="drop_<%= point.id %> ">
+          <div class="dropdown-menu dropdown-menu-center dropup-point row" aria-labelledby="drop_<%= point.id %> ">
             <div class="col-lg-2 point-calendar">
               <%= image_tag point.user_activity.activity.icon %>
-            </div>
-            <div class="col-lg-3">
               <p><%= point.user_activity.activity.title %></p>
-              <p>Organisé par: <%= point.user.name %></p>
+            </div>
+            <div class="col-lg-5">
+              <p>Organisé par: <%= point.user.first_name %></p>
               <p>Lieu: <%= point.address %></p>
               <p>Prix par participant: <%= point.price %>€</p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <p><%= point.participants.where(status: "I'm in").count %> sur <%= point.number_min %> de places dispos</p>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <%= simple_form_for @user.is_participant?(point) do |f| %>
-                <%= f.input :status, collection: [ "I'm in", "I can't"], label: false %>
+                <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
                 <%= f.submit %>
               <% end %>
+              <%= link_to 'Voir le point', point_path(point) %>
             </div>
           </div>
       </div>

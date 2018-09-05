@@ -7,8 +7,9 @@ import { French } from "flatpickr/dist/l10n/fr.js"
 flatpickr(".datepicker", {
 
   enableTime: true,
-  dateFormat: "d/m/Y H:i",
+  dateFormat: "le d/m/Y à H:i",
   minDate: "today",
+  time_24hr: true,
   "locale": French
 })
 
@@ -16,6 +17,7 @@ flatpickr(".datepicker", {
 flatpickr(".datepicker2", {
 
   enableTime: false,
+  mode: "range",
   dateFormat: "d/m/Y",
   "locale": French
 })

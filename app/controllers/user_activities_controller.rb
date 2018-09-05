@@ -60,7 +60,7 @@ class UserActivitiesController < ApplicationController
     Activity.all.each do |activity|
       numbers << activity.number_of_user
     end
-    @max_max = numbers.max(10)
+    @max_max = numbers.max(4)
 
     @user_activity = UserActivity.new
 

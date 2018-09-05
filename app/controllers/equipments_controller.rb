@@ -8,9 +8,8 @@ class EquipmentsController < ApplicationController
     if !@participant.nil?
       if !params[:equipment].nil? && equipment_params == "Je m'en occupe"
         @equipment.participant = @participant
-      elsif params[:equipment].nil?
-        @equipment.participant = nil
       else
+        @equipment.participant = nil
         redirect_to point_path(@point)
       end
       if @equipment.save

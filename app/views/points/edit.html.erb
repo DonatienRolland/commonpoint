@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
+      <div class="col-lg-7 col-sm-12 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
           <h3 class="title-onglet">Lieu</h3>
         </div>
@@ -35,24 +35,25 @@
         </div>
 
       </div>
-
-      <div id="participants" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
-        <div class="dimension-onglet">
-          <h3 class="title-onglet">Participants</h3>
-        </div>
-        <div class="background-white eql-height scroll-div relative-btn">
-          <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
-            <div class="row">
-              <%= render 'participant_fields', f: e %>
-            </div>
-          <% end %>
-          <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
-            <%=  link_to_add_association f, :participants  do %>
-              <i class="fas fa-plus"></i>
+      <% if !@point.is_public? %>
+        <div id="participants" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
+          <div class="dimension-onglet">
+            <h3 class="title-onglet">Participants</h3>
+          </div>
+          <div class="background-white eql-height max-height scroll-div relative-btn">
+            <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
+              <div class="row">
+                <%= render 'participant_fields', f: e %>
+              </div>
             <% end %>
+            <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
+              <%=  link_to_add_association f, :participants  do %>
+                <i class="fas fa-plus"></i>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
 
       <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
         <div class="dimension-onglet">

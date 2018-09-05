@@ -3,33 +3,49 @@ class PointsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @user = current_user
-    @points = @user.points
 
-    user = policy_scope(User)
-    authorize User
   end
 
   def update
     @user = current_user
     @point = Point.find(params[:id])
-    old_date = @point.date2
-    point2 = Point.where(date2: old_date ).where( user: @point.user ).where( user_activity: @point.user_activity )
-    second_point = point2.first
     if @point.update(point_params)
       if @point.verif_data
-        redirect_to point_path(@point), flash: {notice: "Votre Point a été créé avec succès"}
+        # create a new point if second date
+        if !params[:second_date].nil? && params[:second_date] != ""
+          new_point = Point.new(@point.attributes.merge(date: params[:second_date] ))
+          new_point.id = nil
+          # join to a group
+          if @point.point_group
+            @point_group = @point.point_group
+          else
+            @point_group = PointGroup.create!
+            @point.point_group = @point_group
+          end
+          @point.save
+          new_point.point_group = @point_group
+          new_point.save
+          # create its paerticipants and equipments
+          @point.participants.each do |participant|
+            part = Participant.new(participant.attributes.merge(id: nil, point: new_point))
+            part.save
+          end
+          @point.equipments.each do |equipment|
+            equi = Equipment.new(equipment.attributes.merge(id: nil, point: new_point))
+            equi.save
+          end
+        end
+        if !@point.point_group.nil?
+          @point_group = @point.point_group
+          redirect_to point_group_path( @point_group ), flash: {notice: "Tout est en ordre"}
+        else
+          redirect_to point_path( @point ), flash: {notice: "Tout est en ordre"}
+        end
       else
         redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message }
       end
-      if point_params[:date2].present? && second_point.nil? && old_date != @point.date2
-        new_point = Point.new(@point.attributes.merge({date: point_params[:date2]}))
-        new_point.date2 = nil
-        new_point.id = nil
-        new_point.save
-      end
     else
-      render new
+      redirect_to edit_point_path(@point), flash: {notice: "Assurez vous d'avoir bien remplis tous les champs" }
     end
     authorize @user
   end
@@ -88,32 +104,13 @@ class PointsController < ApplicationController
     authorize @user
   end
 
-  def delete
-
-  end
-
-  # def new
-  #   @user = current_user
-  #   authorize @user
-  # end
-
   def create
     @point = Point.new(point_params)
     user_activity = UserActivity.where(user: @user).where(activity_id: activity_params)
     @point.user_activity = user_activity.first
     @point.user = @user
     if @point.save
-      user_participant = Participant.create!(user: @user, point: @point, invited: true, status: "I'm in")
-      user_participant.save
-
-      activity = @point.user_activity.activity
-      user_activities = UserActivity.where(activity: activity)
-      user_activities.each do |user_activity|
-        if user_activity.user != @user
-          participant = Participant.create!( user:user_activity.user, invited: false, point: @point)
-          participant.save
-        end
-      end
+      generate_participants(@point, @user)
       redirect_to edit_point_path(@point), flash: {notice: "Votre Point a été créé. Veuilliez compléter les infos manquantes"}
     else
       render new
@@ -121,9 +118,17 @@ class PointsController < ApplicationController
     end
   end
 
+  def destroy
+    @point = Point.find(params[:id])
+    @user = @point.user
+    @point.destroy
+    redirect_to home_user_points_path(@user)
+    authorize @user
+  end
+
   def home
     @today = Date.today
-    @points = @user.points
+    @user_points = @user.points
     @point = Point.new
     @activities = []
     @user.user_activities.map do |act|
@@ -135,13 +140,25 @@ class PointsController < ApplicationController
         @address << point.address
       end
     end
-
+    @points = @user.points
     filtering_params(params).each do |key, value|
-      @points = @points.public_send(key, value) if value.present? && value != "Saisissez"
+      @points = @points.public_send(key, value) if value.present? && value != "Tous"
     end
   end
 
 private
+
+  def generate_participants(point, user)
+    user_participant = Participant.create!(user: user, point: point, invited: true, status: "I'm in")
+    activity = point.user_activity.activity
+    user_activities = UserActivity.where(activity: activity)
+    user_activities.each do |user_activity|
+      if user_activity.user != user
+        participant = Participant.create!( user:user_activity.user, invited: point.is_public? ? true : false, point: point)
+        participant.save
+      end
+    end
+  end
 
   def set_user
     @user = User.find(params[:user_id])
@@ -152,9 +169,11 @@ private
     params[:point][:user_activity].to_i
   end
 
-  def equi_params
-    raise
-    params.require(:point).permit( equipments_attributes: [ :id, participant_id: [] ])
+  def participants_and_equipments_prams
+    params.require(:point).permit(
+      participants_attributes: [ :status, :user_id, :invited ],
+      equipments_attributes: [ :title ]
+    )
   end
 
   def point_params

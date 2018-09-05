@@ -1,8 +1,8 @@
-<div class='nested-fields participants-fields'>
+<div class='nested-fields participants-fields scroll-div'>
     <% if f.object.user != nil %>
       <div class="col-xs-11 col-lg-11 col-sm-11">
         <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class:"avatar-square"%>
-        <%= f.object.user.email%>
+        <%= f.object.user.first_name%>
       </div>
       <div class="col-xs-1 col-lg-1 col-sm-1">
         <%= f.input :invited, as: :boolean, label: false %>

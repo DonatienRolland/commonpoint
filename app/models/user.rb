@@ -19,10 +19,10 @@ class User < ApplicationRecord
   has_many :points, through: :participants
   accepts_nested_attributes_for :participants, allow_destroy: true, reject_if: :all_blank
 
-  def name
-    name = self.email.first(8)
-    name.capitalize
-  end
+  # def name
+  #   name = self.email.first(8)
+  #   name.capitalize
+  # end
 
   def comming(current_point)
     array_participant = Participant.where(point: current_point, user: self)

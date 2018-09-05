@@ -1,0 +1,26 @@
+
+<h2>Vous venez de créer <%= pluralize @point_group.points.size, "Point" %> </h2>
+<div class="cards row">
+  <% @point_group.points.each do |point| %>
+    <div class="card padding-blocks <%= @point_group.points.count > 2 ? 'col-lg-4' : 'col-lg-6' %> ">
+      <div class="dimension-onglet">
+        <h3 class="title-onglet"><%= point.activity_title %></h3>
+      </div>
+      <div class="background-white">
+        <p><%= point.day_month %></p>
+        <p><%= point.is_full? ? "Complet" : "Pas Complet" %></p>
+        <p><strong><%= Participant.where(point: point, invited: true).count %></strong> sur <strong><%= point.participants.count %></strong> d'invitié pour ce point</p>
+        <p> Matériel: <strong> <%= Equipment.where(point: point).count %></strong></p>
+        <%= link_to point_path(point) do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+        <%= link_to edit_point_path(point) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
+        <%= link_to point_path(point),  method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

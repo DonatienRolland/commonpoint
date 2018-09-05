@@ -48,7 +48,16 @@
   color: $white;
   text-decoration: underline;
 }
+.dropup-point {
+  width: 500px;
+}
 
+.dropdown-menu-center {
+  left: 50% !important;
+  right: auto !important;
+  text-align: center !important;
+  transform: translate(-50%, 0) !important;
+}
 /* Dropdown menu */
 .navbar-wagon-dropdown-menu {
   margin-top: 15px;

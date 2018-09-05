@@ -3,17 +3,15 @@ class ParticipantsController < ApplicationController
     @participant = Participant.find(params[:id])
     @user = current_user
     @point = @participant.point
-    if params[:commit] == "I can't"
-      @participant.status = "I can't"
-      @participant.save
-      redirect_to point_path(@point), flash: {notice: "Merci" }
-    elsif params[:commit] == "I'm in"
-      @participant.status = "I'm in"
-      @participant.save
+    if @participant.update(participant_params)
       redirect_to point_path(@point), flash: {notice: "Merci" }
     else
       redirect_to point_path(@point), flash: {notice: "Something wrong" }
     end
-     authorize @user
+    authorize @user
+  end
+
+  def participant_params
+    params.require(:participant).permit(:status)
   end
 end

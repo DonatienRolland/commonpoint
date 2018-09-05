@@ -91,19 +91,37 @@
       <div class="col-lg-5 col-xs-12">
         <div class="display-inline">
           <p class="five-margin">Proposition Date 1:</p>
-          <%= f.input :date, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
+          <%= f.input :date, as: :string, required: true, input_html: {class: "datepicker"}, label: false %>
         </div>
       </div>
       <div class="col-lg-5 col-xs-12">
-        <% if f.object.date2.nil? || f.object.date2 == "" %>
-          <div class="display-inline">
-            <p class="five-margin">Proposition Date 2:</p>
-            <%= f.input :date2, as: :string, required: false, input_html: {class: "datepicker"}, label: false %>
-          </div>
-        <% end %>
+        <div class="display-inline">
+          <p class="five-margin">Proposition Date 2:</p>
+          <%= text_field_tag :second_date, nil, class:'datepicker'  %>
+        </div>
       </div>
     </div>
 
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

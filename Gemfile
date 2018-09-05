@@ -50,3 +50,6 @@ gem 'bootstrap-slider-rails'
 
 #for calendar
 gem "simple_calendar"
+
+# to create seed
+gem 'faker'

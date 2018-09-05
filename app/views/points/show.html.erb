@@ -1,5 +1,6 @@
 
 <div id="edit-point">
+  <%= @point.day_month %>
   <div class="row">
     <div class="col-lg-9 big-height">
       <div class="row display-inline">
@@ -28,21 +29,21 @@
             <% @participants.each do |participant| %>
               <%= simple_form_for participant do |e| %>
                 <div class="row">
-                  <%= e.object.user.name %>
-                  <% if e.object.status.nil? %>
-                    <% if e.object.user != @user%>
-                      <p>En attente ...</p>
-                    <% else %>
-                      <%= e.input :status, collection: [ "I'm in", "I can't"], label: false %>
-                      <%= e.submit %>
-                    <% end %>
-                  <% elsif e.object.status == "I'm in" %>
-                    <%= e.object.status %>
-                    <%= e.button :submit, value: "I can't" %>
+                  <%= e.object.user.first_name %>
+                  <% if e.object.user == @user %>
+                    <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
+                    <%= e.submit %>
                   <% else %>
-                    <%= e.object.status %>
-                    <%= e.button :submit, value: "I'm in" %>
+                    <% if e.object.status.nil? %>
+                      <p>En attente ...</p>
+                    <% elsif e.object.status == "I'm in" %>
+                      <p> Participe</p>
+                    <% else %>
+                      <p> Ne participe pas</p>
+                    <% end %>
                   <% end %>
+
+
                 </div>
               <% end %>
             <% end %>
@@ -61,7 +62,7 @@
                 <%= e.input :participant_id, as: :check_boxes, label: false, input_html: { label: false}, collection: ["Je m'en occupe"] %>
                 <%= e.submit %>
               <% else %>
-                <p> <%= e.object.participant.user.name %> s'en occupe</p>
+                <p> <%= e.object.participant.user.first_name %> s'en occupe</p>
                 <%= e.button :submit %>
 
               <% end %>

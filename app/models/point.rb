@@ -2,18 +2,21 @@ class Point < ApplicationRecord
   # methode pour aider les recherche
   scope :addresses, -> (address) { where address: address }
   # scope :full?, -> (full) { where full: full } changer avec true
-  # scope :dates, -> (date) { where "date ILIKE ?", "%#{date}%" }
+
   scope :dates, lambda { |date|
-    where("DATE(date) = ?", date.to_date)
+    after = date.split.first
+    before = date.split.last
+    where('DATE(date) >= ? AND DATE(date) <= ?', after.to_date, before.to_date)
   }
+
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
   belongs_to :user
   belongs_to :user_activity
+  belongs_to :point_group, required: false
 
-  has_one :activities, through: :user_activity
+  has_one :activity, through: :user_activity
 
-  has_one :title, ->  { where title: 'title' }, class_name: "Activity"
 
   has_many :users, through: :user_activity
 
@@ -59,6 +62,20 @@ class Point < ApplicationRecord
 
   def start_time
       self.date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
+  def activity_title
+    self.activity.title
+  end
+
+  def is_public?
+    if self.type_of_point == "Publique"
+      true
+    end
+  end
+
+  def day_month
+    self.date.strftime("%A %d %B %Y à %H:%M")
   end
 
   def is_full?
