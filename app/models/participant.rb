@@ -9,6 +9,15 @@ class Participant < ApplicationRecord
 
   accepts_nested_attributes_for :point, :reject_if => :all_blank, allow_destroy: true
 
+  include PgSearch
+  pg_search_scope :search_by_first_name,
+    associated_against: {
+      user: [ :first_name ]
+    },
+    using: {
+      tsearch: { prefix: true }
+    }
+
   private
 
   def validation_update(point_selected)

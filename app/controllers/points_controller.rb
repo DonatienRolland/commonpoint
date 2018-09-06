@@ -82,15 +82,13 @@ class PointsController < ApplicationController
       @markers << point_coordinates
     end
 
+    # participant part
+    @stars = [0, 1, 2, 3, 4, 5]
 
-    activity = @point.user_activity.activity
-    user_activities = UserActivity.where(activity: activity)
-
-    @participants = []
-    user_activities.each do |user_activity|
-      if !@participants.include?(user_activity.user)
-        @participants << participant = user_activity.user
-      end
+    if params[:query] && params[:query] != ""
+      @participants = @point.participants.search_by_first_name(params[:query])
+    else
+      @participants = @point.participants
     end
 
     if @point.participants.count == 0
@@ -99,6 +97,7 @@ class PointsController < ApplicationController
       0.times { @point.participants.build }
     end
 
+    # equipment part
     @point.equipments.count == 0 ? 1.times { @point.equipments.build } : 0.times { @point.equipments.build }
 
     authorize @user

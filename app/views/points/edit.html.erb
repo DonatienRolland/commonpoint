@@ -1,7 +1,14 @@
 <div id="edit-point">
   <%= render 'modal-new-point', user: @user, point: @point %>
 
-
+   <div>
+    <%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Participant" %>
+      <%= button_tag class:"recherche-btn" do %>
+        <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
+      <% end %>
+    <% end %>
+  </div>
 
   <div class="visible-xs">
     <%= link_to "#" do %>
@@ -10,7 +17,12 @@
   </div>
 
    <%= simple_form_for (@point) do |f| %>
-    <%= f.error_notification %>
+    <div class="row">
+      <% if !@point.is_public? %>
+        <%= render 'participants-selection', f: f %>
+      <% end %>
+    </div>
+
     <div class="row display-inline">
       <%= render 'form', f: f %>
       <div class="historic-btn col-lg-2 col-sm-2 hidden-xs">
@@ -25,7 +37,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-7 col-sm-12 col-xs-12 padding-blocks">
+      <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
           <h3 class="title-onglet">Lieu</h3>
         </div>
@@ -35,25 +47,6 @@
         </div>
 
       </div>
-      <% if !@point.is_public? %>
-        <div id="participants" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
-          <div class="dimension-onglet">
-            <h3 class="title-onglet">Participants</h3>
-          </div>
-          <div class="background-white eql-height max-height scroll-div relative-btn">
-            <%= f.simple_fields_for :participants, autocomplete: :on do |e| %>
-              <div class="row">
-                <%= render 'participant_fields', f: e %>
-              </div>
-            <% end %>
-            <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
-              <%=  link_to_add_association f, :participants  do %>
-                <i class="fas fa-plus"></i>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
 
       <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
         <div class="dimension-onglet">

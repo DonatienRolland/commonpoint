@@ -20,7 +20,17 @@ class Point < ApplicationRecord
 
   has_many :users, through: :user_activity
 
-  has_many :participants, dependent: :destroy
+  has_many :participants, dependent: :destroy do
+    def find_by_level(spe_level)
+      participants = []
+      self.each do |participant|
+        if participant.user.user_activities.by_activity_title(participant.point.activity_title).where(level: spe_level).present?
+          participants << participant
+        end
+      end
+      return participants
+    end
+  end
   has_many :users, through: :participants
 
   has_many :equipments, dependent: :destroy
@@ -85,5 +95,6 @@ class Point < ApplicationRecord
       return false
     end
   end
+
 
 end
