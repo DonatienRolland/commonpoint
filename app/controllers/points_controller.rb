@@ -65,8 +65,8 @@ class PointsController < ApplicationController
 
     @message = Message.new
     @points = Message.where(point: @point).order('created_at ASC')
-    second_date_point = Point.where(date2: @point.date2 ).where( user: @point.user ).where( user_activity: @point.user_activity )
-    @second_date_point = second_date_point.first
+    # second_date_point = Point.where(date2: @point.date2 ).where( user: @point.user ).where( user_activity: @point.user_activity )
+    # @second_date_point = second_date_point.first
     authorize @user
   end
 
@@ -126,20 +126,23 @@ class PointsController < ApplicationController
   end
 
   def home
-    @today = Date.today
-    @user_points = @user.points
-    @point = Point.new
-    @activities = []
-    @user.user_activities.map do |act|
-      @activities << act.activity
-    end
+    participants = @user.participants
+    @user_points = []
+    @points = []
     @address = []
-    @user.points.each do |point|
-      if !@address.include?(point.address)
+    participants.each do |participant|
+      point = participant.point
+      address = participant.point.address
+      @user_points << point
+      @points << point
+      if !@address.include?(participant.point.address)
         @address << point.address
       end
     end
-    @points = @user.points
+    @point = Point.new
+
+    @today = Date.today
+
     filtering_params(params).each do |key, value|
       @points = @points.public_send(key, value) if value.present? && value != "Tous"
     end

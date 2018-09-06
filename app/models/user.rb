@@ -24,17 +24,17 @@ class User < ApplicationRecord
   #   name.capitalize
   # end
 
-  def comming(current_point)
-    array_participant = Participant.where(point: current_point, user: self)
-    participant = array_participant.first
-    if participant.status == "I'm in"
-      return true
-    elsif participant.status == "I can't"
-      return false
-    else
-      return nil
-    end
-  end
+  # def comming(current_point)
+  #   array_participant = Participant.where(point: current_point, user: self)
+  #   participant = array_participant.first
+  #   if participant.status == "I'm in"
+  #     return true
+  #   elsif participant.status == "I can't"
+  #     return false
+  #   else
+  #     return nil
+  #   end
+  # end
 
   def is_participant?(current_point)
     participant = Participant.where(user: self, point: current_point)
@@ -42,11 +42,19 @@ class User < ApplicationRecord
   end
   def partipated?(current_point)
     participant = self.is_participant?(current_point)
-    participant.status == "I'm in"
+    if participant.status == "I'm in"
+      true
+    else
+      false
+    end
   end
   def invated?(current_point)
     participant = self.is_participant?(current_point)
-    participant.invited == true
+    if participant.invited
+      return true
+    else
+      return false
+    end
   end
   def is_owner?(current_point)
     current_point.user == self

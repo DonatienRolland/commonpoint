@@ -1,4 +1,5 @@
 class Point < ApplicationRecord
+  after_create :destroy_if_blanck
   # methode pour aider les recherche
   scope :addresses, -> (address) { where address: address }
   # scope :full?, -> (full) { where full: full } changer avec true
@@ -71,7 +72,13 @@ class Point < ApplicationRecord
   end
 
   def start_time
-      self.date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+    self.date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
+  def is_new?
+    if self.created_at > Date.today - 1.hours
+      true
+    end
   end
 
   def activity_title
@@ -81,6 +88,12 @@ class Point < ApplicationRecord
   def is_public?
     if self.type_of_point == "Publique"
       true
+    end
+  end
+
+  def destroy_if_blanck
+    if !self.is_new? && self.date.nil? && self.address.nil?
+      self.destroy
     end
   end
 
