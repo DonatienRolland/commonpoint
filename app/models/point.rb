@@ -18,7 +18,8 @@ class Point < ApplicationRecord
 
   has_one :activity, through: :user_activity
 
-
+  has_many :equipments, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_many :users, through: :user_activity
 
   has_many :participants, dependent: :destroy do
@@ -33,10 +34,6 @@ class Point < ApplicationRecord
     end
   end
   has_many :users, through: :participants
-
-  has_many :equipments, dependent: :destroy
-
-  has_many :messages, dependent: :destroy
 
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :equipments, reject_if: :all_blank, allow_destroy: true
@@ -92,7 +89,7 @@ class Point < ApplicationRecord
   end
 
   def destroy_if_blanck
-    if !self.is_new? && self.date.nil? && self.address.nil?
+    if self.date.nil? && self.address.nil?
       self.destroy
     end
   end

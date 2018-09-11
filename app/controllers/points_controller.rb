@@ -128,13 +128,14 @@ class PointsController < ApplicationController
   def home
     participants = @user.participants
     @user_points = []
-    @points = []
+    # @points = []
     @address = []
+    @points = Point.all
     participants.each do |participant|
       point = participant.point
       address = participant.point.address
       @user_points << point
-      @points << point
+      # @points << point
       if !@address.include?(participant.point.address)
         @address << point.address
       end
@@ -142,8 +143,8 @@ class PointsController < ApplicationController
     @point = Point.new
 
     @today = Date.today
-
     filtering_params(params).each do |key, value|
+    # raise
       @points = @points.public_send(key, value) if value.present? && value != "Tous"
     end
   end
