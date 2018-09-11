@@ -128,25 +128,26 @@ class PointsController < ApplicationController
   def home
     participants = @user.participants
     @user_points = []
-    # @points = []
     @address = []
-    @points = Point.all
+    point_ids = []
     participants.each do |participant|
       point = participant.point
-      address = participant.point.address
       @user_points << point
-      # @points << point
+      point_ids << point.id
+      address = participant.point.address
       if !@address.include?(participant.point.address)
         @address << point.address
       end
     end
-    @point = Point.new
+    @points = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
 
+    @point = Point.new
     @today = Date.today
     filtering_params(params).each do |key, value|
-    # raise
       @points = @points.public_send(key, value) if value.present? && value != "Tous"
     end
+
+    @months = [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"]
   end
 
 private

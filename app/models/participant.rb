@@ -5,9 +5,10 @@ class Participant < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   has_many :equipments, dependent: :destroy
+
   accepts_nested_attributes_for :equipments
 
-  accepts_nested_attributes_for :point, :reject_if => :all_blank, allow_destroy: true
+  # accepts_nested_attributes_for :point, :reject_if => :all_blank, allow_destroy: true
 
   include PgSearch
   pg_search_scope :search_by_first_name,

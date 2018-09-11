@@ -22,6 +22,7 @@ module Commonpoint
     # the framework and any gems in your application.
 
     config.i18n.default_locale = :en
+
     # to add AJax
     config.action_view.embed_authenticity_token_in_remote_forms = true
   end

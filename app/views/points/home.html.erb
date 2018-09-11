@@ -31,12 +31,7 @@
   </div>
 
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-    <ul>
-      <% @points.each do |point| %>
-        <li><%= link_to point.user_activity.activity.title, edit_point_path(point) %></li>
-      <% end %>
-    </ul>
-
+    <%= render 'list-points', user: @user, points: @points %>
   </div>
 </div>
 

@@ -1,5 +1,5 @@
 class Point < ApplicationRecord
-  after_create :destroy_if_blanck
+  # after_create :destroy_if_blanck
   # methode pour aider les recherche
   scope :addresses, -> (address) { where address: address }
   # scope :full?, -> (full) { where full: full } changer avec true
@@ -33,6 +33,7 @@ class Point < ApplicationRecord
       return participants
     end
   end
+
   has_many :users, through: :participants
 
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true

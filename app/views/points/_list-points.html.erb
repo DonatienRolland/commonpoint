@@ -1,0 +1,46 @@
+<% @months.each_with_index do |month, index| %>
+  <p> <%=  index %>-<%= month %></p>
+<% end %>
+
+<% @points.each do |point| %>
+  <p><%= point.day_month %> </p>
+  <div class="point-list row">
+    <div class="one-point form-action col-lg-1">
+      <div class="point-calendar">
+        <%= image_tag point.user_activity.activity.icon %>
+        <p><%= point.user_activity.activity.title %></p>
+      </div>
+      <div class="point-information-general col-lg-4">
+        <p> Organisé par <%= point.user.first_name %></p>
+        <p> <%= point.address %></p>
+        <p> Prix par personne <%= point.price %>€</p>
+      </div>
+      <div class="current-participants col-lg-4">
+        <p><%= point.participants.where(status: "I'm in").count %> participants sur <%= point.number_min %> de places dispos</p>
+        <% point.participants.first(3).each do |participant| %>
+          <div class="point-calendar">
+            <% if participant.user.avatar.present? %>
+             <%= image_tag participant.user.avatar %>
+           <% else %>
+             <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier" %>
+           <% end %>
+          </div>
+        <% end %>
+        <p><%= point.participants.first.user.first_name %> et <%= point.participants.where(status: "I'm in").count - 1 %> amis participent</p>
+        <% if point.is_full? %>
+          <p>Complet</p>
+        <% else %>
+          <p><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
+        <% end %>
+      </div>
+      <div class="col-lg-3">
+        <%= simple_form_for @user.is_participant?(point) do |f| %>
+          <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
+          <%= f.submit %>
+        <% end %>
+        <%= link_to 'Voir le point', point_path(point) %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
