@@ -1,0 +1,84 @@
+.month-point {
+  display: flex;
+  justify-content: center;
+  background-color: $cp;
+  margin-top: 10px;
+  color: white;
+  padding: 0;
+  border-radius: 10px;
+  h3 {
+    padding: 5px;
+    margin: 0;
+  }
+}
+.point-list {
+  margin: 0 2%;
+}
+.color-background-date {
+  background-color: #F4F4F4;
+  border-radius: 5px;
+  margin: 1% 10px;
+  padding: 5px 3%;
+  color: $cp;
+  a {
+   color: $cp;
+  }
+  i {
+   color: $cp;
+  }
+}
+
+.box-shadow-border {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
+}
+.margin-10 {
+  margin: 0 10px;
+  padding: 10px;
+}
+
+.flex-evenly {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.light-p {
+  color: gray;
+  font-size: 11px !important;
+  margin: 6px 0 0 0;
+}
+.form-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  button:hover {
+    color: $green;
+  }
+}
+.relative-position {
+  position: relative;
+}
+.absolute-full {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  p {
+    padding-left: 15%;
+    margin: 0;
+  }
+}
+.red-background {
+  background-color: $red;
+  color: white;
+}
+
+.activity-width {
+  width: 150px;
+  text-align: center;
+  img {
+    height: 70px;
+    width: 70px;
+    margin: auto;
+  }
+}

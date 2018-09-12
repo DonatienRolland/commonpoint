@@ -1,44 +1,53 @@
-<% @months.each_with_index do |month, index| %>
-  <p> <%=  index %>-<%= month %></p>
-<% end %>
-
+<div class="month-point">
+  <h3>SEPTEMBRE</h3>
+</div>
 <% @points.each do |point| %>
-  <p><%= point.day_month %> </p>
-  <div class="point-list row">
-    <div class="one-point form-action col-lg-1">
-      <div class="point-calendar">
-        <%= image_tag point.user_activity.activity.icon %>
-        <p><%= point.user_activity.activity.title %></p>
-      </div>
-      <div class="point-information-general col-lg-4">
-        <p> Organisé par <%= point.user.first_name %></p>
-        <p> <%= point.address %></p>
-        <p> Prix par personne <%= point.price %>€</p>
-      </div>
-      <div class="current-participants col-lg-4">
-        <p><%= point.participants.where(status: "I'm in").count %> participants sur <%= point.number_min %> de places dispos</p>
-        <% point.participants.first(3).each do |participant| %>
-          <div class="point-calendar">
-            <% if participant.user.avatar.present? %>
-             <%= image_tag participant.user.avatar %>
-           <% else %>
-             <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier" %>
-           <% end %>
+  <div class="point-list">
+    <h3 class="color-background-date"><%= point.day_month %> / <i class="fas fa-search"></i> <%= link_to 'Voir le point', point_path(point) %> </h3>
+    <div class="row">
+      <div class="one-point flex-evenly col-lg-1">
+        <div class=" box-shadow-border margin-10 activity-width form-flex-column">
+          <%= image_tag point.user_activity.activity.icon %>
+          <p><%= point.user_activity.activity.title %></p>
+        </div>
+        <div class="point-information-general col-lg-4 box-shadow-border margin-10">
+          <p> Organisé par <%= point.user.first_name %></p>
+          <p> <%= point.address %></p>
+          <p> Prix par personne <%= point.price %>€</p>
+        </div>
+        <div class="current-participants col-lg-4 box-shadow-border margin-10 relative-position">
+          <p><%= point.participants.where(status: "I'm in").count %> participants sur <%= point.number_min %> de places dispos</p>
+          <div class="flex-evenly">
+            <div class="flex-evenly" style="width: 30%;">
+              <% point.participants.first(3).each do |participant| %>
+                <div class="point-calendar">
+                  <% if participant.user.avatar.present? %>
+                   <%= image_tag participant.user.avatar %>
+                 <% else %>
+                   <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier" %>
+                 <% end %>
+                </div>
+              <% end %>
+            </div>
+            <p class="light-p"><%= point.participants.first.user.first_name %> et <%= point.participants.where(status: "I'm in").count - 1 %> amis participent</p>
           </div>
-        <% end %>
-        <p><%= point.participants.first.user.first_name %> et <%= point.participants.where(status: "I'm in").count - 1 %> amis participent</p>
-        <% if point.is_full? %>
-          <p>Complet</p>
-        <% else %>
-          <p><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
-        <% end %>
-      </div>
-      <div class="col-lg-3">
-        <%= simple_form_for @user.is_participant?(point) do |f| %>
-          <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
-          <%= f.submit %>
-        <% end %>
-        <%= link_to 'Voir le point', point_path(point) %>
+          <div class="absolute-full">
+            <% if point.is_full? %>
+              <p class="red-background ">Complet</p>
+            <% else %>
+              <p class="red-background "><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-lg-3 margin-10">
+          <%= simple_form_for @user.is_participant?(point), html: { class: "form-flex-column" } do |f| %>
+            <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
+            <%= f.button :button do %>
+              <i class="fas fa-check"></i>
+              Confirmer
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
