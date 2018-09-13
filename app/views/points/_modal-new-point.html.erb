@@ -1,22 +1,30 @@
 <!-- modal -->
-  <div class="modal fade" id="newPointModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-content">
+  <div class="modal row fade" id="newPointModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-content col-lg-4 col-lg-offset-4">
       <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
       <h4>C'est parti ...</h4>
       <% if point.id.nil? %>
 
         <%= simple_form_for [user, point] do |f| %>
+          <p>Choisissez votre activité:</p>
           <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
 
           <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
-          <%= f.submit %>
+          <%= f.button :button do %>
+            <i class="fas fa-check"></i>
+            Créer
+          <% end %>
+
         <% end %>
       <% else %>
         <%= simple_form_for point do |f| %>
           <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
 
           <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
-          <%= f.submit %>
+          <%= f.button :button do %>
+            <i class="fas fa-check"></i>
+            Créer
+          <% end %>
         <% end %>
       <% end %>
     </div>

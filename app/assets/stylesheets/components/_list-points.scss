@@ -76,9 +76,12 @@
 .activity-width {
   width: 150px;
   text-align: center;
+  p {
+    margin: 0;
+  }
   img {
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     margin: auto;
   }
 }

@@ -18,25 +18,25 @@
 <h3>Vous avez <strong><%= pluralize @points.size, "Point" %></strong> correspondant à votre recherche </h3>
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
   <li class="active nav-item">
-    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Calendrier</a>
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Calendrier</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Flux</a>
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Flux</a>
   </li>
 </ul>
 
 <div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+  <div class="tab-pane active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
     <%= render 'calendrier-points', user: @user, points: @points %>
   </div>
 
-  <div class="tab-pane active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <%= render 'list-points', user: @user, points: @points %>
   </div>
 </div>
 
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPointModal">
+<button type="button" class="btn btn-primary recherche-btn" data-toggle="modal" data-target="#newPointModal">
   Créer un match
 </button>
 
