@@ -132,10 +132,10 @@ class PointsController < ApplicationController
     point_ids = []
     participants.each do |participant|
       point = participant.point
-      @user_points << point
       point_ids << point.id
       address = participant.point.address
       if !@address.include?(participant.point.address)
+        @user_points << point
         @address << point.address
       end
     end

@@ -1,0 +1,23 @@
+<div class="modal row fade" id="listParticipantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="row">
+  <div id="participants" class="col-lg-12 col-sm-6 col-xs-12 padding-blocks">
+    <div class="dimension-onglet">
+      <h3 class="title-onglet">Participants</h3>
+    </div>
+
+    <div class="background-white row">
+      <!-- <div class="padding-blocks" style="display: flex;">
+        <#%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
+          <#%= text_field_tag :query, params[:query], placeholder: "Participant" %>
+          <#%= button_tag class:"recherche-btn" do %>
+            <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
+          <#% end %>
+        <#% end %>
+      </div> -->
+      <%= render 'participants-selection', f: f %>
+    </div>
+  </div>
+
+  </div>
+</div>

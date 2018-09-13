@@ -117,11 +117,12 @@ input[type="radio"], input[type="checkbox"] {
     width: 80%;
   }
 }
-.display-new-participant{
-    display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+// .display-new-participant{
+//   display: flex;
+//   flex-direction: column;
+//   align-items: left;
+//   justify-content: space-between;
+// }
 .equipments-fields {
   display: flex;
   align-items: center;
@@ -133,4 +134,26 @@ input[type="radio"], input[type="checkbox"] {
 }
 .input-height {
   height: 39px;
+}
+
+.column-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .recherche-btn {
+    width: 100%;
+  }
+}
+.onglet-participants {
+  border: solid $light-gray 1px;
+  border-radius: 2px;
+  padding: 2%;
+  color: $cp;
+}
+.onglet-participants:hover {
+  text-decoration: none;
+  color: black;
+}
+.onglet-participants:active {
+  color: black;
 }

@@ -2,7 +2,7 @@
 
   <div id="user_activity-search_bar">
     <%= form_tag home_user_points_path(@user), method: :get do %>
-      <%= select_tag :activity_title, options_for_select(@user_points.collect{ |u| u.user_activity.activity.title }.insert(0, "Tous"), params[:activity_title]) %>
+      <%= select_tag :activity_title, options_for_select(@user_points.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous"), params[:activity_title]) %>
 
       <%= text_field_tag :dates, params[:dates].present? ? params[:dates] : "Tous", :class =>'datepicker2'  %>
 
@@ -39,11 +39,3 @@
 <button type="button" class="btn btn-primary recherche-btn" data-toggle="modal" data-target="#newPointModal">
   Créer un match
 </button>
-
-
-<script>
-
-</script>
-
-
-<!-- Default dropup button -->

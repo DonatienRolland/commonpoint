@@ -8,7 +8,7 @@
         <%= f.input :invited, as: :boolean, label: false %>
       </div>
     <% else %>
-      <div class="display-new-participant col-xs-11 col-lg-11 col-sm-11">
+      <div class="equipments-fields col-xs-11 col-lg-11 col-sm-11">
         <%= f.input :user_id, collection: User.all, label: false %>
         <div class="form-button form-button-xs circle-btn red-color">
           <%= link_to_remove_association f  do %>

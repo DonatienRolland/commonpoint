@@ -1,14 +1,6 @@
 <div id="edit-point">
   <%= render 'modal-new-point', user: @user, point: @point %>
 
-   <div>
-    <%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
-      <%= text_field_tag :query, params[:query], placeholder: "Participant" %>
-      <%= button_tag class:"recherche-btn" do %>
-        <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
-      <% end %>
-    <% end %>
-  </div>
 
   <div class="visible-xs">
     <%= link_to "#" do %>
@@ -16,13 +8,10 @@
     <% end %>
   </div>
 
-   <%= simple_form_for (@point) do |f| %>
-    <div class="row">
-      <% if !@point.is_public? %>
-        <%= render 'participants-selection', f: f %>
-      <% end %>
-    </div>
-
+  <%= simple_form_for (@point) do |f| %>
+    <% if !@point.is_public? %>
+      <%= render 'modal-new-participant-list', f: f %>
+    <% end %>
     <div class="row display-inline">
       <%= render 'form', f: f %>
       <div class="historic-btn col-lg-2 col-sm-2 hidden-xs">
@@ -37,7 +26,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
+      <div class="col-lg-6 col-sm-12 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
           <h3 class="title-onglet">Lieu</h3>
         </div>
@@ -63,36 +52,35 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="form-action">
-      <%= f.button :button, class:"display-inline" do %>
-        <div class="form-button form-button-lg circle-btn green-color">
-          <i class="fas fa-chevron-down"></i>
+      <div class="col-lg-3 padding-blocks">
+        <div class="dimension-onglet">
+          <h3 class="title-onglet">Actions</h3>
         </div>
-        <h3>Sauvegarder</h3>
-      <% end %>
+        <div class="eql-height background-white column-btn">
+          <% if !@point.is_public? %>
+            <button type="button" class="btn btn-primary recherche-btn" data-toggle="modal" data-target="#listParticipantModal">
+              Participants
+            </button>
+          <% end %>
 
-      <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline" do %>
-        <div class="form-button form-button-lg circle-btn red-color">
-          <i class="far fa-trash-alt"></i>
+          <%= f.button :button, class:"display-inline" do %>
+            <div class="form-button form-button-lg circle-btn green-color">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <h3>Sauvegarder</h3>
+          <% end %>
+
+          <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline btn" do %>
+            <div class="form-button form-button-lg circle-btn red-color">
+              <i class="far fa-trash-alt"></i>
+            </div>
+            <h3>Supprimer</h3>
+          <% end %>
         </div>
-        <h3>Supprimer</h3>
-      <% end %>
+      </div>
     </div>
   <% end %>
 </div>
-
-
-<%= content_for(:after_js) do %>
-
-<script>
-
-
-
-</script>
-
-<% end %>
-
 
 
 
