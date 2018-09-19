@@ -5,7 +5,7 @@
 
       <%= text_field_tag :dates, params[:dates].present? ? params[:dates] : "Tous", :class =>'datepicker2'  %>
 
-      <%= select_tag( :addresses, options_for_select(@address.insert(0, "Tous"), params[:addresses]), {class:'select2'})  %>
+      <%= select_tag :addresses, options_for_select(@address.insert(0, "Tous"), params[:addresses]), {class:'select2'}  %>
 
       <%= button_tag class:"recherche-btn" do %>
         <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
