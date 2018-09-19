@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :user_activities, only: :create
     resources :points, only: [ :create, :new ] do
       get 'home', :on => :collection
+      get 'historique', :on => :collection
+      get 'invitation', :on => :collection
     end
   end
 

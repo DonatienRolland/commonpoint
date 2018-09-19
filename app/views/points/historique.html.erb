@@ -1,0 +1,16 @@
+<h1>Vous avez <%= @points.count %> points</h1>
+
+<% @months.each do |num| %>
+  <% month_now = @now + (num - 1).month  %>
+  <% month_next = @now + num.month  %>
+  <% points = @points.where('date between ? and ?', month_now, month_next) %>
+  <% if points.count > 0 %>
+
+    <h3>Vous avez <%= points.count %> points pour le mois de <%= month_now.strftime("%B") %></h3>
+    <ul>
+      <% points.each do |point| %>
+        <li><%= link_to point.activity_title, "#" %> <%= point.day_month %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

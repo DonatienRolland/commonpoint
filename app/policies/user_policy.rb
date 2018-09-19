@@ -17,6 +17,14 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
+  def historique?
+    is_user_the_owner_or_admin?
+  end
+
+  def invitation?
+    is_user_the_owner_or_admin?
+  end
+
   def destroy?
     is_user_the_owner_or_admin?
   end

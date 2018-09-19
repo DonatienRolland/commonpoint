@@ -1,8 +1,39 @@
 class PointsController < ApplicationController
-  before_action :set_user, only: [ :new, :create, :home]
+  before_action :set_user, only: [ :new, :create, :home, :invitation, :historique]
   skip_before_action :authenticate_user!, only: [:index]
 
-  def index
+  def home
+    participants = @user.participants
+    @user_points = []
+    @address = []
+    point_ids = []
+    participants.each do |participant|
+      point = participant.point
+      point_ids << point.id
+      address = participant.point.address
+      if !@address.include?(participant.point.address)
+        @user_points << point
+        @address << point.address
+      end
+    end
+    @points = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
+
+    @point = Point.new
+    @today = Date.today
+    filtering_params(params).each do |key, value|
+      @points = @points.public_send(key, value) if value.present? && value != "Tous"
+    end
+
+    @now = Time.zone.now.beginning_of_month
+    @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  end
+
+  def historique
+    @points = Point.all.order('date ASC')
+
+  end
+
+  def invitation
 
   end
 
@@ -113,7 +144,6 @@ class PointsController < ApplicationController
       redirect_to edit_point_path(@point), flash: {notice: "Votre Point a été créé. Veuilliez compléter les infos manquantes"}
     else
       render new
-      raise
     end
   end
 
@@ -123,31 +153,6 @@ class PointsController < ApplicationController
     @point.destroy
     redirect_to home_user_points_path(@user)
     authorize @user
-  end
-
-  def home
-    participants = @user.participants
-    @user_points = []
-    @address = []
-    point_ids = []
-    participants.each do |participant|
-      point = participant.point
-      point_ids << point.id
-      address = participant.point.address
-      if !@address.include?(participant.point.address)
-        @user_points << point
-        @address << point.address
-      end
-    end
-    @points = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
-
-    @point = Point.new
-    @today = Date.today
-    filtering_params(params).each do |key, value|
-      @points = @points.public_send(key, value) if value.present? && value != "Tous"
-    end
-
-    @months = [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"]
   end
 
 private

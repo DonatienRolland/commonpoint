@@ -17,13 +17,13 @@
       <%= link_to home_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link" do %>
         <i class="fas fa-home"></i> Accueil
       <% end %>
-      <%= link_to points_path, class: "navbar-wagon-item navbar-wagon-link" do%>
+      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do%>
       <i class="far fa-calendar-alt"></i> Mes Points
       <% end %>
-      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link" do %>
       <i class="fas fa-history"></i> Mon Historique
       <% end %>
-      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+      <%= link_to invitation_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link" do %>
       <i class="far fa-envelope-open"></i> Mes Invitations
       <% end %>
       <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
