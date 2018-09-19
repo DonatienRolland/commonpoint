@@ -1,8 +1,23 @@
-
 <% @months.each do |num| %>
-  <% month_now = @now + (num - 1).month  %>
   <% month_next = @now + num.month  %>
-  <% points = @points.where('date between ? and ?', month_now, month_next) %>
+  <!-- differencier futur et past -->
+  <% if @months.first < @months.second %>
+    <% month_now = @now + (num - 1).month  %>
+    <% if month_now == @today.strftime("%B") %>
+      <% points = @points.where('date between ? and ?', @today, month_next) %>
+    <% else %>
+      <% points = @points.where('date between ? and ?', month_now, month_next) %>
+    <% end %>
+  <% else %>
+    <% month_now = @now + (num + 1).month  %>
+    <% if month_now == @today.strftime("%B") %>
+      <% points = @points.where('date between ? and ?', month_next, @today) %>
+    <% else %>
+      <% points = @points.where('date between ? and ?', month_next, month_now) %>
+    <% end %>
+  <% end %>
+
+
   <% if points.count > 0 %>
     <div class="month-point">
       <h3><%= month_now.strftime("%B").upcase %></h3>

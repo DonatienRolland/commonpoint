@@ -1,40 +1,33 @@
 class PointsController < ApplicationController
   before_action :set_user, only: [ :new, :create, :home, :invitation, :historique]
+  before_action :set_onglet, only: [ :home, :invitation, :historique]
   skip_before_action :authenticate_user!, only: [:index]
 
   def home
     participants = @user.participants
-    @user_points = []
-    @address = []
-    point_ids = []
-    participants.each do |participant|
-      point = participant.point
-      point_ids << point.id
-      address = participant.point.address
-      if !@address.include?(participant.point.address)
-        @user_points << point
-        @address << point.address
-      end
-    end
-    @points = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
-
-    @point = Point.new
-    @today = Date.today
-    filtering_params(params).each do |key, value|
-      @points = @points.public_send(key, value) if value.present? && value != "Tous"
-    end
-
-    @now = Time.zone.now.beginning_of_month
+    points_selected_user(participants, @user)
+    @points = @point_selected
+    filtering(@points)
+    @path_select_date = home_user_points_path(@user)
     @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
   end
 
   def historique
-    @points = Point.all.order('date ASC')
-
+    participants = Participant.where(user: @user, invited: true, status: "I'm in")
+    points_selected_user(participants, @user)
+    @points = @point_selected.where('date <= ?', @today)
+    filtering(@points)
+    @path_select_date = historique_user_points_path(@user)
+    @months = [ -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11]
   end
 
   def invitation
-
+    participants = Participant.where(user: @user, invited: true, status: nil)
+    points_selected_user(participants, @user)
+    @points = @point_selected.where('date >= ?', @today)
+    filtering(@points)
+    @path_select_date = invitation_user_points_path(@user)
+    @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
   end
 
   def update
@@ -174,6 +167,11 @@ private
     authorize @user
   end
 
+  def set_onglet
+    @point = Point.new
+    @now = Time.zone.now.beginning_of_month
+  end
+
   def activity_params
     params[:point][:user_activity].to_i
   end
@@ -192,6 +190,29 @@ private
     # equipments_attributes: [ :id, :title ]
       equipments_attributes: Equipment.attribute_names.map(&:to_sym).push(:_destroy)
     )
+  end
+
+  def points_selected_user(participants, user)
+    @user_points = []
+    @address = []
+    point_ids = []
+    participants.each do |participant|
+      point = participant.point
+      point_ids << point.id
+      address = participant.point.address
+      if !@address.include?(participant.point.address)
+        @user_points << point
+        @address << point.address
+      end
+    end
+    @today = Date.today
+    @point_selected = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
+  end
+
+  def filtering(points)
+    filtering_params(params).each do |key, value|
+      @points = @points.public_send(key, value) if value.present? && value != "Tous"
+    end
   end
 
   def filtering_params(params)
