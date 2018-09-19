@@ -22,30 +22,33 @@
 
         <div class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
           <div class="dimension-onglet">
-            <h3 class="title-onglet">Participants</h3>
+            <h3 class="title-onglet">Participants </h3>
           </div>
           <div class="background-white eql-height scroll-div">
             <p><%= @count_participants %></p>
             <% @participants.each do |participant| %>
-              <%= simple_form_for participant do |e| %>
-                <div class="row">
-                  <%= e.object.user.first_name %>
-                  <% if e.object.user == @user %>
+              <div class="row">
+                <% if participant.user == @user %>
+                  <%= simple_form_for participant do |e| %>
+                    <%= e.object.user.first_name %>
                     <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
                     <%= e.submit %>
-                  <% else %>
-                    <% if e.object.status.nil? %>
-                      <p>En attente ...</p>
-                    <% elsif e.object.status == "I'm in" %>
-                      <p> Participe</p>
-                    <% else %>
-                      <p> Ne participe pas</p>
-                    <% end %>
                   <% end %>
-
-
-                </div>
-              <% end %>
+                <% else %>
+                  <div class="col-lg-6">
+                    <p><%= participant.user.first_name %></p>
+                  </div>
+                  <div class="col-lg-6">
+                    <% if participant.status == "I'm in" %>
+                      <p>Participe</p>
+                    <% elsif participant.status.nil? %>
+                      <p>En attente</p>
+                    <% else %>
+                      <p>Ne participe pas</p>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>
