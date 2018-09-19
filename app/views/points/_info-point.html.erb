@@ -1,0 +1,46 @@
+
+  <div class="row" style="width:100%;padding: 10px;">
+    <div class="box-shadow-border activity-width form-flex-column col-lg-2" style="padding: 10px;">
+      <%= image_tag point.user_activity.activity.icon %>
+      <p><%= truncate(point.user_activity.activity.title, length: 20, :separator => /\s/ )%></p>
+    </div>
+    <div class="point-information-general col-lg-3 box-shadow-border" style="padding: 10px 10px 0px 10px;">
+      <p> Organisé par <%= point.user.first_name %></p>
+      <p> <%= point.address %></p>
+      <p> Prix par personne <%= point.price %>€</p>
+    </div>
+    <div class="current-participants col-lg-4 box-shadow-border relative-position" style="padding: 10px">
+      <p><%= point.participants.where(status: "I'm in").count %> participants sur <%= point.number_min %> de places dispos</p>
+      <div class="flex-evenly">
+        <div class="flex-evenly" style="width: 30%;">
+          <% point.participants.first(3).each do |participant| %>
+            <div class="point-calendar">
+              <% if participant.user.avatar.present? %>
+               <%= image_tag participant.user.avatar %>
+             <% else %>
+               <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier" %>
+             <% end %>
+            </div>
+          <% end %>
+        </div>
+        <p class="light-p"><%= point.participants.first.user.first_name %> et <%= point.participants.where(status: "I'm in").count - 1 %> amis participent</p>
+      </div>
+      <div class="absolute-full">
+        <% if point.is_full? %>
+          <p class="red-background ">Complet</p>
+        <% else %>
+          <p class="red-background "><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-3" style="padding: 10px">
+      <%= simple_form_for @user.is_participant?(point), html: { class: "form-flex-column" } do |f| %>
+        <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
+        <%= f.button :button do %>
+          <i class="fas fa-check"></i>
+          Confirmer
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+

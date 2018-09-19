@@ -5,7 +5,8 @@ $( document ).ready(function() {
     }).get(),
 
     maxHeight = Math.max.apply(null, heights);
-
+    console.log(heights)
+    console.log(maxHeight)
     $(".eql-height").height(maxHeight);
 });
 

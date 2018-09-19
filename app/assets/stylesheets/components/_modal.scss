@@ -1,19 +1,44 @@
+// Modal fullscreen
 .modal {
   display: none;
-  padding: 5% 4%;
   overflow: none;
-  background-color: rgba(0,0,0,0.4);
   .active {
     display: block !important;
   }
+  .modal-content {
+    padding: 0 0 20px 0;
+  }
+}
+// full screen
+.modal-space-1 {
+  padding: 5% 4%;
+  background-color: rgba(0,0,0,0.4);
 }
 
+// Modal like dropup
+
+.myModalspe {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  bottom: 2px;
+  overflow: auto; /* Enable scroll if needed */
+  .modal-content {
+    padding: 10px 0px 10px 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .dim-info-point{
+    width: 900px;
+  }
+}
 
 .modal-content {
   position: relative;
+  z-index: 20;
   background-color: $white;
-  padding: 0 0 20px 0;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: none;
   animation-name: animatetop;
   animation-duration: 0.4s;
   display: flex;
@@ -26,6 +51,12 @@
     height: 40px;
   }
 }
+
+
+
+
+
+
 
 .cancel {
   font-size: 25px !important;

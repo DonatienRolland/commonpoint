@@ -3,11 +3,11 @@
   <%= date.day %>
   <div class="row">
     <% points.each do |point| %>
-      <div class="dropup">
-          <% if !point.is_new?%>
+      <div class="dropup" style="position: relative;">
+          <% if point.is_new?%>
             <p>TODO</p>
           <% end %>
-          <%= link_to "#", class:"point-calendar radius-points-calendar dropdown-toggle col-xs-12
+          <%= link_to "#", class:"point-calendar modal-button radius-points-calendar dropdown-toggle col-xs-12
               #{ 'col-lg-4' if points.count < 3 }
               #{ 'col-lg-4' if points.count == 3 }
               #{ 'col-lg-6' if points.count == 2 }
@@ -17,35 +17,20 @@
               #{ 'orange-background' if @user.invated?(point) && !@user.is_owner?(point) && !@user.partipated?(point) }
               #{ 'blue-background' if @user.partipated?(point) && !@user.is_owner?(point) }
               #{ 'red-background' if @user.is_owner?(point) }",
-              data: {toggle: 'dropdown'}, aria: { haspopup: true, expanded: false}, id:"drop_#{point.id}" do %>
+              data: {toggle: 'dropdown', target: "drop_#{point.id}"}, aria: { haspopup: true, expanded: false} do %>
               <div class="contain-image icon_cercle" style="background-image: url('<%= image_path point.user_activity.activity.icon %>')">
               </div>
               <div class="<%= points.count >= 2 ? 'hidden' : '' %> hidden-xs ">
                 <%= point.id %>
               </div>
           <% end %>
-          <div class="dropdown-menu dropdown-menu-center dropup-point row" aria-labelledby="drop_<%= point.id %> ">
-            <div class="col-lg-2 point-calendar">
-              <%= image_tag point.user_activity.activity.icon %>
-              <p><%= point.user_activity.activity.title %></p>
-            </div>
-            <div class="col-lg-5">
-              <p>Organisé par: <%= point.user.first_name %></p>
-              <p>Lieu: <%= point.address %></p>
-              <p>Prix par participant: <%= point.price %>€</p>
-            </div>
-            <div class="col-lg-3">
-              <p><%= point.number_min - point.participants.where(status: "I'm in").count %> sur <%= point.number_min %> de places dispos</p>
-            </div>
-            <div class="col-lg-2">
-              <%= simple_form_for @user.is_participant?(point) do |f| %>
-                <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
-                <%= f.submit %>
-              <% end %>
-              <%= link_to 'Voir le point', point_path(point) %>
-            </div>
-          </div>
+
+          <%= render 'modal-info-point', point: point %>
+
       </div>
     <% end %>
   </div>
 <% end %>
+
+
+
