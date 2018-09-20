@@ -1,0 +1,17 @@
+.avatar {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+.avatar-square {
+  height: 35px;
+  width: 35px;
+  border-radius: 1px;
+}
+.avatar-init {
+  background-color: $white;
+  padding-left: 7px;
+  padding-top: 4px;
+  color: $cp;
+  font-weight: lighter;
+}
