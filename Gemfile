@@ -53,3 +53,6 @@ gem "simple_calendar"
 
 # to create seed
 gem 'faker'
+
+gem 'cloudinary'
+gem 'carrierwave', '~> 1.2'

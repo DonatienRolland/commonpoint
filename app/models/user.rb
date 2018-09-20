@@ -1,6 +1,10 @@
+
 class User < ApplicationRecord
+  before_create :upcase
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  mount_uploader :avatar, PhotoUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -35,6 +39,21 @@ class User < ApplicationRecord
   #     return nil
   #   end
   # end
+  def his_avatar
+    init1 = self.first_name.split(//).first.upcase
+    init2 = self.first_name.split(//).second
+    init = init1 + init2
+  end
+
+  def create_avatar
+    if self
+
+    end
+  end
+
+  def upcase
+    self.first_name.upcase
+  end
 
   def is_participant?(current_point)
     participant = Participant.where(user: self, point: current_point)
@@ -58,5 +77,19 @@ class User < ApplicationRecord
   end
   def is_owner?(current_point)
     current_point.user == self
+  end
+  def email_company
+    user_domain = self.email.split("@").second
+    companies = Company.all
+    companies.each do |company|
+      if company.email_domain.include?(user_domain)
+        self.company = company
+      end
+    end
+  end
+  def has_company?
+    if self.company
+      true
+    end
   end
 end
