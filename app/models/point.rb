@@ -12,8 +12,8 @@ class Point < ApplicationRecord
 
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
-  belongs_to :user
-  belongs_to :user_activity
+  belongs_to :user, dependent: :destroy
+  belongs_to :user_activity, dependent: :destroy
   belongs_to :point_group, required: false
 
   has_one :activity, through: :user_activity

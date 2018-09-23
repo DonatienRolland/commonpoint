@@ -18,6 +18,14 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+
+  def create
+    @user = User.new(user_params)
+    @user.email_company
+    @user.save
+    authorize @user
+  end
+
 private
 
   def user_params
