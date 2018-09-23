@@ -7,3 +7,59 @@
 #pills-home{
   height: unset;
 }
+
+
+
+
+.simple-calendar {
+  .day {}
+
+  .wday-0 {
+    .transform-cel {
+      transform: translate(-800px);
+    }
+  }
+  .wday-1 {
+    .transform-cel {
+      transform: translate(-100px);
+    }
+  }
+  .wday-2 {
+    .transform-cel {
+      transform: translate(-230px);
+    }
+  }
+  .wday-3 {
+    .transform-cel {
+      transform: translate(-230px);
+    }
+  }
+  .wday-4 {
+    .transform-cel {
+      transform: translate(-376px);
+    }
+  }
+  .wday-5 {
+    .transform-cel {
+      transform: translate(-526px);
+    }
+  }
+  .wday-6 {
+    .transform-cel {
+      transform: translate(-726px);
+    }
+
+  }
+
+  .today {}
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {}
+  .next-month { }
+  .current-month {}
+
+  .has-events {}
+}

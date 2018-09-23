@@ -5,7 +5,11 @@
     <h2>Modifier votre profil</h2>
     <%= simple_form_for (@user) do |f| %>
       <div class="form-inputs">
-        <%= f.input :first_name %>
+        <%= f.input :avatar, label:'Votre Avatar' %>
+        <%= f.input :avatar_cache, as: :hidden %>
+        <%= f.input :first_name, label:'Prénom' %>
+        <%= f.input :last_name, label:'Nom' %>
+        <%= f.input :phone, label:'Mobile' %>
       </div>
       <div class="form-actions">
         <%= f.button :submit, "Modifier" %>

@@ -7,14 +7,36 @@
     </div>
 
     <div class="background-white row">
-      <!-- <div class="padding-blocks" style="display: flex;">
-        <#%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
-          <#%= text_field_tag :query, params[:query], placeholder: "Participant" %>
-          <#%= button_tag class:"recherche-btn" do %>
-            <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
-          <#% end %>
-        <#% end %>
-      </div> -->
+      <div class="padding-blocks" style="display: flex;">
+        <%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
+          <!-- <#%= text_field_tag :query, params[:query], placeholder: "Participant" %> -->
+          <%= button_tag class:"", :value => 0 do %>
+            <p> 0 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => 1 do %>
+            <p> 1 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => 2 do %>
+            <p> 2 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => 3 do %>
+            <p> 3 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => 4 do %>
+            <p> 4 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => 5 do %>
+            <p> 5 star</p>
+          <% end %>
+          <%= button_tag class:"", :value => "Tous" do %>
+            <p> Tous</p>
+          <% end %>
+        <% end %>
+      </div>
+
+
+
+
       <%= render 'participants-selection', f: f %>
     </div>
   </div>

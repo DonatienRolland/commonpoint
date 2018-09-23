@@ -10,10 +10,10 @@
       <% end %>
     </div>
 
-    <div class="col-lg-8 scroll-div relative-btn max-height tab-content" id="v-pills-tabContent">
+    <div class="col-lg-4 scroll-div relative-btn max-height tab-content" id="v-pills-tabContent">
         <div class="tab-pane active" style="height: 100%" id="v-pills-tous" role="tabpanel" aria-labelledby="v-pills-tous-tab">
           <%= f.simple_fields_for :participants, @participants do |e| %>
-            <div class="row">
+            <div class="row" style="cursor: pointer;">
               <%= render 'participant_fields', f: e %>
             </div>
           <% end %>
@@ -34,3 +34,15 @@
         </div> -->
     </div>
 
+    <div class="col-lg-4 scroll-div relative-btn max-height tab-content hidden">
+      <% @participants.each do | participant| %>
+        <div class="row">
+          <div class="col-xs-11 col-lg-11 col-sm-11 on-participant" style="display: flex;">
+            <div style="margin-right: 10px;">
+            <%= render 'shared/avatar', user: participant.user %>
+            </div>
+            <p><%= participant.user.first_name%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>

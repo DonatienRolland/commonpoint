@@ -1,0 +1,15 @@
+<div class="content-participant row" style="margin: 5px;">
+  <div class="col-xs-2">
+    <%= render 'shared/avatar', user: user %>
+  </div>
+  <div class="col-xs-10">
+    <p>
+    <%= user.first_name.present? ? user.first_name : "" %><%= user.last_name.present? ? user.last_name : "" %></p>
+  </div>
+</div>
+
+
+
+
+
+

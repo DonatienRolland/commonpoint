@@ -10,13 +10,13 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to home_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link
-        #{ 'navbar-active' if params[:action] == "home" }
+      <%= link_to root_path, class: "navbar-wagon-item navbar-wagon-link
+        #{ 'navbar-active' if params[:action] == "dashboard" }
       " do %>
         <i class="fas fa-home"></i>Accueil
       <% end %>
-      <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link
-        #{ 'navbar-active' if params[:action] == "home#" } " do%>
+      <%= link_to home_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link
+        #{ 'navbar-active' if params[:action] == "home" } " do%>
       <i class="far fa-calendar-alt"></i>Mes Points
       <% end %>
       <%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "historique" }" do %>

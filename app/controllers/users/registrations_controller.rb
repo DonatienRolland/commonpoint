@@ -48,6 +48,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def user_params
-    params.require(:user).permit(:first_name, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:first_name, :email, :password, :password_confirmation, :avatar, :last_name, :phone)
   end
 end
