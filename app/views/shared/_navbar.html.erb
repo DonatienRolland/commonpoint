@@ -31,6 +31,11 @@
       <%= link_to user_activities_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
       <i class="far fa-heart"></i>Mes Activités
       <% end %>
+      <% if current_user.admin %>
+        <%= link_to admin_root_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
+        <i class="fa fa-cog"></i>Admin
+        <% end %>
+      <% end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
@@ -38,8 +43,8 @@
           <% if @user.avatar.present? %>
             <%= cl_image_tag @user.avatar, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
           <% else %>
-            <div class="avatar avatar-init dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown">
-              <%= @user.his_avatar %>
+            <div class="avatar avatar-init dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown", style='padding-top:19%;'>
+              <p><%= @user.his_avatar %></p>
             </div>
           <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">

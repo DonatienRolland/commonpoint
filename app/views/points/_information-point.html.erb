@@ -5,6 +5,10 @@
 
   <div class="background-white eql-height">
     <div class="top-bottom-margin center-items">
+        <p>Organisateur: <strong><%= @point.user.first_name.present? ? @point.user.first_name : "" %><%= @point.user.last_name.present? ? @point.user.last_name : "" %></strong></p>
+        <p>Type de point: <strong><%= @point.user.phone.present? ? @point.user.phone : "n'a pas renseigné son numéro de téléphone"  %></strong></p>
+    </div>
+    <div class="top-bottom-margin center-items">
         <p>Activitée: <strong><%= @point.user_activity.activity.title  %></strong></p>
         <p>Type de point: <strong><%= @point.type_of_point  %></strong></p>
     </div>

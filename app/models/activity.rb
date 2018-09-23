@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-  belongs_to :category
+  belongs_to :category, dependent: :destroy
 
   has_many :user_activity, dependent: :destroy
   has_many :users, through: :user_activities

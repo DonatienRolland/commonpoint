@@ -1,8 +1,8 @@
 class UserActivity < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   accepts_nested_attributes_for :user, :reject_if => :all_blank
 
-  belongs_to :activity
+  belongs_to :activity, dependent: :destroy
   accepts_nested_attributes_for :activity, :reject_if => :all_blank
 
   scope :by_activity_title, -> (current_title) { joins(:activity).merge(Activity.by_title(current_title)) }
