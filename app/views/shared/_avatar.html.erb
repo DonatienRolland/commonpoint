@@ -1,0 +1,7 @@
+<% if user.avatar.present? %>
+  <%= cl_image_tag user.avatar, class: "avatar avatar-square"%>
+<% else %>
+  <div class="avatar avatar-init avatar-square">
+    <%= user.his_avatar %>
+  </div>
+<% end %>

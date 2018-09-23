@@ -44,17 +44,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 20px;
-
+  border-radius: 10px;
   .rating {
     margin-left: 31%;
     height: 40px;
   }
 }
-
-
-
-
 
 
 
@@ -83,6 +78,7 @@
   justify-content: center;
   transform: rotate(45deg);
   transition: all 0.2s ease-in-out;
+  z-index: 100;
   &:hover {
     text-decoration: none;
     border-color: #2A2A2A;
@@ -90,7 +86,7 @@
 }
 
 .size-modal {
-  width: 350px;
+  width: 450px;
   margin: auto;
   padding: 20px;
   margin-top: 15vh;

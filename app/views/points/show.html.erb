@@ -1,80 +1,96 @@
 
 <div id="edit-point">
-  <%= @point.day_month %>
+  <div style="text-align: center; padding-bottom: 10px;">
+    <%= @point.day_month %>
+  </div>
   <div class="row">
     <div class="col-lg-9 big-height">
       <div class="row display-inline">
         <%= render 'information-point' %>
-
-      </div>
-
-      <div class="row">
-        <div class="col-lg-5 col-sm-12 col-xs-12 padding-blocks">
+        <div class="col-lg-7 col-sm-12 col-xs-12 padding-blocks">
           <div class="dimension-onglet">
             <h3 class="title-onglet">Lieu</h3>
           </div>
           <div class="background-white eql-height">
             <p>Adresse: <%= @point.address %></p>
-            <div id="map" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
+            <div id="map" style="height: 250px;" data-markers="<%= @markers.to_json%>"></div>
           </div>
 
         </div>
+      </div>
 
-        <div class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
+      <div class="row">
+
+
+        <div class="col-lg-8 col-sm-6 col-xs-12 padding-blocks">
           <div class="dimension-onglet">
             <h3 class="title-onglet">Participants </h3>
           </div>
-          <div class="background-white eql-height scroll-div">
-            <p><%= @count_participants %></p>
-            <% @participants.each do |participant| %>
-              <div class="row">
-                <% if participant.user == @user %>
-                  <%= simple_form_for participant do |e| %>
-                    <%= e.object.user.first_name %>
-                    <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
-                    <%= e.submit %>
-                  <% end %>
-                <% else %>
-                  <div class="col-lg-6">
-                    <p><%= participant.user.first_name %></p>
-                  </div>
-                  <div class="col-lg-6">
-                    <% if participant.status == "I'm in" %>
-                      <p>Participe</p>
-                    <% elsif participant.status.nil? %>
-                      <p>En attente</p>
-                    <% else %>
-                      <p>Ne participe pas</p>
+          <div class="background-white eql-height">
+            <p><%= @count_participants %> / <%= @point.number_min %> pour validé le point</p>
+            <div class="scroll-div" style="max-height: 240px">
+              <% @participants.each do |participant| %>
+                <div class="row">
+                  <% if participant.user == @user %>
+                    <%= simple_form_for participant do |e| %>
+                    <div class="col-lg-6">
+                      <%= render 'shared/participant-point', user: e.object.user %>
+                    </div>
+                    <div class="col-lg-3">
+                      <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
+                    </div>
+                    <div class="col-lg-3" style="text-align: center;">
+                      <%= button_tag(type: "submit", class: "new_post_submit") do %>
+                        <i class="glyphicon glyphicon-pencil"></i>
+                      <% end %>
+                    </div>
                     <% end %>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <div id="equipments" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
-          <div class="dimension-onglet">
-            <h3 class="title-onglet">Matériels</h3>
-          </div>
-          <div class="background-white eql-height scroll-div">
-          <% @equipments.each do |equipment| %>
-            <%= simple_form_for equipment do |e| %>
-            <div class="row">
-              <%= e.object.title %>
-              <% if e.object.participant_id.nil? %>
-                <%= e.input :participant_id, as: :check_boxes, label: false, input_html: { label: false}, collection: ["Je m'en occupe"] %>
-                <%= e.submit %>
-              <% else %>
-                <p> <%= e.object.participant.user.first_name %> s'en occupe</p>
-                <%= e.button :submit %>
-
+                  <% else %>
+                    <div class="col-lg-6">
+                      <%= render 'shared/participant-point', user: participant.user %>
+                    </div>
+                    <div class="col-lg-6">
+                      <% if participant.status == "I'm in" %>
+                        <p>Participe</p>
+                      <% elsif participant.status.nil? %>
+                        <p>En attente</p>
+                      <% else %>
+                        <p>Ne participe pas</p>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
               <% end %>
             </div>
-            <% end %>
-          <% end %>
-
           </div>
         </div>
+        <% if @equipments.count > 0 %>
+          <div id="equipments" class="col-lg-4 col-sm-6 col-xs-12 padding-blocks">
+            <div class="dimension-onglet">
+              <h3 class="title-onglet">Matériels</h3>
+            </div>
+            <div class="background-white eql-height">
+              <div class="scroll-div"  style="max-height: 240px">
+                <% @equipments.each do |equipment| %>
+                  <%= simple_form_for equipment, wrapper: false do |e| %>
+                  <div class="row">
+                    <%= e.object.title %>
+                    <% if e.object.participant_id.nil? %>
+                      <%= e.input :participant_id, as: :check_boxes, input_html: { label: false}, collection: ["Je m'en occupe"] %>
+                    <% else %>
+                      <p> <%= e.object.participant.user.first_name %> s'en occupe</p>
+                    <% end %>
+                    <%= button_tag(type: "submit", class: "new_post_submit") do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
       </div>
     </div>
     <div class="col-lg-3 big-height padding-blocks">

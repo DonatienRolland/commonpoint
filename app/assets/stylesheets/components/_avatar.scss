@@ -4,14 +4,16 @@
   border-radius: 50%;
 }
 .avatar-square {
-  height: 35px;
-  width: 35px;
-  border-radius: 1px;
+  height: 30px !important;
+  width: 30px !important;
 }
 .avatar-init {
   background-color: $white;
-  padding-left: 7px;
-  padding-top: 4px;
+  padding-left: 4%;
+  padding-top: 3%;
   color: $cp;
   font-weight: lighter;
+  border: 1px solid;
+  border-radius: 50%;
+  text-align: center;
 }

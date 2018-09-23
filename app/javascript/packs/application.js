@@ -11,6 +11,9 @@ import "../components/equalHeight"
 import { checkBox } from "../components/checkBox";
 checkBox();
 
+import { participantCheckBoxs } from "../components/checked";
+participantCheckBoxs();
+
 
 import { revealModal } from "../components/modal";
 revealModal();

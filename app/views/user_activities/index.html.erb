@@ -1,5 +1,5 @@
-<div id="user_activities">
-  <div id="user_activity-search_bar">
+<div id="user_activities" >
+  <div id="user_activity-search_bar" style="margin-bottom: 10px;">
     <%= form_tag user_activities_path, method: :get, remote: false, authenticity_token: true do %>
       <%= text_field_tag :query, params[:query], placeholder: "Saisissez une activité" %>
       <%= button_tag class:"recherche-btn" do %>
