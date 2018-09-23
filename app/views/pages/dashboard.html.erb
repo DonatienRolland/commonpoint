@@ -1,4 +1,22 @@
+<h1>Bienvenue sur Commom Point</h1>
 
+<div class="row">
+  <div class="col-lg-8 col-xs-12">
+    <p>Afin de tester au mieux le prototype, nous avons créér <%= User.all.count %> utilisateurs</p>
 
+    <p>Voici leurs infos:</p>
 
+    <ul>
+    <% User.all.each do |user| %>
+      <li><%= user.first_name %>: <%= user.email %> / password: password <strong> <%= user.company.title %></strong> </li>
 
+    <% end %>
+    </ul>
+  </div>
+  <div class="col-lg-4 col-xs-12">
+    <p>Justqu'à aujourd'hui, <%= pluralize Point.all.size, 'Point'  %> ont été créé</p>
+    <% Point.all.each do |point|%>
+      <%= link_to point.activity_title, point_path(point) %>
+    <% end %>
+  </div>
+</div>
