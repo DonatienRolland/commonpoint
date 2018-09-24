@@ -11,12 +11,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.email_company
     if @user.has_company?
       if @user.save
-        redirect_to root_path
+        sign_up(resource)
       else
         render :new
       end
     else
-      flash[:notice] = "Votre adresse mail n'est valide"
+      flash[:notice] = "Votre adresse mail n'est pas valide"
       render :new
     end
   end
@@ -46,6 +46,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  def sign_up(resource)
+    sign_in(resource)
+    redirect_to root_path
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :email, :password, :password_confirmation, :avatar, :last_name, :phone)
