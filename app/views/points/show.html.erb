@@ -30,36 +30,42 @@
             <p><%= @count_participants %> / <%= @point.number_min %> pour validé le point</p>
             <div class="scroll-div" style="max-height: 240px">
               <% @participants.each do |participant| %>
-                <div class="row">
-                  <% if participant.user == @user %>
-                    <%= simple_form_for participant do |e| %>
-                    <div class="col-lg-6">
-                      <%= render 'shared/participant-point', user: e.object.user %>
-                    </div>
-                    <div class="col-lg-3">
-                      <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
-                    </div>
-                    <div class="col-lg-3" style="text-align: center;">
-                      <%= button_tag(type: "submit", class: "new_post_submit") do %>
-                        <i class="glyphicon glyphicon-pencil"></i>
+                <% if @point.is_full? %>
+                  <div class="col-lg-6">
+                    <%= render 'shared/participant-point', user: participant.user %>
+                  </div>
+                <% else %>
+                  <div class="row">
+                    <% if participant.user == @user %>
+                      <%= simple_form_for participant do |e| %>
+                      <div class="col-lg-6">
+                        <%= render 'shared/participant-point', user: e.object.user %>
+                      </div>
+                      <div class="col-lg-3">
+                        <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
+                      </div>
+                      <div class="col-lg-3" style="text-align: center;">
+                        <%= button_tag(type: "submit", class: "new_post_submit") do %>
+                          <i class="glyphicon glyphicon-pencil"></i>
+                        <% end %>
+                      </div>
                       <% end %>
-                    </div>
+                    <% else %>
+                      <div class="col-lg-6">
+                        <%= render 'shared/participant-point', user: participant.user %>
+                      </div>
+                      <div class="col-lg-6">
+                        <% if participant.status == "I'm in" %>
+                          <p>Participe</p>
+                        <% elsif participant.status.nil? %>
+                          <p>En attente</p>
+                        <% else %>
+                          <p>Ne participe pas</p>
+                        <% end %>
+                      </div>
                     <% end %>
-                  <% else %>
-                    <div class="col-lg-6">
-                      <%= render 'shared/participant-point', user: participant.user %>
-                    </div>
-                    <div class="col-lg-6">
-                      <% if participant.status == "I'm in" %>
-                        <p>Participe</p>
-                      <% elsif participant.status.nil? %>
-                        <p>En attente</p>
-                      <% else %>
-                        <p>Ne participe pas</p>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>

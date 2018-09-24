@@ -24,17 +24,27 @@
       <div class="absolute-full">
         <% if point.is_full? %>
           <p class="red-background ">Complet</p>
+        <% elsif point.number_min < point.participants.where(status: "I'm in").count && point.number_max.nil? %>
+          <p class="blue-background ">Le nombre minimum est atteint </p>
+        <% elsif point.number_min < point.participants.where(status: "I'm in").count && !point.number_max.nil? %>
+          <p class="blue-background ">Plus que <%= pluralize point.number_max - point.participants.where(status: "I'm in").count, "place"  %></p>
         <% else %>
-          <p class="red-background "><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
+          <p class="red-background"><%= point.number_min - point.participants.where(status: "I'm in").count %> joueurs manquants</p>
         <% end %>
       </div>
     </div>
     <div class="col-lg-3" style="padding: 10px">
-      <%= simple_form_for @user.is_participant?(point), html: { class: "form-flex-column" } do |f| %>
-        <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
-        <%= f.button :button do %>
-          <i class="fas fa-check"></i>
-          Confirmer
+      <% if point.is_full? && @user.is_participant?(point).status.nil? %>
+        <p class="red-background " style="font-size: 25px">Complet</p>
+      <% elsif point.is_full? && @user.is_participant?(point).status == "I can't"  %>
+        <p class="red-background " style="font-size: 25px">Complet</p>
+      <% else %>
+        <%= simple_form_for @user.is_participant?(point), html: { class: "form-flex-column" } do |f| %>
+            <%= f.input :status, collection: [ "I'm in", "I can't"], :input_html => { value: :status}, label: false  %>
+            <%= f.button :button do %>
+              <i class="fas fa-check"></i>
+              Confirmer
+            <% end %>
         <% end %>
       <% end %>
     </div>
