@@ -180,3 +180,6 @@ select:disabled {
     padding-left: 1rem;
   }
 }
+.select2-dropdown {
+  z-index: 1051 !important;
+}
