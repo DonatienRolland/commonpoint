@@ -2,6 +2,7 @@
 .modal {
   display: none;
   overflow: none;
+  z-index: 2 !important;
   .active {
     display: block !important;
   }
@@ -138,4 +139,7 @@
   justify-content: space-evenly;
   width: 100%;
   margin-top: 15px;
+}
+.modal-backdrop {
+  z-index: 1 !important;
 }
