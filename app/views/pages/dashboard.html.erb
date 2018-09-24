@@ -15,8 +15,10 @@
   </div>
   <div class="col-lg-4 col-xs-12">
     <p>Justqu'à aujourd'hui, <%= pluralize Point.all.size, 'Point'  %> ont été créé</p>
-    <% Point.all.each do |point|%>
-      <%= link_to point.activity_title, point_path(point) %>
-    <% end %>
+    <ol>
+      <% Point.all.each do |point|%>
+        <li><%= link_to point.activity_title, point_path(point) %></li>
+      <% end %>
+    </ol>
   </div>
 </div>

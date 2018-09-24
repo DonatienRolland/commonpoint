@@ -48,7 +48,7 @@ class User < ApplicationRecord
     participant = participant.first
   end
 
-  def partipated?(current_point)
+  def participated?(current_point)
     participant = self.is_participant?(current_point)
     if participant.status == "I'm in"
       true
@@ -57,7 +57,7 @@ class User < ApplicationRecord
     end
   end
 
-  def invated?(current_point)
+  def invited?(current_point)
     participant = self.is_participant?(current_point)
     if participant.invited
       return true

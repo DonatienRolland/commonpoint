@@ -22,7 +22,6 @@ import "bootstrap-slider";
         // mySliderMax.min = mySliderMin.value;
       }
 
-      console.log(mySliderMin.min)
 
       mySliderMax.oninput = function() {
         outputMax.innerHTML = this.value;

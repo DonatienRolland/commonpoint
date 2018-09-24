@@ -18,7 +18,7 @@ function displayName(elements){
   elements.forEach(function(elem){
     let input = elem.children[1].children[0].children[0].children[1]
     if (input.checked) {
-      console.log(elem)
+      // console.log(elem)
     }
   })
 }
