@@ -21,9 +21,6 @@
               data: {toggle: 'dropdown', target: "drop_#{point.id}"}, aria: { haspopup: true, expanded: false} do %>
               <div class="contain-image icon_cercle" style="background-image: url('<%= image_path point.user_activity.activity.icon %>')">
               </div>
-              <div class="<%= points.count >= 2 ? 'hidden' : '' %> hidden-xs ">
-                <%= point.id %>
-              </div>
           <% end %>
 
           <%= render 'modal-info-point', point: point %>

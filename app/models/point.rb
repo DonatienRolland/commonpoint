@@ -13,7 +13,7 @@ class Point < ApplicationRecord
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
   belongs_to :user, dependent: :destroy
-  belongs_to :user_activity, dependent: :destroy
+  belongs_to :user_activity
   belongs_to :point_group, required: false
 
   has_one :activity, through: :user_activity
@@ -90,7 +90,7 @@ class Point < ApplicationRecord
   end
 
   def destroy_if_blanck
-    if self.date.nil? && self.address.nil?
+    if !self.verif_data
       self.destroy
     end
   end
