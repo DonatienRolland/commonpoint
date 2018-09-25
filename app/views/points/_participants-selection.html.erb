@@ -1,5 +1,6 @@
 
     <div class="col-lg-4 nav form-flex-column nav-pills" style="padding-right:10px;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <div class="hidden">
       <% @stars.each do |star| %>
         <%= link_to "#v-pills-level-#{star}", class:'nav-link onglet-participants', id:"v-pills-level-#{star}-tab", data: { toggle: 'pill'}, role: 'tab', aria: { controls: "v-pills-level-#{star}", selected: 'false'} do  %>
           <% if star == "all" %>
@@ -9,19 +10,36 @@
           <% end %>
         <% end %>
       <% end %>
+      </div>
+
+
+      <div id="boutons-participant">
+        <% @stars.each do |star| %>
+          <div class="bouton-participant" data-target="<%= star %>">
+            <% if star == "all" %>
+              <p>Tout les participants (<%= @participants.count %>)</p>
+            <% else %>
+              <p><%= star %> étoiles (<%= @participants.find_by_level(star).count %>)</p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
     </div>
 
     <div class="col-lg-4 relative-btn tab-content" id="v-pills-tabContent">
-      <% @stars.each do |star| %>
-        <div class="tab-pane scroll-div max-height fade" id="v-pills-level-<%=star%>" role="tabpanel" aria-labelledby="v-pills-level-<%=star%>-tab">
-          <%= f.simple_fields_for :participants, @participants.find_by_level(star) do |e| %>
-            <div class="row">
+        <div class="scroll-div max-height">
+          <%= f.simple_fields_for :participants do |e| %>
+            <div class="row <%= e.object.is_level(0) ? "zerolevel" : ''%><%= e.object.is_level(1) ? "onelevel" : ''%><%= e.object.is_level(2) ? "twolevel" : ''%><%= e.object.is_level(3) ? "threelevel" : ''%><%= e.object.is_level(4) ? "forlevel" : ''%><%= e.object.is_level(5) ? "fivelevel" : ''%> ">
               <%= render 'participant_fields', f: e %>
             </div>
           <% end %>
         </div>
-      <% end %>
     </div>
+
+
+
+
 
     <div class="col-lg-4 scroll-div relative-btn max-height tab-content hidden">
       <% @participants.each do | participant| %>
@@ -35,3 +53,18 @@
         </div>
       <% end %>
     </div>
+
+
+<%= content_for(:after_js) do %>
+
+  <script>
+
+  </script>
+
+<% end %>
+
+
+
+
+
+

@@ -14,6 +14,9 @@ checkBox();
 import { participantCheckBoxs } from "../components/checked";
 participantCheckBoxs();
 
+import { filteringParticipant, selectInputs } from "../components/filter";
+filteringParticipant();
+selectInputs();
 
 import { revealModal } from "../components/modal";
 revealModal();
