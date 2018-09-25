@@ -19,11 +19,19 @@ class Participant < ApplicationRecord
       tsearch: { prefix: true }
     }
 
+  def is_level(spe_level)
+    if self.user.user_activities.by_activity_title(self.point.activity_title).where(level: spe_level).present?
+      true
+    end
+  end
+
   private
 
   def validation_update(point_selected)
     return "Vous ne faites pas parti des participant" if self.point == point_selected
     return "Vous devez validez votre participation au Point avant" if self.status == "I'm in"
   end
+
+
 
 end

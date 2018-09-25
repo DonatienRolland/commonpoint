@@ -24,13 +24,17 @@ class Point < ApplicationRecord
 
   has_many :participants, dependent: :destroy do
     def find_by_level(spe_level)
-      participants = []
-      self.each do |participant|
-        if participant.user.user_activities.by_activity_title(participant.point.activity_title).where(level: spe_level).present?
-          participants << participant
+      if spe_level == "all"
+        self
+      else
+        participants = []
+        self.each do |participant|
+          if participant.user.user_activities.by_activity_title(participant.point.activity_title).where(level: spe_level).present?
+            participants << participant
+          end
         end
+        return participants
       end
-      return participants
     end
   end
 
@@ -52,7 +56,7 @@ class Point < ApplicationRecord
   # after_validation :geocode, if: :will_save_change_to_address?
 
   def verif_data
-    if self.address.present? && self.price.present? && self.number_min.present? && self.number_min > 0 && self.level_min.present?
+    if self.address.present? && self.number_min.present? && self.number_min > 0 && self.level_min.present?
       if !self.number_max.nil? && self.number_max < self.number_min
         self.number_max = nil
       end
@@ -64,7 +68,6 @@ class Point < ApplicationRecord
 
   def send_error_message
     return "Vous devez sélectionner une adresse" if self.address.nil?
-    return "Vous devez sélectionner un prix " if self.price.nil?
     return "Vous devez sélectionner un nombre minimum de participant " if self.number_min == 0
     return "Vous devez sélectionner un niveau minimum " if self.level_min.nil?
   end

@@ -8,7 +8,10 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: EMAIL_FORMAT }, uniqueness: true
   before_validation(on: :create) do
     self.email_company
+    self.format_user_infos
   end
+  before_save :format_user_infos
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   mount_uploader :avatar, PhotoUploader

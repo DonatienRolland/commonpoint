@@ -107,7 +107,7 @@ class PointsController < ApplicationController
     end
 
     # participant part
-    @stars = [0, 1, 2, 3, 4, 5]
+    @stars = [0, 1, 2, 3, 4, 5, "all"]
 
     if params[:query] && params[:query] != ""
       @participants = @point.participants.search_by_first_name(params[:query])
