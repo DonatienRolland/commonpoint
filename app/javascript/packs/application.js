@@ -11,12 +11,14 @@ import "../components/equalHeight"
 import { checkBox } from "../components/checkBox";
 checkBox();
 
-import { participantCheckBoxs } from "../components/checked";
+import { participantCheckBoxs, countParticipants, participantChecked } from "../components/checked";
 participantCheckBoxs();
+countParticipants();
+participantChecked();
 
-import { filteringParticipant, selectInputs } from "../components/filter";
+import { filteringParticipant, addParticipant } from "../components/filter";
 filteringParticipant();
-selectInputs();
+addParticipant();
 
 import { revealModal } from "../components/modal";
 revealModal();
