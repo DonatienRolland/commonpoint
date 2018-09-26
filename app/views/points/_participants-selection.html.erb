@@ -1,44 +1,42 @@
 
-    <div class="col-lg-4 nav form-flex-column nav-pills" style="padding-right:10px;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <div class="col-lg-3 nav form-flex-column" style="padding-right:10px;" id="v-pills-tab">
 
-
-
-      <div id="boutons-participant">
-        <% @stars.each do |star| %>
-          <div class="bouton-participant" data-target="<%= star %>">
-            <% if star == "all" %>
-              <p>Tout les participants (<%= @participants.count %>)</p>
-            <% else %>
-              <p><%= star %> étoiles (<%= @participants.find_by_level(star).count %>)</p>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-    </div>
-
-    <div class="col-lg-4 relative-btn tab-content" id="v-pills-tabContent">
-        <div class="scroll-div max-height">
-          <%= f.simple_fields_for :participants do |e| %>
-            <%= render 'participant_fields', f: e %>
+    <div id="boutons-participant row">
+      <% @stars.reverse_each do |star| %>
+        <div class="bouton-participant col-lg-12 col-xs-2" data-target="<%= star %>">
+          <% if star == "all" %>
+            <h3 class="hidden-xs">Tout les participants (<%= @participants.count %>)</p>
+            <h3 class="hidden-lg hidden-sd">Tous</h3>
+          <% else %>
+            <h3 class="hidden-xs"><%= star %> étoiles (<%= @participants.find_by_level(star).count %>)</h3>
+            <h3 class="hidden-lg hidden-sd"><%= star %></h3>
           <% end %>
         </div>
+      <% end %>
     </div>
 
+  </div>
+
+  <div class="col-lg-5 relative-btn tab-content" id="v-pills-tabContent" style="padding: 0 21px;">
+      <div class="scroll-div max-height">
+        <%= f.simple_fields_for :participants do |e| %>
+          <%= render 'participant_fields', f: e %>
+          <hr>
+        <% end %>
+      </div>
+  </div>
 
 
 
 
-    <div class="col-lg-4 scroll-div relative-btn max-height" id="right-part-participant">
+
+    <div class="col-lg-4 scroll-div relative-btn max-height hidden-xs" id="right-part-participant">
       <h3 class="count-parcticipant">(1) Participants</h3>
       <% @participants.each do | participant| %>
-        <div class="row  participant-added <%= participant.user == @user ? "" : "hidden" %>" data-conf="<%= participant.user.id %>">
-          <div class="col-xs-11 col-lg-11 col-sm-11" style="display: flex;">
-            <div style="margin-right: 10px;">
-            <%= render 'shared/avatar', user: participant.user %>
-            </div>
-            <p><%= participant.user.first_name%></p>
-          </div>
+        <div class=" participant-added <%= participant.user == @user ? "" : "hidden" %>" data-conf="<%= participant.user.id %>">
+
+            <%= render 'shared/avatar_name_stars', participant: participant %>
+
         </div>
       <% end %>
     </div>

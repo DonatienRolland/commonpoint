@@ -3,28 +3,35 @@
     <div class="modal-content col-lg-4 col-lg-offset-4">
       <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
       <h4>C'est parti ...</h4>
-      <% if point.id.nil? %>
+      <% if (@user.user_activities.count > 0) %>
+        <% if point.id.nil? %>
 
-        <%= simple_form_for [user, point] do |f| %>
-          <p>Choisissez votre activité:</p>
-          <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
+          <%= simple_form_for [user, point] do |f| %>
+            <p>Choisissez votre activité:</p>
+            <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
 
-          <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
-          <%= f.button :button do %>
-            <i class="fas fa-check"></i>
-            Créer
+            <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
+            <%= f.button :button do %>
+              <i class="fas fa-check"></i>
+              Créer
+            <% end %>
+
           <% end %>
+        <% else %>
+          <%= simple_form_for point do |f| %>
+            <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
 
+            <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
+            <%= f.button :button do %>
+              <i class="fas fa-check"></i>
+              Créer
+            <% end %>
+          <% end %>
         <% end %>
       <% else %>
-        <%= simple_form_for point do |f| %>
-          <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
-
-          <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
-          <%= f.button :button do %>
-            <i class="fas fa-check"></i>
-            Créer
-          <% end %>
+        <h3>D'abord, il vous faut des activités :)</h3>
+        <%= link_to user_activities_path do %>
+          <i class="far fa-heart"></i> Mes Activités
         <% end %>
       <% end %>
     </div>

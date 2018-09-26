@@ -1,45 +1,14 @@
 <div class="modal modal-space-1 row fade" id="listParticipantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-  <div class="row">
-  <div id="participants" class="col-lg-12 col-sm-6 col-xs-12 padding-blocks">
+  <div id="participants" class="padding-blocks">
     <div class="dimension-onglet">
       <h3 class="title-onglet">Participants</h3>
     </div>
+    <div class="modal-content">
+      <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
 
-    <div class="background-white row">
-      <div class="padding-blocks" style="display: flex;">
-     <!--    <#%= form_tag edit_point_path(@point), method: :get, remote: false, authenticity_token: true do %>
-          <#%= text_field_tag :query, params[:query], placeholder: "Participant" %>
-          <#%= button_tag class:"", :value => 0 do %>
-            <p> 0 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => 1 do %>
-            <p> 1 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => 2 do %>
-            <p> 2 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => 3 do %>
-            <p> 3 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => 4 do %>
-            <p> 4 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => 5 do %>
-            <p> 5 star</p>
-          <#% end %>
-          <#%= button_tag class:"", :value => "Tous" do %>
-            <p> Tous</p>
-          <#% end %>
-        <#% end %> -->
+      <div class="background-white row">
+        <%= render 'participants-selection', f: f %>
       </div>
-
-
-
-
-      <%= render 'participants-selection', f: f %>
     </div>
-  </div>
-
   </div>
 </div>

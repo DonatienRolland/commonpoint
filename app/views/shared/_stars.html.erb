@@ -1,0 +1,8 @@
+<div class="stars">
+  <% for i in 1.. user_activity.level %>
+    <i class="fa fa-star blue" aria-hidden="true"></i>
+  <% end %>
+  <% for i in 1..(5- user_activity.level) %>
+    <i class="far fa-star blue" aria-hidden="true"></i>
+  <% end %>
+</div>

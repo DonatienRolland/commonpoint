@@ -45,6 +45,7 @@ gem "figaro"
 
 gem "cocoon"
 
+gem 'sidekiq'
 
 # slider
 gem 'bootstrap-slider-rails'

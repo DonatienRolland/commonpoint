@@ -26,9 +26,41 @@
   height: 30px
 
 }
-
+#v-pills-tab {
+  background-color: $cp;
+  opacity: 0.3;
+  color: white;
+}
 
 
 .max-height {
   max-height: 400px !important;
+}
+
+.participants-fields {
+  cursor: pointer;
+}
+.icon-input{
+  flex: 10%;
+  text-align: center;
+}
+.bouton-participant {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 3px;
+
+  h3 {
+    margin-top: 20px;
+  }
+}
+  .bouton-participant:hover {
+    opacity: .3;
+  }
+#v-pills-tabContent {
+  hr {
+    margin: 0;
+  }
 }

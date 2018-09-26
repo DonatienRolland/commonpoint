@@ -20,3 +20,14 @@
 
   }
 }
+.avatar_and_name {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  align-items: center;
+}
+.avatar_and_name_and_stars{
+  display: flex;
+  align-items: center;
+  flex: 90%;
+}
