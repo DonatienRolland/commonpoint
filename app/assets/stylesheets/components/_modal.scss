@@ -86,7 +86,12 @@
     border-color: #2A2A2A;
   }
 }
+.green-icon .icon-input {
 
+  i {
+    color: $green;
+  }
+}
 .size-modal {
   width: 450px;
   margin: auto;

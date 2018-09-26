@@ -10,7 +10,7 @@
         <%= f.input :first_name, label:'Prénom', required: true, autofocus: true %>
         <%= f.input :last_name, label:'Nom', required: true, autofocus: true %>
         <%= f.input :phone, label:'Mobile', required: true, autofocus: true %>
-        <%= f.input :email, required: true, autofocus: true, label:"Inscrivez vous avez l'adresse email pro" %>
+        <%= f.input :email, required: true, autofocus: true, label:"Inscrivez vous avec votre adresse email pro" %>
         <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
         <%= f.input :password_confirmation, required: true %>
       </div>

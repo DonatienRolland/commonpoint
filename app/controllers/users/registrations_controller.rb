@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up(resource)
     sign_in(resource)
-    redirect_to root_path
+    redirect_to user_activities_path
   end
 
   def user_params

@@ -12,6 +12,7 @@ function participantCheckBoxs(){
           if (inputs[i].checked) {
             inputs[i].checked = false
             count--;
+            participant.classList.remove('green-icon')
             participants_added.forEach((added) => {
             let add = added.dataset.conf
               if (user_id == add) {
@@ -21,6 +22,7 @@ function participantCheckBoxs(){
           } else {
             inputs[i].checked = true
             count++;
+            participant.classList.add('green-icon')
             participants_added.forEach((added) => {
             let add = added.dataset.conf
               if (user_id == add) {
@@ -47,6 +49,7 @@ function countParticipants(){
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].type === "checkbox" && inputs[i].checked === true) {
         count++;
+      participant.classList.add('green-icon')
       count_participants.forEach((count_participant) => {
         count_participant.innerText = ""
         count_participant.innerText = "(" + count +") Participants"
