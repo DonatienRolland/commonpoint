@@ -43,6 +43,7 @@
 .icon-input{
   flex: 10%;
   text-align: center;
+  color: $light-gray;
 }
 .bouton-participant {
   height: 100%;
@@ -62,5 +63,6 @@
 #v-pills-tabContent {
   hr {
     margin: 0;
+    z-index:1;
   }
 }

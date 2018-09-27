@@ -2,7 +2,7 @@
   <%= render 'modal-new-point', user: @user, point: @point %>
 
 
-  <div class="visible-xs">
+  <div class="visible-xs hidden">
     <%= link_to "#" do %>
       <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
     <% end %>
@@ -14,7 +14,8 @@
     <% end %>
     <div class="row display-inline">
       <%= render 'form', f: f %>
-      <div class="historic-btn col-lg-2 col-sm-2 hidden-xs">
+      <!-- invisible for the moment  -->
+      <div class="historic-btn col-lg-2 col-sm-2 hidden-xs hidden">
         <div class="relative-btn">
           <div class="info-historic">
             <i class="fas fa-history"></i>
@@ -32,24 +33,22 @@
         </div>
         <div class="background-white eql-height">
           <%= render 'map', f: f %>
-          <div id="map" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
+          <div id="map" style="height: 230px;" data-markers="<%= @markers.to_json%>"></div>
         </div>
 
       </div>
 
       <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
-          <h3 class="title-onglet">Matériels</h3>
+          <h3 class="title-onglet">Participants</h3>
         </div>
         <div class="background-white eql-height scroll-div relative-btn">
-          <%= f.simple_fields_for :equipments do |e| %>
-            <%= render 'equipment_fields', f: e %>
+          <% if !@point.is_public? %>
+            <button type="button" class="btn btn-primary count-parcticipant" data-toggle="modal" data-target="#listParticipantModal">
+              Participants
+            </button>
           <% end %>
-          <div class="links form-button form-button-xs circle-btn greend-color bottom-right-btn">
-            <%=  link_to_add_association f, :equipments do %>
-              <i class="fas fa-plus"></i>
-            <% end %>
-          </div>
+
         </div>
       </div>
       <div class="col-lg-3 padding-blocks">
@@ -57,11 +56,14 @@
           <h3 class="title-onglet">Actions</h3>
         </div>
         <div class="eql-height background-white column-btn">
-          <% if !@point.is_public? %>
-            <button type="button" class="btn btn-primary recherche-btn count-parcticipant" data-toggle="modal" data-target="#listParticipantModal">
-              Participants
-            </button>
+          <%= f.simple_fields_for :equipments do |e| %>
+            <%= render 'equipment_fields', f: e %>
           <% end %>
+          <div class="links form-button form-button-xs circle-btn greend-color top-right-btn">
+            <%=  link_to_add_association f, :equipments do %>
+              <i class="fas fa-plus"></i>
+            <% end %>
+          </div>
 
           <%= f.button :button, class:"display-inline" do %>
             <div class="form-button form-button-lg circle-btn green-color">
