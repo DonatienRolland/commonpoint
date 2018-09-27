@@ -17,13 +17,13 @@
 
   </div>
 
-  <div class="col-lg-5 relative-btn tab-content" id="v-pills-tabContent" style="padding: 0 21px;">
-      <div class="scroll-div max-height">
+  <div class="col-lg-5 relative-btn tab-content scroll-div max-height" id="v-pills-tabContent" style="padding: 0 21px;">
+
         <%= f.simple_fields_for :participants do |e| %>
           <%= render 'participant_fields', f: e %>
-          <hr>
+
         <% end %>
-      </div>
+
   </div>
 
 

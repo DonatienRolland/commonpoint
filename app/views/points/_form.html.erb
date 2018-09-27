@@ -1,5 +1,5 @@
 
-<div class="information col-lg-10 eql-height col-md-10 col-sm-10 padding-blocks">
+<div class="information col-lg-12 eql-height col-md-10 col-sm-10 padding-blocks">
   <div class="dimension-onglet">
     <h3 class="title-onglet" >Informations</h3>
   </div>
@@ -28,12 +28,11 @@
 
 
 
-
     <div class="row top-bottom-margin">
       <div class="col-lg-3 col-xs-12">
         <p>Nombre de participants:</p>
       </div>
-      <div class="steppers col-lg-9 col-xs-12">
+      <div class="steppers col-lg-7 col-xs-12">
         <div class="display-inline">
           <div class="stepper-min five-margin display-inline">
             <p class="five-margin">Min</p>
@@ -55,10 +54,34 @@
           <p style="margin-left: 10px">no limit</p>
         </div>
       </div>
+      <div class="col-lg-2 col-xs-12">
+        <div class="display-inline">
+          <p class="five-margin">Prix (€):</p>
+          <%= f.input :price, as: :integer, label: false, input_html: { style:"width:65px" } %>
+        </div>
+      </div>
     </div>
 
 
-    <div class="row top-bottom-margin">
+
+    <div class="row">
+      <p style="text-align: center; margin: 20px">Sélectionnez une ou plusieurs dates pour votre événement. Ajoutez des horaires si besoin est.</p>
+      <div class="col-lg-6 col-xs-12">
+        <div class="display-inline">
+          <p class="five-margin">Proposition Date 1:</p>
+          <%= f.input :date, as: :string, required: true, input_html: {class: "datepicker"}, label: false %>
+        </div>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <div class="display-inline">
+          <p class="five-margin">Proposition Date 2:</p>
+          <%= text_field_tag :second_date, nil, class:'datepicker'  %>
+        </div>
+      </div>
+    </div>
+
+    <!-- invisible for the moment -->
+    <div class="row top-bottom-margin hidden">
       <div class="col-lg-3 col-xs-12">
         <p>Niveau des participants:</p>
       </div>
@@ -80,28 +103,6 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-lg-2 col-xs-12">
-        <div class="display-inline">
-          <p class="five-margin">Prix (€):</p>
-          <%= f.input :price, as: :integer, label: false, input_html: { style:"width:65px", step: 0.1 } %>
-        </div>
-      </div>
-      <div class="col-lg-5 col-xs-12">
-        <div class="display-inline">
-          <p class="five-margin">Proposition Date 1:</p>
-          <%= f.input :date, as: :string, required: true, input_html: {class: "datepicker"}, label: false %>
-        </div>
-      </div>
-      <div class="col-lg-5 col-xs-12">
-        <div class="display-inline">
-          <p class="five-margin">Proposition Date 2:</p>
-          <%= text_field_tag :second_date, nil, class:'datepicker'  %>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
