@@ -38,6 +38,7 @@ class Point < ApplicationRecord
     end
   end
 
+
   has_many :users, through: :participants
 
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
@@ -51,6 +52,8 @@ class Point < ApplicationRecord
   # validates :price, :address, :number_min, presence: true
   validates_associated :user_activity
 
+  before_save :number_min_deflaut
+
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
   # after_validation :geocode, if: :will_save_change_to_address?
@@ -63,6 +66,12 @@ class Point < ApplicationRecord
       self.save
     else
       return false
+    end
+  end
+
+  def number_min_deflaut
+    if self.number_min.nil?
+      self.number_min = 1
     end
   end
 

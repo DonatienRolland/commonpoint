@@ -12,8 +12,8 @@
             <h3 class="title-onglet">Lieu</h3>
           </div>
           <div class="background-white eql-height">
-            <p>Adresse: <%= @point.address %></p>
             <div id="map" style="min-height: 250px;" data-markers="<%= @markers.to_json%>"></div>
+            <p>Adresse: <%= @point.address.present? ? @point.address : "Relancer #{@point.user.first_name} car cette info n'est pas encore renseignée" %></p>
           </div>
 
         </div>
@@ -116,20 +116,18 @@
 
       </div>
     </div>
-    <div class="col-lg-3 big-height padding-blocks">
+    <div class="col-lg-3 padding-blocks">
       <div class="dimension-onglet">
         <h3 class="title-onglet">Notification</h3>
       </div>
-      <div class="background-white" style="height: calc(100% - 28px - 1%)">
+      <div class="background-white">
         <%= render 'messages/form', point: @point, message: @message %>
-        <div id="messages">
-          <% if @point.messages.blank? %>
-            Be the first to leave a message for this Point
-          <% else %>
+        <div id="messages" class="scroll-div" style="height:576px;">
+
             <% @points.each do |message| %>
               <%= render 'messages/show', message: message %>
             <% end %>
-          <% end %>
+
         </div>
       </div>
     </div>
@@ -155,14 +153,6 @@
 <%= content_for(:after_js) do %>
 
 <script>
-
-// var slider = document.getElementById("myRange");
-// var output = document.getElementById("demo");
-// output.innerHTML = slider.value;
-
-// slider.oninput = function() {
-//   output.innerHTML = this.value;
-// }
 
 
 </script>

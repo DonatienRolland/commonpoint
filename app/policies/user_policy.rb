@@ -29,6 +29,10 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
+  def search?
+    is_user_the_owner_or_admin?
+  end
+
   private
 
   def is_user_the_owner_or_admin?

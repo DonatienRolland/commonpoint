@@ -33,3 +33,10 @@ bindSweetAlertButtonDemo();
 import { initSliders } from "../components/slider";
 // arrangeWidth();
 initSliders();
+
+import { scrollMessagesIntoView } from "../components/scroll";
+// arrangeWidth();
+scrollMessagesIntoView();
+
+import { addStringToValue } from '../components/valueRange';
+addStringToValue();

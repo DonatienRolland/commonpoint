@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :users, only: [:show, :update, :edit] do
-    resources :user_activities, only: :create
+    resources :user_activities, only: [ :create, :new ] do
+      get 'search', :on => :collection
+    end
     resources :points, only: [ :create, :new ] do
       get 'home', :on => :collection
       get 'historique', :on => :collection

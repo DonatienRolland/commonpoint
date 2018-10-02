@@ -1,0 +1,19 @@
+.left-localisation {
+  float: left;
+}
+
+.right-localisation {
+  float: right;
+  text-align: right;
+}
+
+.format-message {
+  border: 1px solid $cp;
+  border-radius: 20px;
+  padding: 5px;
+  margin-top: 3px;
+}
+
+.message p {
+  margin: 0;
+}

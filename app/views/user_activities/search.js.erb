@@ -1,0 +1,34 @@
+function refreshTab(innerTab){
+  const tab = document.getElementById('tab-activities')
+  tab.innerHTML = ""
+  tab.innerHTML = innerTab
+}
+
+function tabHighResult(){
+  const tabs = document.querySelectorAll('.tab-pane')
+  const tabBtns = document.querySelectorAll('.cp-tab')
+
+  var count = 0
+  tabs.forEach((tab) => {
+    tab.classList.remove('active')
+    let score = tab.dataset.score
+    let id = tab.id
+    if (count < score) {
+      count = score
+      tab.classList.add('active')
+    }
+  })
+}
+
+
+refreshTab('<%= j render "user_activities/tab-activities", activities: @activities %>')
+tabHighResult()
+
+$( document ).ready(function() {
+    var heights = $(".eql-height").map(function() {
+        return $(this).height();
+    }).get(),
+
+    maxHeight = Math.max.apply(null, heights);
+    $(".eql-height").height(maxHeight);
+});

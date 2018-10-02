@@ -45,6 +45,21 @@ class UserActivitiesController < ApplicationController
     authorize @user_activity
   end
 
+  def new
+    @user = current_user
+    if params[:act]
+      @act_id = params[:act]
+      @activity = Activity.find(@act_id)
+      @random = params[:random]
+      @user_activity =  UserActivity.where(user: @user, activity_id: @act_id ).first
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    authorize @user
+  end
+
   def index
 
     @user = current_user
@@ -66,6 +81,29 @@ class UserActivitiesController < ApplicationController
 
     user_activities = policy_scope(UserActivity)
     authorize UserActivity
+  end
+
+  def search
+    @user = current_user
+    @categories = Category.all
+    if params[:query] && params[:query] != ""
+      @activities = Activity.search_by_title(params[:query])
+    else
+      @activities = Activity.all
+    end
+    numbers = []
+    Activity.all.each do |activity|
+      numbers << activity.number_of_user
+    end
+    @max_max = numbers.max(4)
+
+    @user_activity = UserActivity.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    authorize @user
   end
 
   private

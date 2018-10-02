@@ -1,7 +1,7 @@
 <div class='row nested-fields participants-fields' data-target="<%= f.object.is_level(0) ? 0 : ''%><%= f.object.is_level(1) ? 1 : ''%><%= f.object.is_level(2) ? 2 : ''%><%= f.object.is_level(3) ? 3 : ''%><%= f.object.is_level(4) ? 4 : ''%><%= f.object.is_level(5) ? 5 : ''%>" data-conf="<%= f.object.user.id %>" style="padding: 2px;">
     <% if f.object.user != nil %>
       <div class="col-xs-11 col-lg-11 col-sm-11 on-participant" style="display: flex;">
-        <%= render 'shared/avatar_name_stars', participant: f.object %>
+        <%= render 'shared/avatar_name_stars', user: f.object.user, activity: @point.activity %>
         <div class="icon-input">
           <i class="fas fa-check"></i>
         </div>

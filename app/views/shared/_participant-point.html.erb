@@ -1,9 +1,9 @@
 <div class="content-participant row" style="margin: 5px;">
   <div class="col-xs-2">
-    <%= render 'shared/avatar', user: user %>
+    <%= render 'shared/avatar_name_stars', user: user, activity: activity %>
   </div>
   <div class="col-xs-10">
-    <p>
+    <p
     <%= user.first_name.present? ? user.first_name : "" %><%= user.last_name.present? ? user.last_name : "" %></p>
   </div>
 </div>
