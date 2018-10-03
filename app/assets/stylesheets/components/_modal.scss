@@ -36,14 +36,13 @@
 
 .myModalspe {
   color: $cp;
-  display: none; /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  bottom: 2px;
-  overflow: auto; /* Enable scroll if needed */
   .modal-content {
-    padding: 10px 0px 10px 0;
+    padding: 0 16px 0px 0px !important;
   }
+}
+.modal-space-2 {
+  padding: 30vw 4%;
+  background-color: rgba(0,0,0,0.2);
 }
 
 @media only screen and (min-width: 768px) {

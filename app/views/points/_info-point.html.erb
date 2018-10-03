@@ -1,17 +1,17 @@
 
   <div class="row" style="width:96%;padding: 10px;">
-    <div class="box-shadow-border activity-width form-flex-column col-lg-2" style="padding: 10px;">
+    <div class="activity-width form-flex-column col-lg-2 col-sm-2 eql-height display-flex-center" style="">
       <%= image_tag point.user_activity.activity.icon %>
       <p><%= truncate(point.user_activity.activity.title, length: 20, :separator => /\s/ )%></p>
     </div>
-    <div class="point-information-general col-lg-3 box-shadow-border" style="padding: 10px 10px 0px 10px;">
+    <div class="point-information-general col-lg-3 col-sm-3 eql-height display-flex-center" style="">
       <p> Organisé par <%= point.user.first_name %></p>
-      <p> <%= point.address %></p>
-      <p> Prix par personne <%= point.price %>€</p>
+      <p>Lieu: <%= point.address.present? ? "#{point.address}" : "Pas renseigné" %></p>
+      <p> <%= point.price.nil? ? "" : "Prix par personne #{point.price}€" %></p>
     </div>
-    <div class="current-participants col-lg-4 box-shadow-border relative-position" style="padding: 10px; height: 108px;">
+    <div class="current-participants col-lg-4 col-sm-4 eql-height relative-position" style=" height: 108px;">
       <p><%= point.participants.where(status: "I'm in").count %> participants sur <%= point.number_min %> de places dispos</p>
-      <div class="flex-evenly">
+      <div class="flex-evenly hidden-sm">
         <div class="flex-evenly" style="width: 30%;">
           <% point.participants.first(3).each do |participant| %>
             <div class="point-calendar">
@@ -33,7 +33,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-lg-3" style="padding: 10px">
+    <div class="col-lg-3 col-sm-3 eql-height display-flex-center" style="">
       <% if point.is_full? && @user.is_participant?(point).status.nil? %>
         <p class="red-background " style="font-size: 25px">Complet</p>
       <% elsif point.is_full? && @user.is_participant?(point).status == "I can't"  %>

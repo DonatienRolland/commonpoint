@@ -170,3 +170,8 @@ input[type="radio"], input[type="checkbox"] {
   color: $white;
   border: 2px solid $white;
 }
+.display-flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

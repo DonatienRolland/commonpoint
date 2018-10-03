@@ -1,15 +1,23 @@
 
   <div id="user_activity-search_bar">
+
     <%= form_tag @path_select_date, method: :get do %>
-      <%= select_tag :activity_title, options_for_select(@user_points.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous"), params[:activity_title]) %>
-
-      <%= text_field_tag :dates, params[:dates].present? ? params[:dates] : "Tous", :class =>'datepicker2'  %>
-
-      <%= select_tag :addresses, options_for_select(@address.insert(0, "Tous"), params[:addresses]), {class:'select2'}  %>
-
-      <%= button_tag class:"recherche-btn" do %>
-        <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
-      <% end %>
+      <div class="row">
+        <div class="col-sm-3 col-xs-12" style="margin-top: 5px;">
+          <%= select_tag :activity_title, options_for_select(@user_points.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous"), params[:activity_title]) %>
+        </div>
+        <div class="col-sm-3 col-xs-12 input-search" style="margin-top: 5px;">
+          <%= text_field_tag :dates, params[:dates].present? ? params[:dates] : "Tous", :class =>'datepicker2'  %>
+        </div>
+        <div class="col-sm-3 col-xs-12" style="margin-top: 5px;">
+          <%= select_tag :addresses, options_for_select(@address.insert(0, "Tous"), params[:addresses]), {class:'select2'}  %>
+        </div>
+        <div class="col-sm-3 col-xs-12" style="margin-top: 5px;">
+          <%= button_tag class:"recherche-btn" do %>
+            <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 

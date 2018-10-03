@@ -37,7 +37,7 @@
                   <% @participants.where(status: "I'm in").each do |participant| %>
                     <div class="row">
                       <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: participant.user %>
+                        <%= render 'shared/participant-point', user: participant.user, activity: @point.activity %>
                       </div>
                       <div class="col-lg-6">
                         <% if participant.user == @user %>
@@ -56,7 +56,7 @@
                     <% if participant.user == @user %>
                       <%= simple_form_for participant do |e| %>
                       <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: e.object.user %>
+                        <%= render 'shared/participant-point', user: e.object.user, activity: @point.activity %>
                       </div>
                       <div class="col-lg-3">
                         <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
@@ -69,7 +69,7 @@
                       <% end %>
                     <% else %>
                       <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: participant.user %>
+                        <%= render 'shared/participant-point', user: participant.user, activity: @point.activity %>
                       </div>
                       <div class="col-lg-6">
                         <% if participant.status == "I'm in" %>

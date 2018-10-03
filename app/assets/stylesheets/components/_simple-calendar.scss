@@ -24,42 +24,61 @@
 .simple-calendar {
   .day {}
 
-  .wday-0 {
-    .transform-cel {
-      transform: translate(-413px);
-    }
-  }
-  .wday-1 {
-    .transform-cel {
-      transform: translate(435px);
-    }
-  }
-  .wday-2 {
-    .transform-cel {
-      transform: translate(273px);
-    }
-  }
-  .wday-3 {
-    .transform-cel {
-      transform: translate(-260px);
-    }
-  }
-  .wday-4 {
-    .transform-cel {
-      transform: translate(0);
-    }
-  }
-  .wday-5 {
-    .transform-cel {
-      transform: translate(-150px);
-    }
-  }
-  .wday-6 {
-    .transform-cel {
-      transform: translate(-389px);
-    }
+  // .wday-0 {
+  //   .transform-cel {
+  //     // transform: translate(-413px);
+  //     transform: translate(-90%);
+  //   }
+  // }
+  // .wday-1 {
+  //   .transform-cel {
+  //     // transform: translate(435px);
+  //     transform: translate(10%);
+  //   }
+  // }
+  // .wday-2 {
+  //   .transform-cel {
+  //     // transform: translate(273px);
+  //     transform: translate(-10%);
+  //   }
+  // }
+  // .wday-3 {
+  //   .transform-cel {
+  //     // transform: translate(-260px);
+  //     transform: translate(-30%);
+  //   }
+  // }
+  // .wday-4 {
+  //   .transform-cel {
+  //     // transform: translate(0);
+  //     transform: translate(-42%);
+  //   }
+  // }
+  // .wday-5 {
+  //   .transform-cel {
+  //     // transform: translate(-150px);
+  //     transform: translate(-55%);
+  //   }
+  // }
+  // .wday-6 {
+  //   .transform-cel {
+  //     // transform: translate(-389px);
+  //     transform: translate(-75%);
+  //   }
 
-  }
+  // }
+
+  // .table-striped > tbody > tr:first-child {
+  //   .transform-cel {
+  //       bottom: -128px;
+  //   }
+  // }
+  // .table-striped > tbody > tr:nth-child(2) {
+  //   .transform-cel {
+  //       bottom: -128px;
+  //   }
+  // }
+
 
   .today {}
   .past {}

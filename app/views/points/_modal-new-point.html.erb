@@ -7,15 +7,29 @@
         <% if point.id.nil? %>
 
           <%= simple_form_for [user, point] do |f| %>
-            <p>Choisissez votre activité:</p>
-            <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
-
-            <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
+          <div class="row" style="padding: 10px;">
+            <div class="col-xs-12">
+              <p>Choisissez votre activité:</p>
+              <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <div class="col-xs-6">
+              <div class="col-xs-12">
+                <p><strong>Privé :</strong> Seules les personnes invitées peuvent voir ce point. L'organisateur choisit si les invités peuvent inviter du monde</p>
+              </div>
+              <div class="col-xs-12">
+                <p><strong>Public :</strong> Tout le monde peut voir ce point, le rechercher et y participer</p>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
+            </div>
+          </div>
             <%= f.button :button do %>
               <i class="fas fa-check"></i>
               Créer
             <% end %>
-
           <% end %>
         <% else %>
           <%= simple_form_for point do |f| %>
