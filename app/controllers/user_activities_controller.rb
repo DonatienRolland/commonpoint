@@ -7,15 +7,14 @@ class UserActivitiesController < ApplicationController
     @user_activity = UserActivity.new(activity_params)
     @user_activity.user = @user
     if @user_activity.save
-      respond_to do |format|
-        format.html { redirect_to user_activities_path }
-        format.js
+      act = @user_activity.activity.title
+      points = Point.activity_title(act).where('type_of_point = ? and date <= ?', "Publique", DateTime.now).where(full: false)
+      points.each do |point|
+        Participant.create(point: point, user: @user, invited: true)
       end
+      redirect_to user_activities_path
     else
-      respond_to do |format|
-        format.html { render 'users/show/user_activities' }
-        format.js
-      end
+      render :index
     end
 
     authorize @user

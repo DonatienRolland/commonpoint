@@ -51,12 +51,10 @@ class PointsController < ApplicationController
           new_point.save
           # create its paerticipants and equipments
           @point.participants.each do |participant|
-            part = Participant.new(participant.attributes.merge(id: nil, point: new_point))
-            part.save
+            part = Participant.create(participant.attributes.merge(id: nil, point: new_point))
           end
           @point.equipments.each do |equipment|
-            equi = Equipment.new(equipment.attributes.merge(id: nil, point: new_point))
-            equi.save
+            equi = Equipment.create(equipment.attributes.merge(id: nil, point: new_point))
           end
         end
         if !@point.point_group.nil?

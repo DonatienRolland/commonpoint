@@ -10,7 +10,7 @@
       <% @categories.each do |cat| %>
         <li role="presentation" class="cp-tab">
 
-          <%= link_to "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab"} do %>
+          <%= link_to "##{cat.title}", {role: "tab", 'aria-controls' => cat.title, "data-toggle"=> "tab", 'data-score' => "#{activities.where(category: cat).count}", class:"tab-link"} do %>
             <% if cat.title == "Culture" %>
               <i class="fab fa-affiliatetheme"></i> <h4 class="hidden-sm hidden-xs"> (<%= activities.where(category: cat).count %>) <%= cat.title %></h4>
             <% elsif cat.title == "Sport" %>

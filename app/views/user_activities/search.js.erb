@@ -5,30 +5,65 @@ function refreshTab(innerTab){
 }
 
 function tabHighResult(){
-  const tabs = document.querySelectorAll('.tab-pane')
-  const tabBtns = document.querySelectorAll('.cp-tab')
-
+  const tabs = document.querySelectorAll('.cp-tab')
   var count = 0
-  tabs.forEach((tab) => {
-    tab.classList.remove('active')
-    let score = tab.dataset.score
-    let id = tab.id
-    if (count < score) {
-      count = score
-      tab.classList.add('active')
+
+  Array.prototype.insert = function ( index, item ) {
+      this.splice( index, 0, item );
+  };
+  var arr = [];
+  // get all data value in array
+  for(var i = 0; i < tabs.length; i++){
+    let score = tabs[i].children[0].dataset.score
+    if (score !== undefined) {
+      arr.insert(i, score);
     }
-  })
+  }
+  // find the tab with max value to click on it
+  var max = Math.max(...arr)
+  for(var i = 0; i < tabs.length; i++){
+    let score = tabs[i].children[0].dataset.score
+    if (score == max) {
+      var el = tabs[i]
+      el.children[0].click();
+    }
+  }
 }
 
+function cleanResult(){
+  const input = document.getElementsByTagName('input')[1]
 
-refreshTab('<%= j render "user_activities/tab-activities", activities: @activities %>')
-tabHighResult()
+  autoRefresh(input)
+
+  input.oninput = function() {
+    autoRefresh(this)
+  }
+
+  function autoRefresh(arg){
+    if (arg.value == "") {
+      window.location.reload()
+    } else {
+      refreshTab('<%= j render "user_activities/tab-activities", activities: @activities %>')
+      tabHighResult()
+      $( document ).ready(function() {
+        var heights = $(".eql-height").map(function() {
+            return $(this).height();
+        }).get(),
+
+        maxHeight = Math.max.apply(null, heights);
+        $(".eql-height").height(maxHeight);
+      });
+    }
+  }
+}
+
+cleanResult()
 
 $( document ).ready(function() {
-    var heights = $(".eql-height").map(function() {
-        return $(this).height();
-    }).get(),
+  var heights = $(".eql-height").map(function() {
+      return $(this).height();
+  }).get(),
 
-    maxHeight = Math.max.apply(null, heights);
-    $(".eql-height").height(maxHeight);
+  maxHeight = Math.max.apply(null, heights);
+  $(".eql-height").height(maxHeight);
 });
