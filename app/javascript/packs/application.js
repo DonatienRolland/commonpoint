@@ -6,6 +6,8 @@ import '../components/select2';
 
 import "../components/numberStepper.js"
 
+import "../components/mapEdit.js"
+
 import "../components/equalHeight"
 
 import { checkBox } from "../components/checkBox";
@@ -40,3 +42,6 @@ scrollMessagesIntoView();
 
 import { addStringToValue } from '../components/valueRange';
 addStringToValue();
+
+import { getValueMap } from '../components/valueMap';
+getValueMap();

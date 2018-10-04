@@ -108,7 +108,9 @@ class Point < ApplicationRecord
   end
 
   def day_month
-    self.date.strftime("%A %d %B %Y at %H:%M")
+    if !self.date.nil?
+      self.date.strftime("%A %d %B %Y at %H:%M")
+    end
   end
 
   def is_full?

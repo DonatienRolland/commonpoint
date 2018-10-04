@@ -146,6 +146,43 @@ class PointsController < ApplicationController
     authorize @user
   end
 
+  def update_type_of_point
+    @user = current_user
+    @point = Point.find(params[:id])
+    activity_params = params.require(:point).permit(:type_of_point)
+    if params[:point][:type_of_point] == "Privé" && @point.type_of_point == "Publique"
+      @point.participants.where.not(user: @user).destroy_all
+    end
+
+    if @point.update(activity_params)
+      redirect_to edit_point_path(@point)
+    else
+      raise
+    end
+    authorize @user
+  end
+
+  def search_map
+    @user = current_user
+    @point = Point.find(params[:id])
+    address_params = params.require(:point).permit(:address)
+    if @point.update(address_params)
+      user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
+      point_coordinates = { lat: @point.latitude, lng: @point.longitude }
+      @markers = [ user_coordinates, point_coordinates ]
+      respond_to do |format|
+        format.html{ redirect_to edit_point_path(@point, anchor: "here")}
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message } }
+      end
+    end
+
+    authorize @user
+  end
+
 private
 
   def generate_participants(point, user)

@@ -29,7 +29,11 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
-  def search?
+  def search_map?
+    is_user_the_owner_or_admin?
+  end
+
+  def update_type_of_point?
     is_user_the_owner_or_admin?
   end
 

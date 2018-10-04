@@ -1,3 +1,17 @@
   <!-- <small class="text-muted">You can also enter IP. Your IP is <#%= request.ip %></small> -->
 
-<%= f.input :address, input_html: { id: "point_address" }, label: false %>
+<%= simple_form_for @point, url: search_map_point_path(@point), method: :put, remote: false do |f| %>
+  <div class="row">
+    <div class="col-xs-8">
+      <%= f.input :address, input_html: { id: "point_address" } %>
+    </div>
+    <div class="col-xs-4">
+      <%= f.button :button do %>
+        <i class="fas fa-map-marker-alt"></i>
+        Localiser
+      <% end %>
+    </div>
+
+  </div>
+
+<% end %>

@@ -9,18 +9,20 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:show, :update, :edit] do
     resources :user_activities, only: [ :create, :new ] do
-      get 'search', :on => :collection
+      get 'search', on: :collection
     end
     resources :points, only: [ :create, :new ] do
       get 'home', :on => :collection
-      get 'historique', :on => :collection
-      get 'invitation', :on => :collection
+      get 'historique', on: :collection #without id
+      get 'invitation', on: :collection
     end
   end
 
   resources :equipments, only: :update
   resources :participants, only: :update
   resources :points, only: [ :show, :edit, :destroy, :index, :update ] do
+    put 'search_map', on: :member #with id
+    put 'update_type_of_point', on: :member #with id
     resources :messages, only: [ :create ]
     resources :participants, only: :create
   end

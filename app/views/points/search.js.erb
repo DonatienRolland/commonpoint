@@ -1,0 +1,6 @@
+
+(function() {
+  var markersData = <%= raw @markers.to_json %>;
+  updateMarkers(mapHandler, markersData);
+})();
+

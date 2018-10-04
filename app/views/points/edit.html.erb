@@ -27,16 +27,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-sm-12 col-xs-12 padding-blocks">
-        <div class="dimension-onglet">
-          <h3 class="title-onglet">Lieu</h3>
-        </div>
-        <div class="background-white eql-height">
-          <%= render 'map', f: f %>
-          <div id="map" style="height: 230px;" data-markers="<%= @markers.to_json%>"></div>
-        </div>
 
-      </div>
 
       <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
@@ -48,6 +39,7 @@
               Participants
             </button>
           <% end %>
+          <%= @point.participants.count %>
 
         </div>
       </div>
@@ -82,9 +74,22 @@
       </div>
     </div>
   <% end %>
+  <div class="col-lg-6 col-sm-12 col-xs-12 padding-blocks">
+    <div class="dimension-onglet">
+      <h3 class="title-onglet">Lieu</h3>
+    </div>
+    <div class="background-white eql-height" id="here">
+      <%= render 'map' %>
+      <div id="map" style="height: 230px;" data-markers="<%= @markers.to_json%>"></div>
+    </div>
+  </div>
 </div>
 
 
+<%= content_for(:after_js) do %>
+
+
+<% end %>
 
 
 

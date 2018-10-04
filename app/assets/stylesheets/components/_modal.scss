@@ -28,7 +28,7 @@
 
 // full screen
 .modal-space-1 {
-  padding: 5% 4%;
+  padding: 10% 4%;
   background-color: rgba(0,0,0,0.4);
 }
 
@@ -41,8 +41,14 @@
   }
 }
 .modal-space-2 {
-  padding: 30vw 4%;
+  padding: 25vw 20%;
   background-color: rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 767px){
+  .modal-space-2 {
+    padding: 25vw 4%;
+  }
 }
 
 @media only screen and (min-width: 768px) {
