@@ -66,7 +66,7 @@
 }
 .top-right-btn {
   position: absolute;
-  top: 35px;
+  bottom: 8px;
   right: 15px;
 }
 
@@ -174,4 +174,43 @@ input[type="radio"], input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.position-btn-edit {
+  bottom: -125px;
+  width: 100%;
+  margin: auto;
+  right: -100%;
+  left: 0;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: 2;
+  align-items: center;
+  a {
+    color: $cp;
+    margin-left: 2px;
+  }
+}
+#participants {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media screen and (max-width: 767px){
+  .position-btn-edit {
+    bottom: -480px;
+    right: 0;
+  }
+}
+
+
+.icon-count {
+  margin: auto;
+  p {
+    font-size: 50px !important;
+  }
+  i {
+    font-size: 110px;
+    color: #1930393d;
+  }
 }

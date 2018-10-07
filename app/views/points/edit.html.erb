@@ -1,53 +1,18 @@
-<div id="edit-point">
+<div id="edit-point" style="display: table; width: 100%;">
   <%= render 'modal-new-point', user: @user, point: @point %>
-
-
-  <div class="visible-xs hidden">
-    <%= link_to "#" do %>
-      <p class="info-historic" ><i class="fas fa-history"></i> Consultez votre historique pour refaire un point existant</p>
-    <% end %>
-  </div>
 
   <%= simple_form_for (@point) do |f| %>
     <% if !@point.is_public? %>
       <%= render 'modal-new-participant-list', f: f %>
     <% end %>
-    <div class="row display-inline">
-      <%= render 'form', f: f %>
-      <!-- invisible for the moment  -->
-      <div class="historic-btn col-lg-2 col-sm-2 hidden-xs hidden">
-        <div class="relative-btn">
-          <div class="info-historic">
-            <i class="fas fa-history"></i>
-            <p>Consultez votre historique pour refaire un point à plu en ne changeant que la date</p>
-          </div>
-          <%= link_to "Mon historique >", "#" %>
-        </div>
-      </div>
-    </div>
-
     <div class="row">
-
-
-      <div id="equipments" class="col-lg-3 col-sm-6 col-xs-12 padding-blocks">
+      <%= render 'form', f: f %>
+      <div class="col-lg-3 col-sm-3 col-xs-12 padding-blocks">
         <div class="dimension-onglet">
-          <h3 class="title-onglet">Participants</h3>
+          <h3 class="title-onglet">Materiels</h3>
         </div>
-        <div class="background-white eql-height scroll-div relative-btn">
-          <% if !@point.is_public? %>
-            <button type="button" class="btn btn-primary count-parcticipant" data-toggle="modal" data-target="#listParticipantModal">
-              Participants
-            </button>
-          <% end %>
-          <%= @point.participants.count %>
-
-        </div>
-      </div>
-      <div class="col-lg-3 padding-blocks">
-        <div class="dimension-onglet">
-          <h3 class="title-onglet">Actions</h3>
-        </div>
-        <div class="eql-height background-white column-btn">
+        <div class="eql-height background-white scroll-div relative-btn">
+          <p>Indiquez si vous avez besoin de materiel pour ce point</p>
           <%= f.simple_fields_for :equipments do |e| %>
             <%= render 'equipment_fields', f: e %>
           <% end %>
@@ -56,29 +21,57 @@
               <i class="fas fa-plus"></i>
             <% end %>
           </div>
-
-          <%= f.button :button, class:"display-inline" do %>
-            <div class="form-button form-button-lg circle-btn green-color">
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <h3>Sauvegarder</h3>
-          <% end %>
-
-          <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline btn" do %>
-            <div class="form-button form-button-lg circle-btn red-color">
-              <i class="far fa-trash-alt"></i>
-            </div>
-            <h3>Supprimer</h3>
-          <% end %>
         </div>
       </div>
     </div>
+
+    <div id=" relative-btn" class="col-lg-6 col-sm-6 col-xs-12 padding-blocks">
+      <div class="dimension-onglet">
+        <h3 class="title-onglet">Participants</h3>
+      </div>
+      <div class="background-white big-height" id="participants">
+        <div class="icon-count display-inline">
+          <div class="display-inline">
+            <p class="count-parcticipant"><%= @point.is_public? ? @point.participants.where(invited: true).count : "" %></p>
+            <p>/<%= @point.participants.count %></p>
+          </div>
+          <i class="fas fa-user-check" style=""></i>
+        </div>
+        <% if !@point.is_public? %>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#listParticipantModal">
+            + Participants
+          </button>
+        <% end %>
+
+      </div>
+
+
+
+
+
+
+      <div class="position-btn-edit background-white" style="position: absolute;">
+        <%= link_to point_path(@point),  method: :delete, data: { confirm: 'Are you sure?' }, class:"display-inline btn" do %>
+          <div class="form-button form-button-lg circle-btn red-color">
+            <i class="far fa-trash-alt"></i>
+          </div>
+          <h3>Supprimer</h3>
+        <% end %>
+        <%= f.button :button, class:"display-inline" do %>
+          <div class="form-button form-button-lg circle-btn green-color">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <h3>Sauvegarder</h3>
+        <% end %>
+      </div>
+    </div>
+
   <% end %>
-  <div class="col-lg-6 col-sm-12 col-xs-12 padding-blocks">
+  <div class="col-lg-6 col-sm-6 col-xs-12 padding-blocks">
     <div class="dimension-onglet">
       <h3 class="title-onglet">Lieu</h3>
     </div>
-    <div class="background-white eql-height" id="here">
+    <div class="background-white big-height" id="here">
       <%= render 'map' %>
       <div id="map" style="height: 230px;" data-markers="<%= @markers.to_json%>"></div>
     </div>

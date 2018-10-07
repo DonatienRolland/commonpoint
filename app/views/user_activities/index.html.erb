@@ -4,10 +4,16 @@
   </div>
   <div id="user_activity-search_bar" style="margin-bottom: 10px;">
     <%= form_tag search_user_user_activities_path(@user), method: :get, remote: true, authenticity_token: true do %>
+    <div class="row">
+      <div class="col-lg-3 col-lg-offset-3 input-search col-xs-10">
       <%= text_field_tag :query, params[:query], placeholder: "Saisissez une activité" %>
+      </div>
+      <div class="col-lg-3 col-xs-2">
       <%= button_tag class:"recherche-btn" do %>
         <i class="fas fa-search"></i> <h4 class="hidden-sm hidden-xs"> Rechercher </h4>
       <% end %>
+      </div>
+      </div>
     <% end %>
   </div>
 

@@ -22,7 +22,10 @@
 </div>
 
 <div class="col-lg-4 scroll-div relative-btn max-height hidden-xs" id="right-part-participant">
-  <h3 class="count-parcticipant">(1) Participants</h3>
+  <div class="display-inline">
+    <h3 class="count-parcticipant"><%= @point.is_public? ? @point.participants.where(invited: true).count : "" %></h3>
+    <h3>/<%= @point.participants.count %></h3>
+  </div>
   <% @participants.each do | participant| %>
     <div class=" participant-added <%= participant.user == @user ? "" : "hidden" %>" data-conf="<%= participant.user.id %>">
     <%= render 'shared/avatar_name_stars', user: participant.user, activity: @point.activity  %>

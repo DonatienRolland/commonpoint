@@ -1,0 +1,16 @@
+.container-grid {
+  display: grid;
+  grid: auto / auto auto auto;
+  grid-template-colummns: 1fr 1fr 1fr;
+  grid-template-rows: 50% 50%;
+}
+
+
+.main-element {
+  grid-row: 1 / span 1;
+  grid-column: 1/ span 2;
+}
+.participant-element {
+  grid-row: 1 / span 1;
+  grid-column: 3/ span ;
+}

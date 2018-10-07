@@ -150,11 +150,18 @@ class PointsController < ApplicationController
     @user = current_user
     @point = Point.find(params[:id])
     activity_params = params.require(:point).permit(:type_of_point)
-    if params[:point][:type_of_point] == "Privé" && @point.type_of_point == "Publique"
-      @point.participants.where.not(user: @user).destroy_all
-    end
 
     if @point.update(activity_params)
+    # le point passe de publique a prive
+      @point.participants.where.not(user: @user).each do |participant|
+      # desinviter tout les participants sauf le user
+        if @point.is_public?
+          participant.invited = true
+        else
+          participant.invited = nil
+        end
+        participant.save
+      end
       redirect_to edit_point_path(@point)
     else
       raise
@@ -191,7 +198,7 @@ private
     user_activities = UserActivity.where(activity: activity)
     user_activities.each do |user_activity|
       if user_activity.user != user
-        participant = Participant.create!( user:user_activity.user, invited: point.is_public? ? true : false, point: point)
+        participant = Participant.create!( user:user_activity.user, invited: point.is_public? ? true : nil, point: point)
         participant.save
       end
     end

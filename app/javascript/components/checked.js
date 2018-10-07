@@ -34,7 +34,7 @@ function participantCheckBoxs(){
       }
       count_participants.forEach((count_participant) => {
         count_participant.innerText = ""
-        count_participant.innerText = "(" + count +") Participants"
+        count_participant.innerText = count
       })
     })
   })
@@ -52,7 +52,7 @@ function countParticipants(){
       participant.classList.add('green-icon')
       count_participants.forEach((count_participant) => {
         count_participant.innerText = ""
-        count_participant.innerText = "(" + count +") Participants"
+        count_participant.innerText =  count
       })
       }
     }
@@ -68,7 +68,6 @@ function participantChecked(){
     let user_id = participant.dataset.conf
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].type === "checkbox" && inputs[i].checked === true) {
-        console.log("coucou")
         participants_added.forEach((added) => {
           let add = added.dataset.conf
           if (user_id == add) {
