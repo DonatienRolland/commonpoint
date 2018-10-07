@@ -88,7 +88,7 @@ p "#{user.last_name} #{user.company}"
 p "create user_activity"
 User.where(admin: false).each do |user|
   Activity.where(category: arts ).each do |activity|
-    level_random = rand(0...5)
+    level_random = rand(1...5)
     UserActivity.create!(level:level_random, description: Faker::Cannabis.category, activity: activity, user: user )
   end
 end

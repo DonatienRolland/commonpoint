@@ -50,7 +50,7 @@
           <div style="padding: 15px;">
             <p>Ton niveau:</p>
             <p id="levelActivity"></p>
-            <%= f.input :level, as: :range, input_html: { min: 0, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
+            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
           </div>
           <%= f.input :description, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..." %>
           <div class="form-action">
