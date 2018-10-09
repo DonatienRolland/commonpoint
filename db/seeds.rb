@@ -24,14 +24,15 @@ csv_file_activity   = File.join(__dir__, 'activities.csv')
 
 CSV.foreach(csv_file_activity) do |row|
   if row[0]
-    Activity.create!(title: row[0], category: sport, icon: 'logo.png')
+    act = Activity.create!(title: row[0], category: sport)
   end
   if row[1]
-    Activity.create!(title: row[1], category: arts, icon: 'logo.png')
+    act = Activity.create!(title: row[1], category: arts)
   end
   if row[2]
-    Activity.create!(title: row[2], category: culture, icon: 'logo.png')
+    act = Activity.create!(title: row[2], category: culture)
   end
+  p "add #{act.title}"
 end
 
 p 'create 3 companies'

@@ -1,7 +1,10 @@
 class Activity < ApplicationRecord
+  mount_uploader :icon, PhotoUploader
+
   belongs_to :category
 
-  has_many :user_activity, dependent: :destroy
+  has_many :user_activities, dependent: :destroy
+
   has_many :users, through: :user_activities
 
   has_many :points, through: :user_activities
@@ -15,7 +18,13 @@ class Activity < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
-
+  def icon2
+    if self.icon_url.nil?
+      "http://res.cloudinary.com/dj7bq8py7/image/upload/v1539004535/nhxgdi9bxwakkz1mth8z.jpg"
+    else
+      self.icon
+    end
+  end
   def is_category?(cat)
     if self.category == cat
       true

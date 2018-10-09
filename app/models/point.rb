@@ -121,5 +121,11 @@ class Point < ApplicationRecord
     end
   end
 
+  def is_validated?
+    if self.number_min >= self.participants.where(status:"I'm in").count
+      true
+    end
+  end
+
 
 end

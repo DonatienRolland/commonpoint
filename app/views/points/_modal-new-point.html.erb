@@ -10,7 +10,7 @@
           <div class="row" style="padding: 10px;">
             <div class="col-xs-12">
               <p>Choisissez votre activité:</p>
-              <%= f.input :user_activity, collection: Activity.where(user_activity: @user.user_activities), label: false, input_html: { class:'select2'} %>
+              <%= f.input :user_activity, collection: Activity.where(user_activities: @user.user_activities), label: false, input_html: { class:'select2'} %>
             </div>
           </div>
           <div class="row" style="padding: 10px;">

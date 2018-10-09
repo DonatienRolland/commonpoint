@@ -4,30 +4,30 @@
   </div>
 
   <div class="background-white eql-height">
-    <div class="top-bottom-margin center-items">
+    <div class=" center-items">
         <p>Activitée: <strong><%= @point.user_activity.activity.title  %></strong></p>
         <p>Type de point: <strong><%= @point.type_of_point  %></strong></p>
     </div>
-    <div class="top-bottom-margin center-items">
+    <div class=" center-items">
         <p>Organisateur: <strong><%= @point.user.first_name.present? ? @point.user.first_name : "" %><%= @point.user.last_name.present? ? @point.user.last_name : "" %></strong></p>
         <p>Téléphone: <strong><%= @point.user.phone.present? ? @point.user.phone : "n'a pas renseigné son numéro de téléphone"  %></strong></p>
     </div>
 
 
-    <div class="top-bottom-margin">
+    <div class="">
       <p>Nombre de participants:</p>
       <p class="five-margin">Min: <strong><%= @point.number_min %></strong></p>
       <p class="five-margin">Max <strong><%= @point.number_max.present? ? @point.number_max : "<i class='fas fa-times'></i>".html_safe %></strong> </p>
 
     </div>
 
-    <div class="top-bottom-margin">
-       <p>Prix: <strong><%= @point.price %> €</strong></p>
+    <div class="">
+       <p style="margin-bottom: 0; ">Prix: <strong><%= @point.price %> €</strong></p>
     </div>
 
 
 <!-- not visible for the momemnt -->
-    <div class="top-bottom-margin hidden">
+    <div class=" hidden">
       <p>Niveau des participants: </p>
       <% if !@point.level_max.nil? && @point.level_max > @point.level_min %>
         <% for i in 1..@point.level_min %>

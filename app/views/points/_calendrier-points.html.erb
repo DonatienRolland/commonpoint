@@ -5,13 +5,13 @@
     <% points.each do |point| %>
       <div class="dropup <%= points.count >= 3 ? 'col-lg-4' : '' %> <%= points.count == 2 ? 'col-lg-6' : '' %> <%= points.count == 1 ? 'col-lg-12' : '' %> <%= point.is_full? ? 'green-color-border' : 'red-color-border' %> <%= @user.invited?(point) && !@user.is_owner?(point) && !@user.participated?(point) ? 'orange-background' : '' %> <%= @user.participated?(point) && !@user.is_owner?(point) ? 'blue-background' : '' %> <%= @user.is_owner?(point) ? 'red-background' : '' %>">
           <% if point.is_new?%>
-            <div class="new-point">
+            <div class="new-point hidden-xs">
               <p>new</p>
             </div>
           <% end %>
           <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar",
               data: {toggle: 'modal', target: "drop_#{point.id}"} do %>
-              <div class="contain-image icon_cercle" style="background-image: url('<%= image_path point.user_activity.activity.icon %>')">
+              <div class="contain-image icon_cercle" style="background-image: url('<%= image_path point.user_activity.activity.icon2 %>')">
               </div>
           <% end %>
 
