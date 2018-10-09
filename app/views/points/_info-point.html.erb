@@ -2,8 +2,8 @@
   <div class="row" style="width:96%;padding: 15px 10px 15px 0px;">
     <div class="activity-width form-flex-column col-lg-2 col-sm-2 eql-height display-flex-center" style="">
       <%= link_to point_path(point) do %>
-      <%= image_tag point.user_activity.activity.icon2 %>
-      <p><%= truncate(point.user_activity.activity.title, length: 20, :separator => /\s/ )%></p>
+        <%= cl_image_tag point.user_activity.activity.icon2 %>
+        <p><%= truncate(point.user_activity.activity.title, length: 20, :separator => /\s/ )%></p>
       <% end %>
     </div>
     <div class="point-information-general col-lg-3 col-sm-3 eql-height display-flex-center" style="">

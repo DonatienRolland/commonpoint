@@ -3,7 +3,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   process eager: true  # Force version generation at upload time.
 
-  process convert: 'jpg'
+  # process convert: 'jpg'
+  process :resize_to_fill => [100]
+
+
 
   version :bright_face do
     cloudinary_transformation radius: 50,
