@@ -78,6 +78,11 @@ class UserActivitiesController < ApplicationController
 
     @user_activity = UserActivity.new
 
+
+
+
+
+
     user_activities = policy_scope(UserActivity)
     authorize UserActivity
   end
