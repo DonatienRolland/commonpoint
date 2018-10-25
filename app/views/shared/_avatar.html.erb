@@ -1,4 +1,4 @@
-<% if user.avatar.present? %>
+<% if user.avatar? %>
   <%= cl_image_tag user.avatar, class: "avatar-square"%>
 <% else %>
   <div class="avatar-init avatar-square" style="padding-top:10%;">

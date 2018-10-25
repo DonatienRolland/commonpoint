@@ -37,8 +37,6 @@ class Point < ApplicationRecord
       end
     end
   end
-
-
   has_many :users, through: :participants
 
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
