@@ -45,3 +45,6 @@ addStringToValue();
 
 import { getValueMap } from '../components/valueMap';
 getValueMap();
+
+import { mapAjax } from '../components/mapAjax';
+mapAjax();

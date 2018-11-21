@@ -37,25 +37,7 @@ class PointsController < ApplicationController
       if @point.verif_data
         # create a new point if second date
         if !params[:second_date].nil? && params[:second_date] != ""
-          new_point = Point.new(@point.attributes.merge(date: params[:second_date] ))
-          new_point.id = nil
-          # join to a group
-          if @point.point_group
-            @point_group = @point.point_group
-          else
-            @point_group = PointGroup.create!
-            @point.point_group = @point_group
-          end
-          @point.save
-          new_point.point_group = @point_group
-          new_point.save
-          # create its paerticipants and equipments
-          @point.participants.each do |participant|
-            part = Participant.create(participant.attributes.merge(id: nil, point: new_point))
-          end
-          @point.equipments.each do |equipment|
-            equi = Equipment.create(equipment.attributes.merge(id: nil, point: new_point))
-          end
+          create_a_second_point_with(params[:second_date], @point)
         end
         if !@point.point_group.nil?
           @point_group = @point.point_group
@@ -67,12 +49,15 @@ class PointsController < ApplicationController
         redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message }
       end
     else
+      session[:point_test_id] = 345
       redirect_to edit_point_path(@point), flash: {notice: "Assurez vous d'avoir bien remplis tous les champs" }
     end
     authorize @user
   end
 
   def show
+    @session = session[:point_test_id]
+
     @user = current_user
     @point = Point.find(params[:id])
 
@@ -80,10 +65,10 @@ class PointsController < ApplicationController
     point_coordinates = { lat: @point.latitude, lng: @point.longitude }
     @markers = [ user_coordinates, point_coordinates ]
 
-    @participants = Participant.where(point: @point, invited: true )
+    @participants_invited = Participant.invited_to(@point).order_by_user_name
+    @participants = Participant.is_comming_to(@point).order_by_user_name
 
     @equipments = @point.equipments
-    @count_participants = Participant.where(point: @point, invited: true, status: "I'm in" ).count
 
     @message = Message.new
     @points = Message.where(point: @point).order('created_at ASC')
@@ -131,7 +116,7 @@ class PointsController < ApplicationController
     @point.user_activity = user_activity.first
     @point.user = @user
     if @point.save
-      generate_participants(@point, @user)
+      @point.generate_participants(@user)
       redirect_to edit_point_path(@point), flash: {notice: "Votre Point a été créé. Veuilliez compléter les infos manquantes"}
     else
       render new
@@ -186,23 +171,22 @@ class PointsController < ApplicationController
         format.html { redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message } }
       end
     end
-
     authorize @user
   end
 
 private
 
-  def generate_participants(point, user)
-    user_participant = Participant.create!(user: user, point: point, invited: true, status: "I'm in")
-    activity = point.user_activity.activity
-    user_activities = UserActivity.where(activity: activity)
-    user_activities.each do |user_activity|
-      if user_activity.user != user
-        participant = Participant.create!( user:user_activity.user, invited: point.is_public? ? true : nil, point: point)
-        participant.save
-      end
-    end
-  end
+  # def generate_participants(point, user)
+  #   user_participant = Participant.create!(user: user, point: point, invited: true, status: "I'm in")
+  #   activity = point.user_activity.activity
+  #   user_activities = UserActivity.where(activity: activity)
+  #   user_activities.each do |user_activity|
+  #     if user_activity.user != user
+  #       participant = Participant.create!( user:user_activity.user, invited: point.is_public? ? true : nil, point: point)
+  #       participant.save
+  #     end
+  #   end
+  # end
 
   def set_user
     @user = User.find(params[:user_id])
@@ -248,7 +232,7 @@ private
       end
     end
     @today = Date.today
-    @point_selected = Point.joins(:participants).where(participants:{ point_id: point_ids, user: @user}).order('date ASC')
+    @point_selected = Point.joins(:participants).where(participants:{ point_id: point_ids, user: user}).order('date ASC')
   end
 
   def filtering(points)
@@ -260,4 +244,27 @@ private
   def filtering_params(params)
     params.slice(:addresses, :dates, :activity_title)
   end
+
+  def create_a_second_point_with(params, point)
+    new_point = Point.new(point.attributes.merge(date: params ))
+    new_point.id = nil
+    # # join to a group
+    if point.point_group
+      @point_group = point.point_group
+    else
+      @point_group = PointGroup.create!
+      point.point_group = @point_group
+    end
+    point.save
+    new_point.point_group = @point_group
+    new_point.save
+    # create its paerticipants and equipments
+    point.participants.each do |participant|
+      part = Participant.create(participant.attributes.merge(id: nil, point: new_point))
+    end
+    point.equipments.each do |equipment|
+      equi = Equipment.create(equipment.attributes.merge(id: nil, point: new_point))
+    end
+  end
+
 end

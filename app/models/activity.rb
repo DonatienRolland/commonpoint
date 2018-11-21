@@ -19,10 +19,10 @@ class Activity < ApplicationRecord
     }
 
   def icon2
-    if self.icon_url.nil?
-      "http://res.cloudinary.com/dj7bq8py7/image/upload/v1539004535/nhxgdi9bxwakkz1mth8z.jpg"
-    else
+    if self.icon?
       self.icon
+    else
+      "https://res.cloudinary.com/dj7bq8py7/image/upload/v1541578509/logo.png"
     end
   end
   def is_category?(cat)

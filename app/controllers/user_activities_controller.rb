@@ -1,8 +1,5 @@
 class UserActivitiesController < ApplicationController
   def create
-    if params[:search_bar]
-      raise
-    end
     @user = User.find(params[:user_id])
     @user_activity = UserActivity.new(activity_params)
     @user_activity.user = @user

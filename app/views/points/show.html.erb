@@ -2,6 +2,7 @@
 <div id="edit-point">
   <div style="text-align: center; padding-bottom: 10px;">
     <%= @point.day_month %>
+          <h1><%= @session.inspect %></h1>
   </div>
   <div class="row">
     <div class="col-lg-9 big-height">
@@ -21,20 +22,19 @@
 
       <div class="row">
 
-
         <div class=" <%= @equipments.count > 0 ? 'col-lg-8 col-sm-6' : 'col-lg-12'  %>  col-xs-12 padding-blocks">
           <div class="dimension-onglet">
             <h3 class="title-onglet">Participants </h3>
           </div>
           <div class="background-white eql-height">
-            <% if @point.number_min > @count_participants %>
-              <p><%= @count_participants %> / <%= @point.number_min %> pour validé le point</p>
+            <% if @point.number_min > @participants.count %>
+              <p><%= @participants.count %> / <%= @point.number_min %> pour validé le point</p>
             <% else %>
-              <p>Nous avons <strong> <%= @count_participants%> participants</strong></p>
+              <p>Il y a <strong> <%= @participants.count %></strong> participants</p>
             <% end %>
             <div class="scroll-div" style="max-height: 240px">
-                <% if @point.is_full? %>
-                  <% @participants.where(status: "I'm in").each do |participant| %>
+                <% if @point.is_full? || @point.is_public? %>
+                  <% @participants.each do |participant| %>
                     <div class="row">
                       <div class="col-lg-6">
                         <%= render 'shared/participant-point', user: participant.user, activity: @point.activity %>
@@ -50,8 +50,9 @@
                       </div>
                     </div>
                   <% end %>
+
                 <% else %>
-                  <% @participants.each do |participant| %>
+                  <% @participants_invited.each do |participant| %>
                   <div class="row">
                     <% if participant.user == @user %>
                       <%= simple_form_for participant do |e| %>

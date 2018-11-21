@@ -55,7 +55,7 @@
       <div class="col-lg-2 col-xs-12">
         <div class="display-inline">
           <p class="five-margin">Prix (€):</p>
-          <%= f.input :price, as: :integer, label: false, input_html: { style:"width:65px" } %>
+          <%= f.input :price, as: :integer, label: false, input_html: { style:"width:65px", oninput:"this.value = Math.abs(this.value) " }%>
         </div>
       </div>
     </div>

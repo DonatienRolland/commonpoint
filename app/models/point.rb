@@ -57,7 +57,7 @@ class Point < ApplicationRecord
   # after_validation :geocode, if: :will_save_change_to_address?
 
   def verif_data
-    if self.address.present? && self.number_min.present? && self.number_min > 0 && self.level_min.present?
+    if self.number_min.present? && self.number_min > 0 && self.level_min.present?
       if !self.number_max.nil? && self.number_max < self.number_min
         self.number_max = nil
       end
@@ -74,7 +74,6 @@ class Point < ApplicationRecord
   end
 
   def send_error_message
-    return "Vous devez sélectionner une adresse" if self.address.nil?
     return "Vous devez sélectionner un nombre minimum de participant " if self.number_min == 0
     return "Vous devez sélectionner un niveau minimum " if self.level_min.nil?
   end
@@ -112,12 +111,13 @@ class Point < ApplicationRecord
   end
 
   def is_full?
-    if !self.number_max.nil?
-      self.number_max == Participant.where(point: self, status: "I'm in").count
+    if self.number_max.present?
+      self.number_max == Participant.is_comming_to(self).count
     else
       return false
     end
   end
+
 
   def is_validated?
     if self.number_min >= self.participants.where(status:"I'm in").count
@@ -125,5 +125,17 @@ class Point < ApplicationRecord
     end
   end
 
+  def generate_participants(user)
+    user_participant = Participant.create!(user: user, point: self, invited: true, status: "I'm in")
+    activity = self.user_activity.activity
+    user_activities = UserActivity.where(activity: activity)
+    user_activities.each do |user_activity|
+      if user_activity.user != user
+        # A modifier: ne pas créer de participant si le user ne la pas fait
+        participant = Participant.create!( user:user_activity.user, invited: self.is_public? ? true : nil, point: self)
+        participant.save
+      end
+    end
+  end
 
 end

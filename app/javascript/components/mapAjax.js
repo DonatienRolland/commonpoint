@@ -1,0 +1,14 @@
+
+
+function mapAjax(){
+
+
+
+
+
+
+
+}
+
+
+export { mapAjax }
