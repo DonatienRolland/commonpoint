@@ -1,7 +1,8 @@
 class PointsController < ApplicationController
-  before_action :set_user, only: [ :new, :create, :home, :invitation, :historique]
-  before_action :set_onglet, only: [ :home, :invitation, :historique]
+  before_action :set_user, only: [ :new, :create, :home, :historique]
+  before_action :set_onglet, only: [ :home, :historique]
   skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :verify_authenticity_token, only: [:search_map, :update_materiel]
 
   def home
     participants = @user.participants
@@ -13,7 +14,8 @@ class PointsController < ApplicationController
   end
 
   def historique
-    participants = Participant.where(user: @user, invited: true, status: "I'm in")
+    participants = Participant.where(user: @user, invited: true)
+
     points_selected_user(participants, @user)
     @points = @point_selected.where('date <= ?', @today)
     filtering(@points)
@@ -21,18 +23,10 @@ class PointsController < ApplicationController
     @months = [ -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11]
   end
 
-  def invitation
-    participants = Participant.where(user: @user, invited: true, status: nil)
-    points_selected_user(participants, @user)
-    @points = @point_selected.where('date >= ?', @today)
-    filtering(@points)
-    @path_select_date = invitation_user_points_path(@user)
-    @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  end
-
   def update
     @user = current_user
     @point = Point.find(params[:id])
+    # raise
     if @point.update(point_params)
       if @point.verif_data
         # create a new point if second date
@@ -61,9 +55,7 @@ class PointsController < ApplicationController
     @user = current_user
     @point = Point.find(params[:id])
 
-    user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
-    point_coordinates = { lat: @point.latitude, lng: @point.longitude }
-    @markers = [ user_coordinates, point_coordinates ]
+    @markers = { lat: @point.latitude, lng: @point.longitude }
 
     @participants_invited = Participant.invited_to(@point).order_by_user_name
     @participants = Participant.is_comming_to(@point).order_by_user_name
@@ -72,8 +64,6 @@ class PointsController < ApplicationController
 
     @message = Message.new
     @points = Message.where(point: @point).order('created_at ASC')
-    # second_date_point = Point.where(date2: @point.date2 ).where( user: @point.user ).where( user_activity: @point.user_activity )
-    # @second_date_point = second_date_point.first
     authorize @user
   end
 
@@ -81,12 +71,10 @@ class PointsController < ApplicationController
     @user = current_user
     @point = Point.find(params[:id])
 
-    user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
-    @markers = [ user_coordinates ]
-
     if @point.address.present?
-      point_coordinates = { lat: @point.latitude, lng: @point.longitude }
-      @markers << point_coordinates
+      @markers = { lat: @point.latitude, lng: @point.longitude }
+    else
+      @markers = { lat: @user.company.latitude, lng: @user.company.longitude }
     end
 
     # participant part
@@ -156,23 +144,39 @@ class PointsController < ApplicationController
 
   def search_map
     @user = current_user
-    @point = Point.find(params[:id])
-    address_params = params.require(:point).permit(:address)
-    if @point.update(address_params)
-      user_coordinates = { lat: @user.company.latitude, lng: @user.company.longitude }
-      point_coordinates = { lat: @point.latitude, lng: @point.longitude }
-      @markers = [ user_coordinates, point_coordinates ]
-      respond_to do |format|
-        format.html{ redirect_to edit_point_path(@point, anchor: "here")}
-        format.js
-      end
+    @point = Point.find(params[:params_value][:point])
+    if @point.update(address:params[:params_value][:value])
+      p "#{@point.address} after"
     else
-      respond_to do |format|
-        format.html { redirect_to edit_point_path(@point), flash: {notice: @point.send_error_message } }
-      end
+      p 'error'
     end
+    head :ok
     authorize @user
   end
+
+  def update_materiel
+    @point = Point.find(params[:id])
+    params_value = params[:params_value]
+    equipment = Equipment.find(params_value[:equipment])
+    @user = User.find(params_value[:user])
+    p "Is it checked? #{params_value[:checked]}"
+    if params_value[:checked] == "true"
+      p "ok you are checked"
+      participant = Participant.where(user: @user, point: @point).first
+    else
+      p "ok unchecked"
+      participant == nil
+    end
+      p "#{participant}"
+    if equipment.update(participant: participant)
+      p "All good dude"
+    else
+      p "error"
+    end
+    head :ok
+    authorize @user
+  end
+
 
 private
 

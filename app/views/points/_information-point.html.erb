@@ -27,26 +27,26 @@
 
 
 <!-- not visible for the momemnt -->
-    <div class=" hidden">
+    <div class="hidden">
       <p>Niveau des participants: </p>
-      <% if !@point.level_max.nil? && @point.level_max > @point.level_min %>
-        <% for i in 1..@point.level_min %>
+      <!-- <#% if !@point.level_max.nil? && @point.level_max > @point.level_min %>
+        <#% for i in 1..@point.level_min %>
           <i class="far fa-star blue" aria-hidden="true"></i>
-        <% end %>
-        <% for i in @point.level_min..@point.level_max %>
+        <#% end %>
+        <#% for i in @point.level_min..@point.level_max %>
           <i class="fa fa-star blue" aria-hidden="true"></i>
-        <% end %>
-        <% for i in 1..(5-@point.level_max) %>
+        <#% end %>
+        <#% for i in 1..(5-@point.level_max) %>
           <i class="far fa-star blue" aria-hidden="true"></i>
-        <% end %>
-      <% else %>
-        <% for i in 1..@point.level_min %>
+        <#% end %>
+      <#% else %>
+        <#% for i in 1..@point.level_min %>
           <i class="fa fa-star blue" aria-hidden="true"></i>
-        <% end %>
-        <% for i in 1..(5-@point.level_min) %>
+        <#% end %>
+        <#% for i in 1..(5-@point.level_min) %>
           <i class="far fa-star blue" aria-hidden="true"></i>
-        <% end %>
-      <% end %>
+        <#% end %>
+      <#% end %> -->
     </div>
   </div>
 </div>

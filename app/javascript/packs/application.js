@@ -6,7 +6,6 @@ import '../components/select2';
 
 import "../components/numberStepper.js"
 
-import "../components/mapEdit.js"
 
 import "../components/equalHeight"
 
@@ -31,20 +30,17 @@ submitDeleteButton();
 import { bindSweetAlertButtonDemo } from '../components/banner';
 bindSweetAlertButtonDemo();
 
-
 import { initSliders } from "../components/slider";
-// arrangeWidth();
 initSliders();
 
 import { scrollMessagesIntoView } from "../components/scroll";
-// arrangeWidth();
 scrollMessagesIntoView();
 
-import { addStringToValue } from '../components/valueRange';
-addStringToValue();
-
-import { getValueMap } from '../components/valueMap';
-getValueMap();
+import { materielAjax } from '../components/materielAjax';
+materielAjax();
 
 import { mapAjax } from '../components/mapAjax';
 mapAjax();
+
+import { fillDayAndHour } from '../components/fillInput';
+fillDayAndHour();
