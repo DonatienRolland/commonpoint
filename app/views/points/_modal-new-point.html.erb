@@ -26,7 +26,7 @@
               <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
             </div>
           </div>
-            <%= f.button :button do %>
+            <%= f.button :button, style:"background-color: white;" do %>
               <i class="fas fa-check"></i>
               Créer
             <% end %>
@@ -35,7 +35,7 @@
           <%= simple_form_for @point, url: update_type_of_point_point_path(@point), method: :put, remote: false do |f| %>
 
             <%= f.input :type_of_point, label: "Quel est le type de point?", collection: [ "Publique", "Privé"] %>
-            <%= f.button :button do %>
+            <%= f.button :button, style:"background-color: white;" do %>
               <i class="fas fa-check"></i>
               Créer
             <% end %>

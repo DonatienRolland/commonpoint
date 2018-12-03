@@ -13,10 +13,10 @@
             <h3 class="title-onglet">Lieu</h3>
           </div>
           <div class="background-white eql-height">
-            <div id="map" style="min-height: 250px; height: 100%;" data-markers="<%= @markers.to_json%>"></div>
+
+          <div id=" <%= @markers[:lat].nil? ? "" : "map" %>" style="min-height: 250px; height: 100%;" data-markers="<%= @markers.to_json%>"></div>
             <p>Adresse: <%= @point.address.present? ? @point.address : "Relancer #{@point.user.first_name} car cette info n'est pas encore renseignée" %></p>
           </div>
-
         </div>
       </div>
 
@@ -93,22 +93,17 @@
             <div class="dimension-onglet">
               <h3 class="title-onglet">Matériels</h3>
             </div>
-            <div class="background-white eql-height">
+            <div class="background-white eql-height" id="form-materiel" data-url="<%= update_materiel_point_path(@point) %>">
               <div class="scroll-div"  style="max-height: 240px">
-                <% @equipments.each do |equipment| %>
-                  <%= simple_form_for equipment, wrapper: false do |e| %>
+                <% @equipments.each do |e| %>
                   <div class="row">
-                    <%= e.object.title %>
-                    <% if e.object.participant_id.nil? %>
-                      <%= e.input :participant_id, as: :check_boxes, input_html: { label: false}, collection: ["Je m'en occupe"] %>
+                    <p><%= e.title %></p>
+                    <% if e.participant.nil? || e.participant.user == current_user %>
+                      <input type="checkbox" class="participant-form-show" data-equiment="<%= e.id %>" value="<%= current_user.id %>" <%= e.participant.nil? ? "" : "checked" %>>
                     <% else %>
-                      <p> <%= e.object.participant.user.first_name %> s'en occupe</p>
-                    <% end %>
-                    <%= button_tag(type: "submit", class: "new_post_submit") do %>
-                      <i class="glyphicon glyphicon-pencil"></i>
+                      <p><%= e.participant.user.first_name %> s'en occupe</p>
                     <% end %>
                   </div>
-                  <% end %>
                 <% end %>
               </div>
             </div>
