@@ -15,7 +15,6 @@ class PointsController < ApplicationController
 
   def historique
     participants = Participant.where(user: @user, invited: true)
-
     points_selected_user(participants, @user)
     @points = @point_selected.where('date <= ?', @today)
     filtering(@points)
@@ -50,7 +49,7 @@ class PointsController < ApplicationController
   end
 
   def show
-    @session = session[:point_test_id]
+    # @session = session[:point_test_id]
 
     @user = current_user
     @point = Point.find(params[:id])

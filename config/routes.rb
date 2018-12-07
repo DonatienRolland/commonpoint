@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :equipments, only: :update
   resources :participants, only: :update
-  resources :points, only: [ :show, :edit, :destroy, :index, :update ] do
+  resources :points, only: [ :show, :edit, :destroy, :update ] do
     put 'search_map', on: :member #with id
     put 'update_type_of_point', on: :member #with id
     put 'update_materiel', on: :member

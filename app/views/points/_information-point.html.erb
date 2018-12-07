@@ -9,6 +9,7 @@
         <p>Type de point: <strong><%= @point.type_of_point  %></strong></p>
     </div>
     <div class=" center-items">
+      <i class="fas fa-brain"></i>
         <p>Organisateur: <strong><%= @point.user.first_name.present? ? @point.user.first_name : "" %><%= @point.user.last_name.present? ? @point.user.last_name : "" %></strong></p>
         <p>Téléphone: <strong><%= @point.user.phone.present? ? @point.user.phone : "n'a pas renseigné son numéro de téléphone"  %></strong></p>
     </div>

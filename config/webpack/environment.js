@@ -1,5 +1,4 @@
 const { environment } = require('@rails/webpacker')
-
 // Bootstrap 3 has a dependency over jQuery:
 const webpack = require('webpack')
 environment.plugins.prepend('Provide',
@@ -10,3 +9,4 @@ environment.plugins.prepend('Provide',
 )
 
 module.exports = environment
+

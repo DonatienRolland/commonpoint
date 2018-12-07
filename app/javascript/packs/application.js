@@ -17,9 +17,8 @@ participantCheckBoxs();
 countParticipants();
 participantChecked();
 
-import { filteringParticipant, addParticipant } from "../components/filter";
+import { filteringParticipant } from "../components/filter";
 filteringParticipant();
-addParticipant();
 
 import { revealModal } from "../components/modal";
 revealModal();

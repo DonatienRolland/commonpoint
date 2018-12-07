@@ -17,7 +17,7 @@
       <% end %>
       <%= link_to home_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link
         #{ 'navbar-active' if params[:action] == "home" } " do%>
-      <i class="far fa-calendar-alt"></i>Mes Points
+      <i class="far fa-calendar-alt"></i>À venir
       <% end %>
       <%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "historique" }" do %>
       <i class="fas fa-history"></i>Mon Historique
