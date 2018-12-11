@@ -57,8 +57,10 @@ class PointsController < ApplicationController
     @markers = { lat: @point.latitude, lng: @point.longitude }
 
     @participants_invited = Participant.invited_to(@point).order_by_user_name
-    @participants = Participant.is_comming_to(@point).order_by_user_name
-
+    @participants_are_coming = Participant.is_comming_to(@point).order_by_user_name
+    # @participants = Participant.is_comming_to(@point).order_by_user_name
+    # raise
+    @user_participant = Participant.where(user: @user, point: @point).first
     @equipments = @point.equipments
 
     @message = Message.new
@@ -235,7 +237,7 @@ private
       end
     end
     @today = Date.today
-    @point_selected = Point.joins(:participants).where(participants:{ point_id: point_ids, user: user}).order('date ASC')
+    @point_selected = Point.joins(:participants).where(participants:{ point_id: point_ids, user: user, invited: true}).order('date ASC')
   end
 
   def filtering(points)

@@ -109,6 +109,16 @@ class Point < ApplicationRecord
       self.date.strftime("%A %d %B %Y at %H:%M")
     end
   end
+  def date_day
+    if !self.date.nil?
+      self.date.strftime("%A %d %B %Y")
+    end
+  end
+  def date_hour
+    if !self.date.nil?
+      self.date.strftime("%H:%M")
+    end
+  end
 
   def is_full?
     if self.number_max.present?

@@ -1,21 +1,20 @@
 
 <div id="edit-point">
-  <div style="text-align: center; padding-bottom: 10px;">
-    <%= @point.day_month %>
-          <!-- <h1><%= @session.inspect %></h1> -->
-  </div>
+
   <div class="row">
     <div class="col-lg-9 big-height">
       <div class="row">
-        <%= render 'information-point' %>
+        <div class="col-lg-5 col-sm-12">
+          <%= render 'information-point' %>
+        </div>
         <div class="col-lg-7 col-sm-12 col-xs-12 padding-blocks">
           <div class="dimension-onglet">
             <h3 class="title-onglet">Lieu</h3>
           </div>
           <div class="background-white eql-height">
 
-          <div id=" <%= @markers[:lat].nil? ? "" : "map" %>" style="min-height: 250px; height: 100%;" data-markers="<%= @markers.to_json%>"></div>
             <p>Adresse: <%= @point.address.present? ? @point.address : "Relancer #{@point.user.first_name} car cette info n'est pas encore renseignée" %></p>
+            <div id="<%= @markers[:lat].nil? ? "" : "map" %>" style="height: 200px;" data-markers="<%= @markers.to_json%>"></div>
           </div>
         </div>
       </div>
@@ -27,64 +26,29 @@
             <h3 class="title-onglet">Participants </h3>
           </div>
           <div class="background-white eql-height">
-            <% if @point.number_min > @participants.count %>
-              <p><%= @participants.count %> / <%= @point.number_min %> pour validé le point</p>
+            <% if @point.number_min > @participants_are_coming.count %>
+              <p><%= @participants_are_coming.count %> / <%= @point.number_min %> pour validé le point</p>
             <% else %>
-              <p>Il y a <strong> <%= @participants.count %></strong> participants</p>
+              <p>Il y a <strong> <%= @participants_are_coming.count %></strong> participants</p>
             <% end %>
-            <div class="scroll-div" style="max-height: 240px">
-                <% if @point.is_full? || @point.is_public? %>
-                  <% @participants.each do |participant| %>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: participant.user, activity: @point.activity %>
-                      </div>
-                      <div class="col-lg-6">
-                        <% if participant.user == @user %>
-                          <%= simple_form_for participant do |e| %>
-                            <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
-                          <% end %>
-                        <% else %>
-                            <p>Participe</p>
-                        <% end %>
-                      </div>
-                    </div>
+            <div class="scroll-div" style="min-height: 240px" id="participations">
+              <div class="row" style="display: flex; align-items: center;">
+                <%= render 'participations', participant: @user_participant , point: @point %>
+                <div class="col-xs-3">
+                  <% if @user_participant.status == "I'm in" %>
+                    <p class="changingStatus" data-status="I can't">j'annule</p>
+                  <% else %>
+                    <p class="changingStatus" data-status="I'm in">je participe</p>
                   <% end %>
-
-                <% else %>
-                  <% @participants_invited.each do |participant| %>
-                  <div class="row">
-                    <% if participant.user == @user %>
-                      <%= simple_form_for participant do |e| %>
-                      <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: e.object.user, activity: @point.activity %>
-                      </div>
-                      <div class="col-lg-3">
-                        <%= e.input :status, collection: [ "I'm in", "I can't"],:input_html => { value: :status}, label: false %>
-                      </div>
-                      <div class="col-lg-3" style="text-align: center;">
-                        <%= button_tag(type: "submit", class: "new_post_submit") do %>
-                          <i class="glyphicon glyphicon-pencil"></i>
-                        <% end %>
-                      </div>
-                      <% end %>
-                    <% else %>
-                      <div class="col-lg-6">
-                        <%= render 'shared/participant-point', user: participant.user, activity: @point.activity %>
-                      </div>
-                      <div class="col-lg-6">
-                        <% if participant.status == "I'm in" %>
-                          <p>Participe</p>
-                        <% elsif participant.status.nil? %>
-                          <p>En attente</p>
-                        <% else %>
-                          <p>Ne participe pas</p>
-                        <% end %>
-                      </div>
-                    <% end %>
+                </div>
+              </div>
+              <% @participants_are_coming.each do |participant| %>
+                <% if participant.user != @user %>
+                  <div class="row" style="display: flex; align-items: center;">
+                    <%= render 'participations', participant: participant, point: @point %>
                   </div>
-                  <% end %>
                 <% end %>
+              <% end %>
             </div>
           </div>
         </div>

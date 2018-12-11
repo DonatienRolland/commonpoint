@@ -1,5 +1,5 @@
-import GMaps from 'gmaps/gmaps.js';
-import { autocomplete } from '../components/autocomplete';
+// import GMaps from 'gmaps/gmaps.js';
+// import { autocomplete } from '../components/autocomplete';
 
 
   const mapElement = document.getElementById('map');
@@ -19,6 +19,6 @@ import { autocomplete } from '../components/autocomplete';
 
 
 
-autocomplete();
+// autocomplete();
 
 

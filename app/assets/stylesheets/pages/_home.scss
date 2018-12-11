@@ -27,3 +27,23 @@ body {
 submit {
   background-color: white;
 }
+.examples {
+  display: grid;
+  margin-left: 10px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  p {
+    margin: 0;
+  }
+  .example{
+    justify-self: center;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .example-bloc {
+    box-shadow: 1px 1px 3px #E7E5E5;
+  }
+}

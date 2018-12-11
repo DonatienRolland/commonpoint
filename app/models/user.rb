@@ -41,6 +41,10 @@ class User < ApplicationRecord
     init = init1 + init2
   end
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   def format_user_infos
     self.first_name.capitalize!
     self.last_name.capitalize!
