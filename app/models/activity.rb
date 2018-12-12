@@ -20,7 +20,7 @@ class Activity < ApplicationRecord
 
   def icon2
     if self.icon?
-      self.icon
+      self.icon_url
     else
       "https://res.cloudinary.com/dj7bq8py7/image/upload/v1541578509/logo.png"
     end

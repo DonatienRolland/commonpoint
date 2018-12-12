@@ -1,5 +1,7 @@
 <div class="avatar_and_name_and_stars">
   <%= render 'shared/avatar_name', user: user %>
  <!--  <#%= render 'shared/stars', user_activity: participant.user.user_activities.where(activity: participant.point.activity).first %> -->
-  <%= render 'shared/stars', user_activity: user.user_activities.where(activity: activity).first %>
+  <div class="hidden-xs">
+    <%= render 'shared/stars', user_activity: user.user_activities.where(activity: activity).first %>
+  </div>
 </div>

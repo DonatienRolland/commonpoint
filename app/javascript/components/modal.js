@@ -1,4 +1,5 @@
 function revealModal() {
+  console.log("something?")
   function triggerModal(event){
     let targetModalID = event.currentTarget.dataset.target
     let targetdate = event.currentTarget.dataset.date
