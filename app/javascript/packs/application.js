@@ -40,11 +40,19 @@ import { scrollMessagesIntoView } from "../components/scroll";
 // arrangeWidth();
 scrollMessagesIntoView();
 
-import { addStringToValue } from '../components/valueRange';
-addStringToValue();
-
-import { getValueMap } from '../components/valueMap';
-getValueMap();
 
 import { mapAjax } from '../components/mapAjax';
 mapAjax();
+
+import { participationsAjaxShow } from '../components/participantAjax';
+participationsAjaxShow();
+
+import { materielAjax } from '../components/materielAjax';
+materielAjax();
+
+import { fillDayAndHour } from '../components/fillInput';
+fillDayAndHour();
+
+import { autocomplete } from '../components/autocomplete';
+autocomplete();
+

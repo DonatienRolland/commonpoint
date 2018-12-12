@@ -17,11 +17,9 @@
       </div>
       <div class="col-lg-4 col-xs-5">
         <%= f.object.type_of_point  %>
-        <button type="button" data-toggle="modal" style="border: 0;" data-target="#newPointModal">
+        <button type="button" style="background-color: white;" data-toggle="modal" style="border: 0;" data-target="#newPointModal">
           <i class="far fa-edit"></i>
         </button>
-      </div>
-      <div class="col-lg-1 col-xs-1">
       </div>
     </div>
 
@@ -64,16 +62,27 @@
 
     <div class="row">
       <p style="text-align: center; margin: 20px">Sélectionnez une ou plusieurs dates pour votre événement. Ajoutez des horaires si besoin est.</p>
-      <div class="col-lg-6 col-xs-12">
+      <div class="col-lg-6 col-xs-12 selected-date-js">
         <div class="display-inline">
           <p class="five-margin">Proposition Date 1:</p>
-          <%= f.input :date, as: :string, required: true, input_html: {class: "datepicker"}, label: false %>
+          <!-- <#%= f.input :date, as: :string, input_html: {class: "datepicker"}, label: false %> -->
+          <input class="form-control string optional datepicker234 flatpickr-input form-control input date_day" placeholder="" tabindex="0" type="text" readonly="readonly">
+          <!-- <#%= f.input :date, as: :string, input_html: {class: "hourpicker"}, label: false %> -->
+          <input class="form-control string optional hourpicker flatpickr-input form-control input date_hour" placeholder="" tabindex="0" type="text" readonly="readonly">
+          <div style="display: none">
+            <%= f.input :date, as: :string, label: false, class:" point_date " %>
+          </div>
         </div>
       </div>
-      <div class="col-lg-6 col-xs-12">
+      <div class="col-lg-6 col-xs-12 selected-date-js">
         <div class="display-inline">
           <p class="five-margin">Proposition Date 2:</p>
-          <%= text_field_tag :second_date, nil, class:'datepicker'  %>
+          <input class="form-control string optional datepicker234 flatpickr-input form-control input date_day" placeholder="" tabindex="0" type="text" readonly="readonly">
+          <!-- <#%= f.input :date, as: :string, input_html: {class: "hourpicker"}, label: false %> -->
+          <input class="form-control string optional hourpicker flatpickr-input form-control input date_hour" placeholder="" tabindex="0" type="text" readonly="readonly">
+          <div style="display: none">
+            <%= text_field_tag :second_date, nil, class:'datepicker2 point_date'  %>
+          </div>
         </div>
       </div>
     </div>
@@ -103,24 +112,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

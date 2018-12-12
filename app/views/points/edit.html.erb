@@ -56,7 +56,7 @@
           </div>
           <h3>Supprimer</h3>
         <% end %>
-        <%= f.button :button, class:"display-inline" do %>
+        <%= f.button :button, style:"background-color: white;", class:"display-inline" do %>
           <div class="form-button form-button-lg circle-btn green-color">
             <i class="fas fa-chevron-down"></i>
           </div>
@@ -65,17 +65,25 @@
       </div>
     </div>
 
-  <% end %>
-
   <div class="col-lg-6 col-sm-6 col-xs-12 padding-blocks">
     <div class="dimension-onglet">
       <h3 class="title-onglet">Lieu</h3>
     </div>
-    <div class="background-white big-height" id="here">
-      <%= render 'map' %>
+    <div class="background-white big-height" id="google-map" data-url="<%= search_map_point_path(@point) %>" data-point="<%= @point.id %> ">
+      <div class="row">
+        <div class="col-xs-8">
+          <%= f.input :address, input_html: { id: "point_address" }, label: false %>
+        </div>
+        <div class="col-xs-4">
+          <p class="recherche-btn" id="check-map">Localiser</p>
+        </div>
+      </div>
+      <!-- <#%= render 'map' %> -->
       <div id="map" style="height: 230px;" data-markers="<%= @markers.to_json%>"></div>
     </div>
   </div>
+  <% end %>
+
 </div>
 
 

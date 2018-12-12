@@ -1,5 +1,9 @@
 .left-localisation {
   float: left;
+  .format-message {
+    background-color: $cp;
+    color: white;
+  }
 }
 
 .right-localisation {
