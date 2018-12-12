@@ -1,6 +1,9 @@
 function revealModal() {
+  console.log("something?")
   function triggerModal(event){
     let targetModalID = event.currentTarget.dataset.target
+    let targetdate = event.currentTarget.dataset.date
+    console.log(targetdate)
     let targetModal = document.getElementById(targetModalID)
 
     targetModal.style.display = "block";
@@ -17,12 +20,16 @@ function revealModal() {
       }
     }
 
+
+
   }
 
   const modalButtonsList = document.querySelectorAll('.modal-button')
-  modalButtonsList.forEach((button) => {
-    button.addEventListener("click", triggerModal);
-  })
+  if ( modalButtonsList != null) {
+    modalButtonsList.forEach((button) => {
+      button.addEventListener("click", triggerModal);
+    })
+  }
 }
 
 

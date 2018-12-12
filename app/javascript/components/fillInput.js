@@ -1,3 +1,4 @@
+
 function fillDayAndHour(){
   const forms = document.querySelectorAll('.selected-date-js')
   if (forms != null) {
@@ -35,3 +36,4 @@ function fillDayAndHour(){
 }
 
 export { fillDayAndHour }
+

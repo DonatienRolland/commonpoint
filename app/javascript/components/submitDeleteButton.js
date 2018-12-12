@@ -13,9 +13,11 @@ function submitDeleteButton(){
 
 
   const modalButtonsList = document.querySelectorAll('.form-button')
-  modalButtonsList.forEach((button) => {
-    button.addEventListener("click", triggerModal);
-  })
+  if ( modalButtonsList) {
+    modalButtonsList.forEach((button) => {
+      button.addEventListener("click", triggerModal);
+    })
+  }
 };
 
 
