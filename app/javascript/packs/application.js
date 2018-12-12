@@ -1,5 +1,5 @@
 
-console.log('Hello World from Webpacker')
+
 
 // import "bootstrap";
 
@@ -35,6 +35,24 @@ console.log('Hello World from Webpacker')
 // import { initSliders } from "../components/slider";
 // initSliders();
 
+
+
+import { mapAjax } from '../components/mapAjax';
+mapAjax();
+
+import { participationsAjaxShow } from '../components/participantAjax';
+participationsAjaxShow();
+
+import { materielAjax } from '../components/materielAjax';
+materielAjax();
+
+import { fillDayAndHour } from '../components/fillInput';
+fillDayAndHour();
+
+import { autocomplete } from '../components/autocomplete';
+autocomplete();
+
+
 // import { scrollMessagesIntoView } from "../components/scroll";
 // scrollMessagesIntoView();
 
@@ -49,3 +67,4 @@ console.log('Hello World from Webpacker')
 
 // import { participationsAjax } from '../components/participationsAjax';
 // participationsAjax();
+
