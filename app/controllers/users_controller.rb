@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-
+    @user_activities = @user.user_activities.order('level desc')
     authorize @user
   end
 
