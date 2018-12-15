@@ -2,8 +2,6 @@
 // import { autocomplete } from '../components/autocomplete';
 
 
-<<<<<<< HEAD
-=======
 // const mapElement = document.getElementById('map');
 // if (mapElement) { // don't try to build a map if there's no div#map to inject in
 //   const map = new GMaps({ el: '#map', lat: 0, lng: 0 });
@@ -19,7 +17,6 @@
 //   }
 // }
 
->>>>>>> 1ed0fb8b4812c45b39913a9787e57ed5f7f55aed
   const mapElement = document.getElementById('map');
   if (mapElement != null && mapElement.dataset.markers != null ) {
     var myLatLng = JSON.parse(mapElement.dataset.markers);
@@ -35,12 +32,4 @@
     });
   }
 
-
-<<<<<<< HEAD
-
 // autocomplete();
-
-
-=======
-// autocomplete();
->>>>>>> 1ed0fb8b4812c45b39913a9787e57ed5f7f55aed

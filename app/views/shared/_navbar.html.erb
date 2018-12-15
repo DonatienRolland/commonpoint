@@ -22,9 +22,6 @@
       <%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "historique" }" do %>
       <i class="fas fa-history"></i>Mon Historique
       <% end %>
-      <%= link_to user_activities_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
-      <i class="far fa-heart"></i>Mes Activités
-      <% end %>
       <% if current_user.admin %>
         <%= link_to admin_root_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
         <i class="fa fa-cog"></i>Admin

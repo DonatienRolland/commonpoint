@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 1ed0fb8b4812c45b39913a9787e57ed5f7f55aed
 function fillDayAndHour(){
   const forms = document.querySelectorAll('.selected-date-js')
   if (forms != null) {
@@ -40,9 +36,3 @@ function fillDayAndHour(){
 }
 
 export { fillDayAndHour }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 1ed0fb8b4812c45b39913a9787e57ed5f7f55aed

@@ -1,4 +1,6 @@
+  <div id="modal-activity">
 
+  </div>
 
 <div class="row">
   <div class="col-sm-3 col-sm-offset-4 col-md-4 col-md-offset-4 col-xs-6">
@@ -15,6 +17,22 @@
         <%= f.button :submit, "Modifier" %>
       </div>
     <% end %>
+    <label for="">Mes activités favorites</label>
+    <div class="horizontale-scrolling">
+      <% @user_activities.each do |user_activity| %>
+        <% act = user_activity.activity %>
+        <div class="activity-card " style="height: 151.25px;">
+          <%= link_to new_user_user_activity_path(@user, :act => act.id),  {:remote => true, class:"activity-card"} do %>
+              <%= render 'user_activities/show', user: @user, act: act, user_activity: user_activity %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= link_to user_activities_path do %>
+      Ajouter des activités
+    <% end %>
 
   </div>
 </div>
+
