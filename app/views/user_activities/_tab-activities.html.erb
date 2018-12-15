@@ -32,10 +32,10 @@
           <% end %>
           <% @user.user_activities.each do |user_activity| %>
             <% act = user_activity.activity %>
-            <% @user_activity =  user_activity %>
+            <% user_activity =  user_activity %>
             <div class="col-lg-2 col-xs-6 col-sm-4" style="height: 151.25px;">
               <%= link_to new_user_user_activity_path(@user, :act => act.id),  {:remote => true, class:"activity-card"} do %>
-                  <%= render 'user_activities/show', user: @user, act: act %>
+                  <%= render 'user_activities/show', user: @user, act: act, user_activity: user_activity %>
               <% end %>
             </div>
           <% end %>
@@ -49,13 +49,13 @@
             <% if act.best_activity?(@max_max) %>
               <% if UserActivity.where(user: @user, activity: act).count > 0 %>
                 <% user_activity = UserActivity.where(user: @user, activity: act) %>
-                <% @user_activity =  user_activity[0] %>
+                <% user_activity =  user_activity[0] %>
               <% else %>
-                <% @user_activity = UserActivity.new  %>
+                <% user_activity = UserActivity.new  %>
               <% end %>
               <div class="col-lg-2 col-xs-6 col-sm-4" style="height: 151.25px;">
                 <%= link_to new_user_user_activity_path(@user, :act => act.id),  {:remote => true, class:"activity-card"} do %>
-                  <%= render 'user_activities/show', user: @user, act: act %>
+                  <%= render 'user_activities/show', user: @user, act: act, user_activity: user_activity %>
                 <% end %>
               </div>
             <% end %>
@@ -70,10 +70,10 @@
               <% activities.each do |act| %>
                 <% if act.is_category?(cat) && act.is_a_user_activity?(current_user) %>
                   <% user_activity = UserActivity.where(user: @user, activity: act) %>
-                  <% @user_activity =  user_activity[0] %>
+                  <% user_activity =  user_activity[0] %>
                   <div class="col-lg-2 col-xs-6 col-sm-4" style="height: 151.25px;">
                     <%= link_to new_user_user_activity_path(@user, :act => act.id),  {:remote => true, class:"activity-card"} do %>
-                      <%= render 'user_activities/show', user: @user, act: act %>
+                      <%= render 'user_activities/show', user: @user, act: act, user_activity: user_activity %>
                     <% end %>
                   </div>
                 <% end %>
@@ -83,10 +83,10 @@
             <% activities.each do |act| %>
               <div id="not_user_activities_id">
                 <% if act.is_category?(cat) && !act.is_a_user_activity?(current_user) %>
-                  <% @user_activity = UserActivity.new  %>
+                  <% user_activity = UserActivity.new  %>
                   <div class="col-lg-2 col-xs-6 col-sm-4" style="height: 151.25px;">
                     <%= link_to new_user_user_activity_path(@user, :act => act.id),  {:remote => true, class:"activity-card"} do %>
-                      <%= render 'user_activities/show', user: @user, act: act %>
+                      <%= render 'user_activities/show', user: @user, act: act, user_activity: user_activity %>
                     <% end %>
                   </div>
                 <% end %>

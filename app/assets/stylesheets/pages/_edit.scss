@@ -1,0 +1,22 @@
+// User
+
+// .horizontale-scrolling {
+//   overflow-x: scroll;
+//   overflow-y: hidden;
+//   white-space: nowrap;
+//   .activity-card {
+//     display: inline-block;
+//   }
+// }
+
+
+.horizontale-scrolling  {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .activity-card {
+    flex: 0 0 auto;
+    // width: 100px;
+  }
+}
