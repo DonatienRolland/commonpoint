@@ -65,21 +65,12 @@ class UserActivitiesController < ApplicationController
     else
       @activities = Activity.all
     end
-
-
     numbers = []
     Activity.all.each do |activity|
       numbers << activity.number_of_user
     end
     @max_max = numbers.max(4)
-
     @user_activity = UserActivity.new
-
-
-
-
-
-
     user_activities = policy_scope(UserActivity)
     authorize UserActivity
   end
